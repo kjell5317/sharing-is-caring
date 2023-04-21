@@ -7,6 +7,6 @@
 <title>Sharing is Caring</title>
 </head>
 <body>
- <h1>Hello World!</h1>
+ <h1>Hlo World!</h1>
 </body>
 </html>
