@@ -32,6 +32,7 @@ nav {
     background: rgba(0, 87, 255, 0.7);
     border-radius: 30px;
     color: #FFFF;
+    padding: 10px;
 }
 
 ul {
@@ -53,13 +54,13 @@ a {
     text-decoration: none;
     text-align: center;
     color: #5D5A88;
+    padding: 5px;
 }
 nav a {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
-    padding: 10px;
     display: block;
 }
 header a::after {
@@ -130,10 +131,11 @@ nav button[type="submit"] {
         transition: transform 250ms ease-in-out;
         border-bottom: 2px solid rgba(0, 87, 255, 0.7);
         padding: 10px 0;
+        margin-top: 10px;
     }
 
     nav li {
-        padding: 3px 10px;
+        padding: 3px 15px;
         width: 100%;
     }
     nav a {
@@ -170,6 +172,7 @@ nav button[type="submit"] {
     }
 
     .nav-toggle-label {
+        margin-top: 15px;
         height: 100%;
         display: block;
         position: relative;
@@ -187,4 +190,21 @@ footer {
     height: 2vh;
     flex-direction: row;
     justify-content: space-between;
+}
+
+@media screen and (max-width:850px){
+
+    footer ul {
+        flex-wrap: wrap;
+    }
+    footer {
+        top: 90%;
+        height: auto;
+    }
+    footer li {
+        padding: 0 5px;
+    }
+    footer div {
+        word-wrap: normal;
+    }
 }
