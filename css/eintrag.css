@@ -1,0 +1,135 @@
+body {
+  font-family: 'DM Sans';
+  font-style: normal;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+h1 {
+  font-size: 4.5rem;
+  line-height: 4rem;
+  margin-bottom: -2.7rem;
+  font-weight: 700;
+  text-align: center;
+  color: rgba(0, 87, 255, 0.7); 
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  text-align: center;
+  color: #9795B5;
+}
+
+form {
+  max-width: 1000px;
+  margin: 2rem auto;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-section {
+  flex: 1;
+  min-width: 300px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.form-section:last-child {
+  flex-basis: 100%;
+  padding-top: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  font-weight: 700;
+  font-size: 18px;
+  color: #5D5A88;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  background: #F9F9FF;
+  border-radius: 8px;
+  border: none;
+  height: 2rem;
+  font-family: 'DM Sans';
+  font-weight: 400;
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+textarea {
+  height: 8rem;
+  width: 100%;
+  resize: none;
+}
+
+select {
+  height: 2.4rem;
+}
+
+button {
+  background: rgba(0, 87, 255, 0.7);
+  border-radius: 40px;
+  color: #fff;
+  border: none;
+  float: right;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: rgba(0, 87, 255, 0.9);
+}
+
+.image-container {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plz {
+  float: left;
+  width: 35%;
+}
+
+.ort {
+  float: right;
+  width: 60%;
+}
+
+.upload-label {
+  cursor: pointer;
+}
+
+input [type=file] {
+  margin-bottom: 2rem;
+  padding: 0.1rem;
+}
+
+.food-img {
+  height: auto;
+  width: 100% !important;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+}

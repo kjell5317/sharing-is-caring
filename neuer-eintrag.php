@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuer Eintrag</title>
-</head>
-<body>
-    <?php include "components/header.php"; ?>
-
-    <form action="meine-einträge.php">
-        <label for="title">Titel</label>
-        <br>
-        <input type="text" id="title" name="title" required>
-        <br>
-
-        <label for="image">Bild</label>
-        <br>
-        <input type="file" id="image" name="image" accept="image/png, image/jpeg">
-        <br>
-
-        <label for="essen">Essensart</label>
-        <br>
-        <select name="essen" id="essen" required>
-            <option value="vegan">Vegan</option>
-            <option value="veggi">Vegetarisch</option>
-            <option value="schwein">Schwein</option>
-            <option value="rind">Rind</option>
-            <option value="sonst">Anderes</option>
-        </select>
-        <br>
-
-        <label for="mhd">Mindestens haltbar bis</label>
-        <br>
-        <input type="date" id="mhd" name="mhd" required>
-        <br>
-
-        <label for="str">Straße</label>
-        <br>
-        <input type="text" id="str" name="str" required>
-        <br>
-        <label for="hn">Hausnummer</label>
-        <br>
-        <input type="number" id="hn" name="hn" required>
-        <br>
-        <label for="plz">Postleitzahl</label>
-        <br>
-        <input type="number" id="plz" name="plz" required>
-        <br>
-
-        <label for="desc">Beschreibung</label>
-        <br>
-        <input type="text" id="desc" name="desc">
-        <br>
-
-        <label for="tel">Telefonnummer</label>
-        <br>
-        <input type="number" id="tel" name="tel">
-        <br>
-
-        <input type="submit" value="Bestätigen">
-    </form>
-
-    <?php include "components/footer.php"; ?>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="css/eintrag.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM%20Sans">
+      <title>Neuer Eintrag</title>
+   </head>
+   <body>
+      <?php include "components/header.php"; ?>
+      <div>
+         <h1> Neuer Eintrag</h1>
+         <br>
+         <h2>Teile dein Essen mit Oldenburg</h2>
+      </div>
+      <form action="meine-einträge.php">
+         <div class="form-section">
+            <label for="title">Titel</label>
+            <input type="text" id="title" name="title" placeholder="Titel" required>
+            <label for="food-type">Essensart</label>
+            <select name="food-type" id="food-type" required>
+               <option value="">Bitte Wählen...</option>
+               <option value="vegan">Vegan</option>
+               <option value="veggi">Vegetarisch</option>
+               <option value="schwein">Schwein</option>
+               <option value="fleisch">Fleisch</option>
+               <option value="getrank">Getränk</option>
+               <option value="sonst">Anderes</option>
+            </select>
+            <label for="expiration-date">Mindesthaltbarkeit</label>
+            <input type="date" id="expiration-date" name="expiration-date" required>
+            <div class="plz">
+               <label for="postal-code">Postleitzahl</label>
+               <input type="text" id="postal-code" name="postal-code" placeholder="Postleitzahl" required>
+            </div>
+            <div class="ort">
+               <label for="city">Ort</label>
+               <input type="text" id="city" name="city" placeholder="Ort" required>
+            </div>
+         </div>
+         <div class="form-section image-container">
+            <label for="food-image" class="upload-label">
+            <img class="food-img" src="assets/lecker.jpg" alt="Beispielbild" />
+            </label>
+            <input type="file" id="food-image" name="food-image" accept="image/*" required>
+         </div>
+         <div class="form-section">
+            <label for="description">Beschreibung</label>
+            <textarea id="description" name="description" rows="4" placeholder="Beschreibe dein Essen etwas..." required></textarea>
+            <button type="submit">Kostenlos einstellen</button>
+         </div>
+      </form>
+      <?php include "components/footer.php"; ?>
+   </body>
 </html>
