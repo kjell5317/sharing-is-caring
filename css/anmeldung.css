@@ -1,0 +1,56 @@
+h2 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8D8BA7;
+    margin: 0 0 8px;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 50px;
+    color: rgba(0, 87, 255, 0.7);
+    margin: 0 0 16px;
+}
+
+main {
+    z-index: -1;
+    padding: unset;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h3 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    color: #9795B5;
+    margin: 0 0 16px;
+}
+
+main input[type="text"], input[type="password"], input[type="email"] {
+    background: #F9F9FF;
+    border-radius: 8px;
+}
+
+main input {
+    margin: 10px;
+    padding: 15px;
+    border: none;
+}
+
+main input[type="submit"] {
+    cursor: pointer;
+}
+
+main form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
