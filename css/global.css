@@ -23,6 +23,7 @@ header {
     align-items: center;
     border-bottom: 2px solid rgba(0, 87, 255, 0.7);
     opacity: 1;
+    background-color: #FFFFFF;
 }
 nav {
     width: 90%;
@@ -116,7 +117,31 @@ nav button[type="submit"] {
     left: -9999px !important;
 }
 
+footer {
+    color: #5D5A88;
+    width: 100%;
+    padding: 1.5vh 5% 2vh;
+    position: fixed;
+    top: 94.5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border-top: 2px solid rgba(0, 87, 255, 0.7);
+}
+
+footer ul, footer div {
+    height: 2vh;
+}
+
 @media screen and (max-width:850px) {
+    header {
+        height: 10vh;
+    }
+    main {
+        padding-top: 10vh;
+    }
+
     nav ul {
         opacity: 0;
         flex-direction: column-reverse;
@@ -178,33 +203,20 @@ nav button[type="submit"] {
         position: relative;
         cursor: pointer;
     }
-}
-
-footer {
-    color: #5D5A88;
-    width: 90%;
-    margin: 2vh 5%;
-    position: fixed;
-    top: 94vh;
-    display: flex;
-    height: 2vh;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-@media screen and (max-width:850px){
 
     footer ul {
         flex-wrap: wrap;
     }
     footer {
-        top: 90%;
-        height: auto;
+        top: 90.5vh;
+        height: 10vh;
+        padding-top: 1vh;
     }
     footer li {
         padding: 0 5px;
     }
     footer div {
         word-wrap: normal;
+        display: block;
     }
 }

@@ -10,9 +10,9 @@
    </head>
    <body>
       <?php include "components/header.php"; ?>
+      <main>
       <div>
          <h1> Neuer Eintrag</h1>
-         <br>
          <h2>Teile dein Essen mit Oldenburg</h2>
       </div>
       <form class="neuereintrag" action="meine-einträge.php">
@@ -52,6 +52,7 @@
             <button class="submit" type="submit">Kostenlos einstellen</button>
          </div>
       </form>
+</main>
       <?php include "components/footer.php"; ?>
    </body>
 </html>

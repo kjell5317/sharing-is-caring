@@ -1,8 +1,7 @@
 h1 {
   font-size: 4.5rem;
-  margin-top: 12rem;
   line-height: 4rem;
-  margin-bottom: -2.7rem;
+  margin: 30px auto 0;
   font-weight: 700;
   text-align: center;
   color: rgba(0, 87, 255, 0.7);
@@ -16,7 +15,7 @@ h2 {
 }
 .neuereintrag {
   max-width: 1000px;
-  margin: 2rem auto;
+  margin: auto;
   width: 90%;
   display: flex;
   flex-wrap: wrap;
@@ -34,7 +33,7 @@ h2 {
   flex-basis: 100%;
   padding-top: 1rem;
 }
-label {
+main label {
   display: block;
   margin-bottom: 0.5rem;
   width: 100%;
@@ -78,7 +77,6 @@ button:hover {
   background-color: rgba(0, 87, 255, 0.9);
 }
 .image-container {
-  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,10 +97,25 @@ input [type=file] {
   margin-bottom: 2rem;
   padding: 0.1rem;
 }
+
+main input:focus, main textarea:focus, main select:focus {
+  outline: 2px solid rgba(0, 87, 255, 0.7);
+}
+main ::placeholder, main input[type=date]:invalid::-webkit-datetime-edit, main select {
+  color: #8D8BA7;
+  font-family: 'Arial';
+}
+main input[type=date]:invalid::-webkit-datetime-edit {
+  text-transform: uppercase;
+}
+main input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.6);
+  cursor: pointer;
+}
+
 .food-img {
   height: auto;
   width: 100% !important;
   object-fit: cover;
-  margin-bottom: 1rem;
   border-radius: 16px;
 }
