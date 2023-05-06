@@ -156,7 +156,6 @@ footer ul, footer div {
         transition: transform 250ms ease-in-out;
         border-bottom: 2px solid rgba(0, 87, 255, 0.7);
         padding: 10px 0;
-        margin-top: 10px;
     }
 
     nav li {
@@ -197,7 +196,6 @@ footer ul, footer div {
     }
 
     .nav-toggle-label {
-        margin-top: 15px;
         height: 100%;
         display: block;
         position: relative;
