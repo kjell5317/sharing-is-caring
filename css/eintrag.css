@@ -1,22 +1,12 @@
-body {
-  font-family: 'DM Sans';
-  font-style: normal;
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0;
-}
-
 h1 {
   font-size: 4.5rem;
+  margin-top: 12rem;
   line-height: 4rem;
   margin-bottom: -2.7rem;
   font-weight: 700;
   text-align: center;
-  color: rgba(0, 87, 255, 0.7); 
+  color: rgba(0, 87, 255, 0.7);
 }
-
 h2 {
   font-size: 1.5rem;
   margin-bottom: 2rem;
@@ -24,8 +14,7 @@ h2 {
   text-align: center;
   color: #9795B5;
 }
-
-form {
+.neuereintrag {
   max-width: 1000px;
   margin: 2rem auto;
   width: 90%;
@@ -33,20 +22,18 @@ form {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10rem;
 }
-
 .form-section {
   flex: 1;
   min-width: 300px;
   padding: 0 1rem;
   box-sizing: border-box;
 }
-
 .form-section:last-child {
   flex-basis: 100%;
   padding-top: 1rem;
 }
-
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -55,8 +42,7 @@ label {
   font-size: 18px;
   color: #5D5A88;
 }
-
-input, select, textarea {
+.form-section input, .form-section select, .form-section textarea {
   width: 100%;
   padding: 0.4rem;
   margin-bottom: 1rem;
@@ -65,26 +51,20 @@ input, select, textarea {
   border-radius: 8px;
   border: none;
   height: 2rem;
-  font-family: 'DM Sans';
   font-weight: 400;
 }
-
-
 input[type="file"] {
   display: none;
 }
-
-textarea {
+#description {
   height: 8rem;
   width: 100%;
   resize: none;
 }
-
 select {
   height: 2.4rem;
 }
-
-button {
+.submit {
   background: rgba(0, 87, 255, 0.7);
   border-radius: 40px;
   color: #fff;
@@ -94,11 +74,9 @@ button {
   cursor: pointer;
   font-size: 1rem;
 }
-
 button:hover {
   background-color: rgba(0, 87, 255, 0.9);
 }
-
 .image-container {
   margin-top: 4rem;
   display: flex;
@@ -106,26 +84,21 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
-
 .plz {
   float: left;
   width: 35%;
 }
-
 .ort {
   float: right;
   width: 60%;
 }
-
 .upload-label {
   cursor: pointer;
 }
-
 input [type=file] {
   margin-bottom: 2rem;
   padding: 0.1rem;
 }
-
 .food-img {
   height: auto;
   width: 100% !important;

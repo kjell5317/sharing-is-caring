@@ -6,7 +6,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="css/eintrag.css">
       <link rel="stylesheet" href="css/global.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM%20Sans">
       <title>Neuer Eintrag</title>
    </head>
    <body>
@@ -16,7 +15,7 @@
          <br>
          <h2>Teile dein Essen mit Oldenburg</h2>
       </div>
-      <form action="meine-einträge.php">
+      <form class="neuereintrag" action="meine-einträge.php">
          <div class="form-section">
             <label for="title">Titel</label>
             <input type="text" id="title" name="title" placeholder="Titel" required>
@@ -50,7 +49,7 @@
          <div class="form-section">
             <label for="description">Beschreibung</label>
             <textarea id="description" name="description" rows="4" placeholder="Beschreibe dein Essen etwas..." required></textarea>
-            <button type="submit">Kostenlos einstellen</button>
+            <button class="submit" type="submit">Kostenlos einstellen</button>
          </div>
       </form>
       <?php include "components/footer.php"; ?>
