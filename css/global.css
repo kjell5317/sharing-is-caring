@@ -135,6 +135,7 @@ nav button[type="submit"] {
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     margin: auto;
+    margin-bottom: 10px;
 }
 
 footer {
