@@ -1,0 +1,88 @@
+ .photo {
+    position: absolute;
+    width: 248px;
+    height: 160px;
+    left: 17px;
+    top: 17px;
+    margin: auto;
+
+    background: url(photo1jpg.jpg);
+    border-radius: 16px;
+}
+
+
+
+ .card h1 {
+        position: absolute;
+        width: 235px;
+        height: 25px;
+        left: 17px;
+        top: 194px;
+        margin:auto;
+
+        font-family: 'DM Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 34px;
+        text-align: left;
+
+        color: rgba(0, 87, 255, 0.7);
+}
+
+p {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+
+    text-align: left;
+
+    color: #9795B5;
+}
+
+.category {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    left: 17px;
+    top: 217px;
+    margin: auto;
+}
+
+.MHD {
+    position: absolute;
+    width: 128px;
+    height: 25px;
+    left: 17px;
+    top: 252px;
+    margin:auto
+}
+
+.Ort {
+    position: absolute;
+    width: 167px;
+    height: 25px;
+    left: 17px;
+    top: 273px;
+    margin:auto;
+}
+
+.weiter {
+    position: absolute;
+    width: 200px;
+    height: 18px;
+    left: 17px;
+    top:318px;
+    
+    margin: auto;
+
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+
+    text-align: left;
+}

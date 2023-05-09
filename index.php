@@ -11,6 +11,18 @@
     <?php include "components/header.php"; ?>
     <main>
       <h1>Sharing is Caring</h1>
+      <div class="CardsPage">
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+        <?php include "components/Card.php";?>
+      </div>
     </main>
     <?php include "components/footer.php"; ?>
   </body>
