@@ -119,11 +119,14 @@ nav button[type="submit"] {
 
 .CardsPage {
     display:flex;
-    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: flex-start;
 }
 
 .card {
-    flex:1;
+    position: relative;
+    flex-basis: auto;
+    flex-shrink: 1;
     width: 285px;
     height: 368px;
     padding: 20px;
@@ -131,8 +134,7 @@ nav button[type="submit"] {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    box-sizing: content-box;
-    margin-right: 20px;
+    margin: auto;
 }
 
 footer {
