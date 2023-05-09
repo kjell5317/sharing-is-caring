@@ -120,7 +120,7 @@ nav button[type="submit"] {
 .CardsPage {
     display:flex;
     flex-flow: row wrap;
-    justify-content: fle;
+    justify-content: flex-start;
 }
 
 .card {
