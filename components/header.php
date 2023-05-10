@@ -12,7 +12,7 @@
         </form>
       </li>
       <li><a href="neuer-eintrag.php">Neuer Eintrag</a></li>
-      <li><a href="meine-einträge.php">Meine Einträge</a></li>
+      <li><a href="meine-eintraege.php">Meine Einträge</a></li>
       <li><a href="anmeldung.php" class="accent">Anmelden</a></li>
     </ul>
   </nav>

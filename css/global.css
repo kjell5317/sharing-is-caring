@@ -5,14 +5,21 @@ body {
     margin: 0;
     font-family: 'Roboto', 'Arial';
 }
-
 main {
     padding-top: 15vh;
     text-align: center;
 }
-
+h4 {
+    font-size: 2.5rem;
+    line-height: 4rem;
+    margin: 0 auto;
+    font-weight: 700;
+    text-align: center;
+    color: rgba(0, 87, 255, 0.7);
+}
 header {
     position: fixed;
+    z-index: 99;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -28,14 +35,12 @@ header {
 nav {
     width: 90%;
 }
-
 .accent {
     background: rgba(0, 87, 255, 0.7);
     border-radius: 30px;
     color: #FFFF;
     padding: 10px;
 }
-
 ul {
     display: flex;
     list-style: none;
@@ -44,13 +49,11 @@ ul {
     align-items: center;
     margin: 0;
 }
-
 li {
     align-items: center;
     text-align: center;
     padding: 10px;
 }
-
 a {
     text-decoration: none;
     text-align: center;
@@ -71,18 +74,17 @@ header a::after {
     width: 0;
     height: 2px;
     background-color: rgba(0, 87, 255, 0.7);
-    }
-header a:hover::after {
-    width: 100%
 }
-
+header a:hover::after {
+    width: 100% 
+}
 nav form {
     display: flex;
     flex-direction: row;
     border-radius: 50px;
 }
 nav form:focus-within {
-    outline: 2px solid rgba(0, 87, 255, 0.7)
+    outline: 2px solid rgba(0, 87, 255, 0.7) 
 }
 nav input[type="text"] {
     border-radius: 50px 0 0 50px;
@@ -97,7 +99,6 @@ nav input[type="text"] {
 nav input[type="text"]:focus {
     outline: none;
 }
-
 nav button[type="submit"] {
     height: 45px;
     width: 45px;
@@ -105,9 +106,7 @@ nav button[type="submit"] {
     border-radius: 0 50px 50px 0;
     background: #F2F1FA;
     cursor: pointer;
-
 }
-
 .nav-toggle-label {
     display: none;
 }
@@ -116,28 +115,28 @@ nav button[type="submit"] {
     top: -9999px !important;
     left: -9999px !important;
 }
-
-.CardsPage {
-    display:flex;
+.cardspage {
+    display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    max-width: calc((285px * 5) + (2% * 4));
+    margin: 0 auto;
 }
-
 .card {
     position: relative;
     flex-basis: auto;
     flex-shrink: 1;
     width: 285px;
     height: 368px;
-    padding: 20px;
-
+    margin-right: 2%;
+    margin-bottom: 2%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    margin: auto;
-    margin-bottom: 10px;
 }
-
+.card:last-child, .card:last-column {
+    margin-right: 0;
+}
 footer {
     color: #5D5A88;
     width: 100%;
@@ -150,19 +149,16 @@ footer {
     background-color: #FFFFFF;
     border-top: 2px solid rgba(0, 87, 255, 0.7);
 }
-
 footer ul, footer div {
     height: 2vh;
 }
-
 @media screen and (max-width:850px) {
     header {
         height: 10vh;
-    }
+   }
     main {
         padding-top: 10vh;
-    }
-
+   }
     nav ul {
         opacity: 0;
         flex-direction: column-reverse;
@@ -177,33 +173,30 @@ footer ul, footer div {
         transition: transform 250ms ease-in-out;
         border-bottom: 2px solid rgba(0, 87, 255, 0.7);
         padding: 10px 0;
-    }
-
+   }
     nav li {
         padding: 3px 15px;
         width: 100%;
-    }
+   }
     nav a {
         margin: 0 30vw;
-    }
-
+   }
     .nav-toggle:checked + nav ul {
         transform: scale(1,1);
-    }
+   }
     .nav-toggle:checked + nav ul {
         opacity: 1;
         transition: opacity 250ms ease-in-out 250ms;
-    }
+   }
     .nav-toggle:checked ~ label span#st {
         transform: translateY(13px) rotate(45deg);
-    }
+   }
     .nav-toggle:checked ~ label span#rd {
         transform: translateY(-13px) rotate(-45deg);
-    }
+   }
     .nav-toggle:checked ~ label span#nd {
         opacity: 0;
-    }
-
+   }
     .nav-toggle-label span {
         display: block;
         background: rgba(0, 87, 255, 0.7);
@@ -214,28 +207,26 @@ footer ul, footer div {
         margin: 10px;
         transition: 500ms ease;
         transform-origin: center;
-    }
-
+   }
     .nav-toggle-label {
         height: 100%;
         display: block;
         position: relative;
         cursor: pointer;
-    }
-
+   }
     footer ul {
         flex-wrap: wrap;
-    }
+   }
     footer {
         top: 90.5vh;
         height: 10vh;
         padding-top: 1vh;
-    }
+   }
     footer li {
         padding: 0 5px;
-    }
+   }
     footer div {
         word-wrap: normal;
         display: block;
-    }
+   }
 }
