@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/global.css" />
 		<link rel="stylesheet" href="css/anmeldung.css">
-			<title>Registrieren</title>
+    <link rel="icon" type="image/svg" href="assets/favicon.svg">
+		<title>Registrieren</title>
 		</head>
 		<body>
 			<?php include "components/header.php"; ?>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/eintrag.css" />
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="icon" type="image/svg" href="assets/favicon.svg" />
     <title>Eintrag</title>
   </head>
   <body>
