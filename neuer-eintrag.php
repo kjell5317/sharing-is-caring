@@ -15,13 +15,13 @@
 									<h1> Neuer Eintrag</h1>
 									<h2>Teile dein Essen mit Oldenburg</h2>
 								</div>
-								<form class="neuereintrag" action="meine-einträge.php">
+								<form class="neuereintrag" action="meine-eintraege.php">
 									<div class="form-section">
 										<label for="title">Titel</label>
 										<input type="text" id="title" name="title" placeholder="Titel" required>
 											<label for="food-type">Essensart</label>
 											<select name="food-type" id="food-type" required>
-												<option value="">Bitte Wählen...</option>
+												<option value="" selected disabled>Bitte Wählen...</option>
 												<option value="vegan">Vegan</option>
 												<option value="veggi">Vegetarisch</option>
 												<option value="schwein">Schwein</option>

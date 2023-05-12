@@ -43,7 +43,7 @@ p {
     height: 25px;
     left: 17px;
     top: 253px;
-    margin:auto 
+    margin:auto
 }
 .ort {
     position: absolute;
@@ -54,21 +54,24 @@ p {
     margin:auto;
 }
 .arrow {
-    position: absolute;
-    left: 142px;
-    top: 320px;
-    margin:auto;
+    margin: auto;
+    height: 24px;
+    width: 24px;
 }
 .weiter {
     position: absolute;
-    width: 200px;
-    height: 18px;
+    width: 170px;
     left: 17px;
-    top:318px;
+    top: 318px;
     margin: auto;
+    color: #8D8BA7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+a.weiter > p {
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;
-    text-align: left;
 }

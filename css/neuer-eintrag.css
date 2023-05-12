@@ -100,8 +100,11 @@ input [type=file] {
 main input:focus, main textarea:focus, main select:focus {
   outline: 2px solid rgba(0, 87, 255, 0.7);
 }
-main ::placeholder, main input[type=date]:invalid::-webkit-datetime-edit, main select {
+main ::placeholder, main input[type=date]:invalid::-webkit-datetime-edit, main select:invalid {
   color: #8D8BA7;
+  font-family: 'Arial';
+}
+main input[type=date]::-webkit-datetime-edit {
   font-family: 'Arial';
 }
 main input[type=date]:invalid::-webkit-datetime-edit {
@@ -116,4 +119,8 @@ main input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100% !important;
   object-fit: cover;
   border-radius: 16px;
+}
+
+main textarea {
+  font-family: 'Arial';
 }
