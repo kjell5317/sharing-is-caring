@@ -18,7 +18,11 @@
         Melde dich an um deine Angebote zu verwalten und Zugriff zu deinem
         Dashboard zu erlangen.
       </h3>
-      <form action="anmeldung.php">
+      <?php if ($error): ?>
+        <p class="message"><?php echo $error; ?></p>
+   		<?php endif; ?>
+      <form method="POST">
+      <input type="hidden" name="login">
         <input
           type="text"
           id="email"
@@ -34,6 +38,7 @@
           placeholder="Passwort"
         />
         <input type="submit" value="Anmelden" class="accent" />
+        <p>Noch kein Konto?<a href="registrierung.php">Jetzt Registrieren!</a></p>
       </form>
     </main>
     <?php include "components/footer.php"; ?>
