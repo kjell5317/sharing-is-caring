@@ -7,15 +7,29 @@ class Card {
     private int $postalCode;
     private $imagePath;
     private $description;
+    private bool $claimed = false;
+    private User $owner;
 
-    public function __construct($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description) {
-        $this->title = $title;
-        $this->foodType = $foodType;
-        $this->expirationDate = $expirationDate;
-        $this->place = $place;
-        $this->imagePath = $imagePath;
-        $this->description = $description;
-        $this->postalCode = $postalCode;
+    public static function getCardWithoutOwner($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description): Card
+    {
+        $instance = new self();
+        $instance->setTitle($title);
+        $instance->setFoodType($foodType);
+        $instance->setExpirationDate($expirationDate);
+        $instance->setPlace($place);
+        $instance->setPostalCode($postalCode);
+        $instance->setImagePath($imagePath);
+        $instance->setDescription($description);
+        return $instance;
+    }
+
+    public static function getCardWithOwner($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description, User $owner): Card {
+        $instance = self::getCardWithoutOwner($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description);
+        $instance->setOwner($owner);
+        return $instance;
+    }
+
+    private function __construct() {
     }
 
     // Getters and setters for the attributes
@@ -39,7 +53,7 @@ class Card {
         return $this->expirationDate;
     }
 
-    public function setDate($expirationDate) {
+    public function setExpirationDate($expirationDate) {
         $this->expirationDate = $expirationDate;
     }
 
@@ -51,12 +65,12 @@ class Card {
         $this->place = $place;
     }
 
-    public function getPostalCode(int $postalCode) {
-         $this->postalCode = $postalCode;
+    public function getPostalCode() {
+         return $this->postalCode;
     }
 
-    public function setPostalCode() {
-        return $this->postalCode;
+    public function setPostalCode($postalCode) {
+         $this->postalCode = $postalCode;
     }
 
     public function getImagePath() {
@@ -73,6 +87,26 @@ class Card {
 
     public function setDescription($description) {
         $this->description = $description;
+    }
+
+    public function claim() {
+        $this->claimed = true;
+    }
+
+    public function unclaim() {
+        $this->claimed = false;
+    }
+
+    public function isClaimed() {
+        return $this->claimed;
+    }
+
+    public function getOwner() {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner) {
+        $this->owner = $owner;
     }
 
     public function getHTMLCode() {

@@ -1,5 +1,7 @@
 <?php
 interface CardDAO {
-    public Card saveCard(Card $card);
+    public function saveCard(Card $card): bool;
+    public function loadCard(): Card;
+    public function loadCardsOfUser(User $user): array;
 }
 ?>

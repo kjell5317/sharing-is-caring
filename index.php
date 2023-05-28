@@ -14,7 +14,7 @@
 			<div class="cardspage">
 				<?php 
 				include "logic/Card.php";
-				$card = new Card("Halber Däner", "Veggi", "heute", "hier","49661", "assets/lecker.jpg","desc");
+				$card = Card::getCardWithoutOwner("Halber Däner", "Veggi", "heute", "hier","49661", "assets/lecker.jpg","desc");
 				echo $card->getHTMLCode();
 				?>
 			</div>
