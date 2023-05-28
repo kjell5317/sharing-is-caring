@@ -16,7 +16,7 @@
         <h1> Neuer Eintrag</h1>
         <h2>Teile dein Essen mit Oldenburg</h2>
       </div>
-      <form method = "post" class="neuereintrag" action="logic/CardFetcher.php">
+      <form method="post" class="neuereintrag" action="logic/CardFetcher.php">
         <div class="form-section">
           <input type="hidden" name="newEntry">
           <label for="title">Titel</label>

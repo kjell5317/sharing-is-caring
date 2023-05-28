@@ -4,7 +4,7 @@ class Card {
     private $foodType;
     private $expirationDate;
     private $place;
-    private int $postalCode;
+    private $postalCode;
     private $imagePath;
     private $description;
     private bool $claimed = false;
@@ -27,6 +27,10 @@ class Card {
         $instance = self::getCardWithoutOwner($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description);
         $instance->setOwner($owner);
         return $instance;
+    }
+
+    public static function getEmptyCard() {
+        return new self();
     }
 
     private function __construct() {
