@@ -12,16 +12,11 @@
 		<?php include "components/header.php"; ?>
 		<main>
 			<div class="cardspage">
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
+				<?php 
+				include "logic/Card.php";
+				$card = new Card("Halber Däner", "Veggi", "heute", "hier","49661", "assets/lecker.jpg","desc");
+				echo $card->getHTMLCode();
+				?>
 			</div>
 		</main>
 		<?php include "components/footer.php"; ?>
