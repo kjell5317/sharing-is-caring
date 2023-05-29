@@ -2,6 +2,7 @@
 include_once "CardDAO.php";
 include_once "Card.php";
 include_once "CardController.php";
+include_once "usermanagement.php";
 class MainMemoryBasedCardDAO implements CardDAO {
 
     private static $cards;
@@ -34,7 +35,9 @@ class MainMemoryBasedCardDAO implements CardDAO {
         $txt = fgets($file);
         fclose($file);
         $card = json_decode($txt, true);
-        $card = Card::getCardWithoutOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"]);
+        $cardOwner = new User;
+        $cardOwner->email = $card["owner"]["email"];
+        $card = Card::getCardWithOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"],$cardOwner);
         return $card;
     } else {
         echo "Error: File not found";
@@ -57,7 +60,9 @@ class MainMemoryBasedCardDAO implements CardDAO {
                 $txt = fgets($file);
                 if (!($txt == "")) {
                     $card = json_decode($txt, true);
-                    $card = Card::getCardWithoutOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"]);   
+                    $cardOwner = new User;
+                    $cardOwner->email = $card["owner"]["email"];
+                    $card = Card::getCardWithOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"],$cardOwner);   
                     $back[] = $card;
                 }                    
             }

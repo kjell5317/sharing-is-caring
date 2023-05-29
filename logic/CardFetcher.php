@@ -1,6 +1,7 @@
 <?php
 include_once "./Card.php";
 include_once "./MainMemoryBasedCardDAO.php";
+include_once "./usermanagement.php";
 
  $memory = MainMemoryBasedCardDAO::getInstance();
 
@@ -14,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $postalCode = $_POST['postal-code'];
         $image = $_POST['food-image'];
         $description = $_POST['description'];
-        //$creator = unserialize($_SESSION['loggedInUser']);
+        $creator = unserialize($_SESSION['loggedInUser']);
 
         // Create a new instance of the Card class
-        $card = Card::getCardWithoutOwner($title, $foodType, $date, $place, $postalCode, $image, $description);
+        $card = Card::getCardWithOwner($title, $foodType, $date, $place, $postalCode, $image, $description, $creator);
         $memory->saveCard($card);
         
 
