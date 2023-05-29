@@ -3,7 +3,7 @@
 Namen der Studierenden:
 
 - Manuel Wustlich
-- John-Uwe Rieken
+- John-Uwe Riecken
 - Kjell Hanken
 
 Abgabe zu Aufgabenblatt 2

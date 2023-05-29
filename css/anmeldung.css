@@ -29,7 +29,7 @@ h3 {
     color: #9795B5;
     margin: 0 0 16px;
 }
-main input[type="text"], input[type="password"], input[type="email"] {
+main input[type="text"], main input[type="password"], main input[type="email"] {
     background: #F9F9FF;
     border-radius: 8px;
 }

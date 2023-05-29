@@ -26,8 +26,8 @@ h1 {
     font-weight : 400;
     resize : none;
 }
-label {
-    display : block;
+main label {
+    display: block;
     margin-bottom : 0.5rem;
     font-weight : 700;
     font-size : 18px;
