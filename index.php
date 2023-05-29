@@ -14,7 +14,9 @@
 			<div class="cardspage">
 				<?php 
 				include_once "logic/CardController.php";
-				echo getARandomCard();
+				include_once "logic/MainMemoryBasedCardDAO.php";
+				$memory = MainMemoryBasedCardDAO::getInstance();
+				echo htmlOfCard($memory->loadCard());
 				?>
 			</div>
 		</main>

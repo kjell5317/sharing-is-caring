@@ -14,13 +14,15 @@
 			<h4>Abholen</h4>
 			<br>
 				<div class="cardspage">
-					<?php include "components/card.php";?>
 				</div>
 				<h4>Meine Einträge</h4>
 				<br>
 					<div class="cardspage">
-						<?php include "components/card.php";?>
-						<?php include "components/card.php";?>
+						<?php 
+						include "logic/MainMemoryBasedCardDAO.php";
+						$memory = MainMemoryBasedCardDAO::getInstance();
+						echo htmlOfCard($memory->loadCard());
+						?>
 					</div>
 					<br>
 						<br>

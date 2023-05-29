@@ -1,6 +1,7 @@
 <?php
 include_once "CardDAO.php";
 include_once "Card.php";
+include_once "CardController.php";
 class MainMemoryBasedCardDAO implements CardDAO {
 
     private static $cards;
@@ -18,22 +19,37 @@ class MainMemoryBasedCardDAO implements CardDAO {
 
     private function __construct() {}
     public function saveCard(Card $card):bool {
-        self::$cards[] = $card;
+        $store = fopen("../tmp/cards.json", "a+") or die("Failed to load File");
+        $txt = json_encode($card);
+        fwrite($store, $txt);
+        fwrite($store, "\n");
+        fclose($store);
         return true;
     }
 
     public function loadCard(): Card {
-        if (isset(self::$cards) && count(self::$cards) > 0) {
-            $randomIndex = rand(0, count(self::$cards) - 1);
-            return self::$cards[$randomIndex];
-        } else {
-            return Card::getEmptyCard();
-        }
+        $filePath = "./tmp/cards.json";
+    if (file_exists($filePath)) {
+        $file = fopen($filePath, "r") or die("Failed to load File");
+        $txt = fgets($file);
+        fclose($file);
+        $card = json_decode($txt, true);
+        $card = Card::getCardWithoutOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"]);
+        return $card;
+    } else {
+        echo "Error: File not found";
+        return Card::getEmptyCard();
     }
+      }
+    
     
 
     public function loadCardsOfUser(User $user):array {
         return array();
+    }
+
+    public function loadAllCards() {
+        return self::$cards;
     }
 }
 ?>

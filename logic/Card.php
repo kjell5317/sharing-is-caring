@@ -1,14 +1,14 @@
 <?php 
 class Card {
-    private $title;
-    private $foodType;
-    private $expirationDate;
-    private $place;
-    private $postalCode;
-    private $imagePath;
-    private $description;
-    private bool $claimed = false;
-    private User $owner;
+    public $title;
+    public $foodType;
+    public $expirationDate;
+    public $place;
+    public $postalCode;
+    public $imagePath;
+    public $description;
+    public bool $claimed = false;
+    public User $owner;
 
     public static function getCardWithoutOwner($title, $foodType, $expirationDate, $place, $postalCode, $imagePath, $description): Card
     {
@@ -113,22 +113,5 @@ class Card {
         $this->owner = $owner;
     }
 
-    public function getHTMLCode() {
-        $html = '
-        <div class="card">
-            <link rel="stylesheet" href="css/Card.css"/>
-            <img class="photo" src="'.htmlentities($this->imagePath).'"/>
-            <h1>' . htmlentities($this->title) .'</h1>
-            <p class="category">'. htmlentities($this->foodType).'</p>
-            <p class="mhd">'.htmlentities($this->expirationDate).'</p>
-            <p class="ort">'.htmlentities($this->postalCode.' '. $this->place).'</p>
-            <a class="weiter" href="eintrag.php">
-                <p style="margin: 0;">Zeig mir mehr</p>
-                <img src="assets/arrow.svg" class="arrow" />
-            </a>
-         </div>
-     ';
-     return $html;
-    }
 }
 ?>
