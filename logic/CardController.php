@@ -23,6 +23,7 @@ function htmlOfCards(array $cards) {
     foreach($cards as $card) {
         $html = $html . "\n" . htmlOfCard($card);
     }
+    return $html;
 }
 
 ?>

@@ -16,7 +16,7 @@
 				include_once "logic/CardController.php";
 				include_once "logic/MainMemoryBasedCardDAO.php";
 				$memory = MainMemoryBasedCardDAO::getInstance();
-				echo htmlOfCard($memory->loadCard());
+				echo htmlOfCards($memory->loadAllCards());
 				?>
 			</div>
 		</main>

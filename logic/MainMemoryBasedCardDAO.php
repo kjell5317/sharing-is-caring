@@ -49,7 +49,21 @@ class MainMemoryBasedCardDAO implements CardDAO {
     }
 
     public function loadAllCards() {
-        return self::$cards;
+         $filePath = "./tmp/cards.json";
+        if(file_exists($filePath)) {
+            $file = fopen($filePath, "r") or die ("Failed to load File");
+            $back = array();
+            while(!feof($file)) {
+                $txt = fgets($file);
+                if (!($txt == "")) {
+                    $card = json_decode($txt, true);
+                    $card = Card::getCardWithoutOwner($card["title"],$card["foodType"],$card["expirationDate"],$card["place"], $card["postalCode"],$card["imagePath"],$card["description"]);   
+                    $back[] = $card;
+                }                    
+            }
+            fclose($file);
+            return $back;
+        }
     }
 }
 ?>
