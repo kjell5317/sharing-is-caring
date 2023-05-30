@@ -1,3 +1,10 @@
+<?php
+include "logic/usermanagement.php";
+include "logic/CardController.php";
+include_once "logic/SessionBasedCardDAO.php";
+$memory = SessionBasedCardDAO::getInstance();
+
+?>
 <!DOCTYPE html>
 <html lang="de">
 	<head>
@@ -14,14 +21,14 @@
 			<h4>Abholen</h4>
 			<br>
 				<div class="cardspage">
+					<?php
+					echo htmlOfCards($memory->loadClaimedCardsOfUser(unserialize($_SESSION['loggedInUser'])));
+					?>
 				</div>
 				<h4>Meine Einträge</h4>
 				<br>
 					<div class="cardspage">
 						<?php 
-						include "logic/CardController.php";
-						include_once "logic/SessionBasedCardDAO.php";
-						$memory = SessionBasedCardDAO::getInstance();
 						echo htmlOfCards($memory->loadCardsOfUser(unserialize($_SESSION['loggedInUser'])));
 						?>
 					</div>

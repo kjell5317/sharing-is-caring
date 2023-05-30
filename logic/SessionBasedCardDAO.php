@@ -13,6 +13,9 @@ class SessionBasedCardDAO implements CardDAO  {
             if (!isset($_SESSION['cards'])) {
                 $_SESSION['cards'] = array();
             }
+            if(!isset($_SESSION['claimedCards'])) {
+                $_SESSION['claimedCards'] = array();
+            }
         }
 
         return self::$instance;
@@ -63,5 +66,34 @@ class SessionBasedCardDAO implements CardDAO  {
         return $back;
     }
 
+    public function storeClaimedCard() {
+        if (isset($_SESSION['lastDisplayedCard'])) {
+            $_SESSION['claimedCards'][$_SESSION['loggedInUser']][] = $_SESSION['lastDisplayedCard'];
+        }
+    }
+    
+    public function loadRandomCard():Card {
+        if (count($_SESSION['cards'])  > 1) { 
+            $rand = rand(0, count($_SESSION['cards']) - 1);
+        } else if (count($_SESSION['cards']) === 0) {
+            echo "Failed to load your Card";
+            return Card::getEmptyCard();
+        } else  {
+            $rand = 0;
+        }
+        return unserialize($_SESSION['cards'][$rand]);
+    }
+
+    public function loadClaimedCardsOfUser(User $user): array {
+        $user = serialize($user);
+        $claimedCards = [];
+        if (isset($_SESSION['claimedCards'][$user])) {
+            foreach ($_SESSION['claimedCards'][$user] as $card) {
+                $claimedCards[] = unserialize($card);
+            }
+        }
+        return $claimedCards;
+    }
+    
 }
 ?>

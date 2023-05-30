@@ -2,7 +2,8 @@
 include_once "logic/Card.php" ;
 include_once "logic/SessionBasedCardDAO.php";
   $memory = SessionBasedCardDAO::getInstance();
-   $card =  $memory->loadCard();
+  $card =  $memory->loadRandomCard();
+  $memory->storeClaimedCard();
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -39,13 +40,13 @@ include_once "logic/SessionBasedCardDAO.php";
         </ul>
       </div>
       <br />
-      <form class="eintrag" action="meine-einträge.php">
+      <form class="eintrag" action="meine-eintraege.php">
         <div class="form-section">
           <label>Beschreibung</label>
           <textarea class="desc-text" readonly rows="8">
             <?= $card->getDescription()?></textarea
           >
-          <button class="submit" type="submit">Will ich haben! </button>
+          <button class="submit" type="submit" >Will ich haben! </button>
         </div>
         <div class="image-container">
           <img
