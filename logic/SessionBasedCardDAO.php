@@ -25,7 +25,7 @@ class SessionBasedCardDAO implements CardDAO  {
 
     public function saveCard(Card $card):bool  {
         if (isset($_SESSION['cards'])) {
-            $_SESSION['cards'][] = serialize($card); 
+            $_SESSION['cards'][] = $card; 
             return true;
         } else  {
             return false;
@@ -33,13 +33,12 @@ class SessionBasedCardDAO implements CardDAO  {
     }
 
     public function loadCard():Card {
-        return unserialize($_SESSION['cards'][0]);
+        return $_SESSION['cards'][0];
     }
 
     public function loadCardsOfUser(User $user): array {
         $back = array();
         foreach($_SESSION['cards'] as $card) {
-            $card = unserialize($card);
             if ($card->getOwner() == $user) {
                 $back[] = $card;
             }
@@ -50,7 +49,7 @@ class SessionBasedCardDAO implements CardDAO  {
     public function loadAllCards(): array  {
         $back = array();
         foreach($_SESSION['cards'] as $card) {
-            $back[] = unserialize($card);
+            $back[] = $card;
         }
         return $back;
     }
@@ -58,7 +57,6 @@ class SessionBasedCardDAO implements CardDAO  {
     public function loadAllUnclaimedCards():  array{
         $back = array() ;
         foreach($_SESSION['cards'] as $card) {
-            $card = unserialize($card);
             if (!$card->isClaimed()) {
                 $back[] =$card;
             }
@@ -94,7 +92,7 @@ class SessionBasedCardDAO implements CardDAO  {
         } else  {
             $rand = 0;
         }
-        return unserialize($_SESSION['cards'][$rand]);
+        return $_SESSION['cards'][$rand];
     }
 
     public function loadClaimedCardsOfUser(User $user): array {
@@ -102,7 +100,7 @@ class SessionBasedCardDAO implements CardDAO  {
         $claimedCards = [];
         if (isset($_SESSION['claimedCards'][$user])) {
             foreach ($_SESSION['claimedCards'][$user] as $card) {
-                $claimedCards[] = unserialize($card);
+                $claimedCards[] = $card;
             }
         }
         return $claimedCards;
