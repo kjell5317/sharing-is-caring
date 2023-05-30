@@ -1,3 +1,6 @@
+<?php include "logic/Card.php" ;
+   $card = Card::getCardWithoutOwner("Halber Döner","veggi","26-03-2024","Oldenburg","26129","assets/lecker.jpg","Leckerer Döner, bisschen ranzig aber in Ordnung");
+?>
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -12,22 +15,22 @@
   <body>
     <?php include "components/header.php"; ?>
     <main>
-      <h1>Halber Döner</h1>
+      <h1><?= $card->getTitle()?></h1>
       <div class="details">
         <ul>
           <li class="child">
             <div class="mini-text">
               <img src="assets/calendar.svg" class="mini" />
-              <p>05.05.23</p>
+              <p><?= $card->getExpirationDate() ?></p>
             </div>
           </li>
           <li class="child">
-            <p>Vegan</p>
+            <p><?= $card->getFoodType()?></p>
           </li>
           <li class="child">
             <div class="mini-text">
               <img src="assets/mark.svg" class="mini" />
-              <p>26197 Huntlosen</p>
+              <p><?= $card->getPostalCode() . " " . $card->getPlace()?> </p>
             </div>
           </li>
         </ul>
@@ -37,14 +40,14 @@
         <div class="form-section">
           <label>Beschreibung</label>
           <textarea class="desc-text" readonly rows="8">
-Hier könnte ihre Werbung stehen</textarea
+            <?= $card->getDescription()?></textarea
           >
-          <button class="submit" type="submit">Will ich haben!</button>
+          <button class="submit" type="submit">Will ich haben! </button>
         </div>
         <div class="image-container">
           <img
             class="food-img-dsp"
-            src="assets/lecker.jpg"
+            src=<?= $card->getImagePath() ?>
             alt="Beispielbild"
           />
         </div>
