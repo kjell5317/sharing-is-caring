@@ -1,5 +1,5 @@
 <?php 
-
+include_once "Card.php";
 function htmlOfCard(Card $card) {
     $html = '
     <div class="card">

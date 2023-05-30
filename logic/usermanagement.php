@@ -1,5 +1,8 @@
 <?php
 include_once "User.php";
+include_once "Card.php";
+include_once "SessionBasedCardDAO.php";
+
 if(session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }

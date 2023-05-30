@@ -20,7 +20,7 @@
 					<div class="cardspage">
 						<?php 
 						include "logic/CardController.php";
-						include "logic/SessionBasedCardDAO.php";
+						include_once "logic/SessionBasedCardDAO.php";
 						$memory = SessionBasedCardDAO::getInstance();
 						echo htmlOfCard($memory->loadCard());
 						?>

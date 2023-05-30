@@ -1,6 +1,6 @@
 <?php
 include "usermanagement.php";
-include "CardDAO.php";
+include_once "CardDAO.php";
 include_once "Card.php";
 
 class SessionBasedCardDAO implements CardDAO  {

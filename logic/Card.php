@@ -1,4 +1,5 @@
 <?php 
+include_once "User.php";
 class Card {
     public $title;
     public $foodType;
