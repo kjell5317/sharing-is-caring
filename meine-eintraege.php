@@ -22,7 +22,7 @@
 						include "logic/CardController.php";
 						include_once "logic/SessionBasedCardDAO.php";
 						$memory = SessionBasedCardDAO::getInstance();
-						echo htmlOfCard($memory->loadCard());
+						echo htmlOfCards($memory->loadCardsOfUser(unserialize($_SESSION['loggedInUser'])));
 						?>
 					</div>
 					<br>

@@ -1,5 +1,8 @@
-<?php include_once "logic/Card.php" ;
-   $card = Card::getCardWithoutOwner("Halber Döner","veggi","26-03-2024","Oldenburg","26129","assets/lecker.jpg","Leckerer Döner, bisschen ranzig aber in Ordnung");
+<?php 
+include_once "logic/Card.php" ;
+include_once "logic/SessionBasedCardDAO.php";
+  $memory = SessionBasedCardDAO::getInstance();
+   $card =  $memory->loadCard();
 ?>
 <!DOCTYPE html>
 <html lang="de">
