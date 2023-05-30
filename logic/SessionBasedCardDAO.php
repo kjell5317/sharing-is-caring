@@ -59,7 +59,7 @@ class SessionBasedCardDAO implements CardDAO  {
         $back = array() ;
         foreach($_SESSION['cards'] as $card) {
             $card = unserialize($card);
-            if (!($card->isClaimed())) {
+            if (!$card->isClaimed()) {
                 $back[] =$card;
             }
         }
@@ -68,9 +68,27 @@ class SessionBasedCardDAO implements CardDAO  {
 
     public function storeClaimedCard() {
         if (isset($_SESSION['lastDisplayedCard'])) {
-            $_SESSION['claimedCards'][$_SESSION['loggedInUser']][] = $_SESSION['lastDisplayedCard'];
+            $loggedInUser = $_SESSION['loggedInUser'];
+            $cardToStore = $_SESSION['lastDisplayedCard'];
+    
+            $userClaimedCards = isset($_SESSION['claimedCards'][$loggedInUser]) ? $_SESSION['claimedCards'][$loggedInUser] : [];
+    
+            // Check if the card is already claimed
+            $isCardAlreadyClaimed = false;
+            foreach ($userClaimedCards as $claimedCard) {
+                if ($claimedCard === $cardToStore) {
+                    $isCardAlreadyClaimed = true;
+                    break;
+                }
+            }
+    
+            // Store the card only if it is not already claimed
+            if (!$isCardAlreadyClaimed) {
+                $_SESSION['claimedCards'][$loggedInUser][] = $cardToStore;
+            }
         }
     }
+    
     
     public function loadRandomCard():Card {
         if (count($_SESSION['cards'])  > 1) { 
