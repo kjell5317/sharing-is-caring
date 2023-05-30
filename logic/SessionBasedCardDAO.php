@@ -70,10 +70,7 @@ class SessionBasedCardDAO implements CardDAO  {
         if (isset($_SESSION['lastDisplayedCard'])) {
             $loggedInUser = $_SESSION['loggedInUser'];
             $cardToStore = $_SESSION['lastDisplayedCard'];
-    
             $userClaimedCards = isset($_SESSION['claimedCards'][$loggedInUser]) ? $_SESSION['claimedCards'][$loggedInUser] : [];
-    
-            // Check if the card is already claimed
             $isCardAlreadyClaimed = false;
             foreach ($userClaimedCards as $claimedCard) {
                 if ($claimedCard === $cardToStore) {
@@ -81,8 +78,6 @@ class SessionBasedCardDAO implements CardDAO  {
                     break;
                 }
             }
-    
-            // Store the card only if it is not already claimed
             if (!$isCardAlreadyClaimed) {
                 $_SESSION['claimedCards'][$loggedInUser][] = $cardToStore;
             }
