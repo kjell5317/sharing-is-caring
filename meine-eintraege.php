@@ -3,6 +3,10 @@ include "logic/usermanagement.php";
 include "logic/CardController.php";
 include_once "logic/SessionBasedCardDAO.php";
 $memory = SessionBasedCardDAO::getInstance();
+if(isset($_SESSION['lastDisplayedCard'])) {
+		unserialize($_SESSION['lastDisplayedCard'])->claim();
+}
+$memory->storeClaimedCard();
 
 ?>
 <!DOCTYPE html>

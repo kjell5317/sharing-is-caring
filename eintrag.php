@@ -3,7 +3,7 @@ include_once "logic/Card.php" ;
 include_once "logic/SessionBasedCardDAO.php";
   $memory = SessionBasedCardDAO::getInstance();
   $card =  $memory->loadRandomCard();
-  $memory->storeClaimedCard();
+  $_SESSION['lastDisplayedCard'] = serialize($card);
 ?>
 <!DOCTYPE html>
 <html lang="de">
