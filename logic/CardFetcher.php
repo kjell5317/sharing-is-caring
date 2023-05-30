@@ -26,7 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Create a new instance of the Card class
         $card = Card::getCardWithOwner($title, $foodType, $date, $place, $postalCode, $imagePath, $description, $creator);
-        $memory->saveCard($card);
+       if($memory->saveCard($card)) {
+        header("Location: ../meine-eintraege.php");
+       } else  {
+        echo "Hoppla da ist wohl etwas schief gelaufen";
+       }
         
 
 
@@ -34,5 +38,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
-header("Location: ../meine-eintraege.php");
 ?>
