@@ -34,5 +34,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
-//header("Location: ../meine-eintraege.php");
+header("Location: ../meine-eintraege.php");
 ?>
