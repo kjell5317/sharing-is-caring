@@ -73,5 +73,9 @@ class MainMemoryBasedCardDAO implements CardDAO {
             return array();
         }
     }
+
+    public function loadAllUnclaimedCards(): array {
+        return array();
+    }
 }
 ?>

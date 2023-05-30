@@ -36,8 +36,9 @@ class SessionBasedCardDAO implements CardDAO  {
     public function loadCardsOfUser(User $user): array {
         $back = array();
         foreach($_SESSION['cards'] as $card) {
-            if ($card->getOwner == $user) {
-                $back[] = unserialize($card);
+            $card = unserialize($card);
+            if ($card->getOwner() == $user) {
+                $back[] = $card;
             }
         }
         return $back;
@@ -50,5 +51,17 @@ class SessionBasedCardDAO implements CardDAO  {
         }
         return $back;
     }
+
+    public function loadAllUnclaimedCards():  array{
+        $back = array() ;
+        foreach($_SESSION['cards'] as $card) {
+            $card = unserialize($card);
+            if (!($card->isClaimed())) {
+                $back[] =$card;
+            }
+        }
+        return $back;
+    }
+
 }
 ?>

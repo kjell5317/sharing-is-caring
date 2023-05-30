@@ -13,14 +13,24 @@ class DBBasedCardDAO implements CardDAO {
         return self::$instance;
     }
 
-    public function saveCard(Card $card):bool {}
+    public function saveCard(Card $card):bool {
+        return true;
+    }
 
     public function loadCard():Card {
-        
+        return Card::getEmptyCard();
     }
 
     public function loadCardsOfUser(User $user) {
-       
+       return array();
+    }
+
+    public function loadAllCards() {
+        return array();
+    }
+
+    public function loadAllUnclaimedCards() {
+        return array();
     }
 }
 ?>
