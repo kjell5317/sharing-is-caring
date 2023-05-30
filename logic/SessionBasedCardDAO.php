@@ -4,7 +4,7 @@ include "CardDAO.php";
 
 class SessionBasedCardDAO implements CardDAO  {
 
-    private $instance;
+    private static $instance;
     public static function getInstance(): SessionBasedCardDAO
     {
         if (self::$instance === null) {
@@ -27,6 +27,7 @@ class SessionBasedCardDAO implements CardDAO  {
     }
 
     public function loadCard():Card {
+        echo json_encode($_SESSION['cards']);
         return $_SESSION['cards'][0];
     }
 
@@ -38,6 +39,10 @@ class SessionBasedCardDAO implements CardDAO  {
             }
         }
         return $back;
+    }
+
+    public function loadAllCards(): array  {
+        return $_SESSION['cards'];
     }
 }
 ?>

@@ -1,9 +1,9 @@
 <?php
 include_once "./Card.php";
-include_once "./MainMemoryBasedCardDAO.php";
+include_once "./SessionBasedCardDAO.php";
 include_once "./usermanagement.php";
 
- $memory = MainMemoryBasedCardDAO::getInstance();
+ $memory = SessionBasedCardDAO::getInstance();
 
 $pathToImages = "tmp/images/";
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){

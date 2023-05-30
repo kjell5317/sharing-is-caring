@@ -1,9 +1,7 @@
 <?php
-session_start();
-
-class User {
-    public $email;
-    public $password;
+include_once "User.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

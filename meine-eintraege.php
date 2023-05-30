@@ -19,8 +19,9 @@
 				<br>
 					<div class="cardspage">
 						<?php 
-						include "logic/MainMemoryBasedCardDAO.php";
-						$memory = MainMemoryBasedCardDAO::getInstance();
+						include "logic/CardController.php";
+						include "logic/SessionBasedCardDAO.php";
+						$memory = SessionBasedCardDAO::getInstance();
 						echo htmlOfCard($memory->loadCard());
 						?>
 					</div>
