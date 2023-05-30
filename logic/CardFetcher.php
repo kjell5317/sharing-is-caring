@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $image = $_FILES['food-image'];
         $imagePath = $pathToImages . basename($image['name']);
+        while(file_exists($imagePath)) {
+            $imagePath = $pathToImages . strval(rand(2000000)) . basename(($image['name'])); // give kinda random name to image if an image with existing name is uploaded;
+        }
         move_uploaded_file($image['tmp_name'],"../" . $imagePath);
         $description = $_POST['description'];
         $creator = unserialize($_SESSION['loggedInUser']);
@@ -31,5 +34,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
-header("Location: ../meine-eintraege.php");
+//header("Location: ../meine-eintraege.php");
 ?>
