@@ -40,12 +40,13 @@ include_once "logic/SessionBasedCardDAO.php";
         </ul>
       </div>
       <br />
-      <form class="eintrag" action="meine-eintraege.php">
+      <form class="eintrag" action="meine-eintraege.php" method="post">
         <div class="form-section">
           <label>Beschreibung</label>
           <textarea class="desc-text" readonly rows="8">
             <?= $card->getDescription()?></textarea
           >
+          <input type="hidden" name="eintrag"/>
           <button class="submit" type="submit" >Will ich haben! </button>
         </div>
         <div class="image-container">
