@@ -68,6 +68,9 @@ class MainMemoryBasedCardDAO implements CardDAO {
             }
             fclose($file);
             return $back;
+        } else  {
+            echo "Error: Cards not found";
+            return array();
         }
     }
 }
