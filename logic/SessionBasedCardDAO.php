@@ -1,6 +1,7 @@
 <?php
 include "usermanagement.php";
 include "CardDAO.php";
+include_once "Card.php";
 
 class SessionBasedCardDAO implements CardDAO  {
 
@@ -9,7 +10,9 @@ class SessionBasedCardDAO implements CardDAO  {
     {
         if (self::$instance === null) {
             self::$instance = new self();
-            $_SESSION['cards'] = array();
+            if (!isset($_SESSION['cards'])) {
+                $_SESSION['cards'] = array();
+            }
         }
 
         return self::$instance;
@@ -19,7 +22,7 @@ class SessionBasedCardDAO implements CardDAO  {
 
     public function saveCard(Card $card):bool  {
         if (isset($_SESSION['cards'])) {
-            $_SESSION['cards'][] = $card; 
+            $_SESSION['cards'][] = serialize($card); 
             return true;
         } else  {
             return false;
@@ -27,22 +30,25 @@ class SessionBasedCardDAO implements CardDAO  {
     }
 
     public function loadCard():Card {
-        echo json_encode($_SESSION['cards']);
-        return $_SESSION['cards'][0];
+        return unserialize($_SESSION['cards'][0]);
     }
 
     public function loadCardsOfUser(User $user): array {
         $back = array();
         foreach($_SESSION['cards'] as $card) {
             if ($card->getOwner == $user) {
-                $back[] = $card;
+                $back[] = unserialize($card);
             }
         }
         return $back;
     }
 
     public function loadAllCards(): array  {
-        return $_SESSION['cards'];
+        $back = array();
+        foreach($_SESSION['cards'] as $card) {
+            $back[] = unserialize($card);
+        }
+        return $back;
     }
 }
 ?>

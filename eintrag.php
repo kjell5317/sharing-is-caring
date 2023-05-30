@@ -1,4 +1,4 @@
-<?php include "logic/Card.php" ;
+<?php include_once "logic/Card.php" ;
    $card = Card::getCardWithoutOwner("Halber Döner","veggi","26-03-2024","Oldenburg","26129","assets/lecker.jpg","Leckerer Döner, bisschen ranzig aber in Ordnung");
 ?>
 <!DOCTYPE html>
