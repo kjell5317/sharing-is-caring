@@ -12,16 +12,12 @@
 		<?php include "components/header.php"; ?>
 		<main>
 			<div class="cardspage">
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
-				<?php include "components/card.php";?>
+				<?php 
+				include_once "logic/CardController.php";
+				include_once "logic/SessionBasedCardDAO.php";
+				$memory = SessionBasedCardDAO::getInstance();
+				echo htmlOfCards($memory->loadAllUnclaimedCards());
+				?>
 			</div>
 		</main>
 		<?php include "components/footer.php"; ?>

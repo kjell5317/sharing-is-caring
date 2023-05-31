@@ -1,10 +1,10 @@
 <?php
-session_start();
+include_once "User.php";
+include_once "Card.php";
+include_once "SessionBasedCardDAO.php";
 
-class User
-{
-    public $email;
-    public $password;
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

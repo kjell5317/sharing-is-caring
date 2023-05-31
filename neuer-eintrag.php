@@ -18,8 +18,9 @@
       <h1> Neuer Eintrag</h1>
       <h2>Teile dein Essen mit Oldenburg</h2>
     </div>
-    <form class="neuereintrag" action="meine-eintraege.php">
+    <form method="post" class="neuereintrag" action="logic/CardFetcher.php" enctype="multipart/form-data">
       <div class="form-section">
+          <input type="hidden" name="newEntry">
         <label for="title">Titel</label>
         <input type="text" id="title" name="title" placeholder="Titel" required>
         <label for="food-type">Essensart</label>
