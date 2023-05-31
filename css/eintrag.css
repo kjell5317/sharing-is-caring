@@ -26,22 +26,21 @@ h1 {
     font-weight : 400;
     resize : none;
 }
-label {
-    display : block;
+main label {
+    display: block;
     margin-bottom : 0.5rem;
     font-weight : 700;
     font-size : 18px;
     color : #5D5A88;
 }
 .eintrag {
-    max-width : 1200px;
     margin : auto;
-    width : 90%;
     display : flex;
     flex-wrap : wrap;
     align-items : center;
     justify-content : center;
-    margin-bottom : 10rem;
+    max-width: 1000px;
+    width: 90%;
 }
 .mini {
     width : 24px;
@@ -62,25 +61,14 @@ label {
     flex-direction : column;
     align-items : center;
     justify-content : center;
+    margin: 0 15px 20px;
 }
-.submit {
-    background : rgb(0, 87, 255, 0.7);
-    border-radius : 40px;
-    color : #fff;
-    border : none;
-    float : right;
-    padding : 1.2rem 1.8rem;
-    margin-bottom : 10px;
-    cursor : pointer;
-    font-size : 1rem;
-}
-button:hover {
-    background-color : rgb(0, 87, 255, 0.9);
+form button.accent {
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 .details {
-    flex : 1;
-    min-width : 300px;
-    padding : 0 1rem;
     box-sizing : border-box;
     display : flex;
     align-items : center;
@@ -88,11 +76,16 @@ button:hover {
 }
 .child {
     list-style : none;
-    min-width : 150px;
     color : #9795B5;
 }
 
 main textarea {
   font-family: 'Arial';
   color:#5D5A88;
+}
+
+@media screen and (max-width: 700px) {
+    .eintrag {
+        flex-direction: column-reverse;
+    }
 }

@@ -21,7 +21,7 @@ h2 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10rem;
+  margin-bottom: 10px;
 }
 .form-section {
   flex: 1;
@@ -42,7 +42,7 @@ main label {
   color: #5D5A88;
 }
 .form-section input, .form-section select, .form-section textarea {
-  width: 100%;
+  width: 95%;
   padding: 0.4rem;
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -52,9 +52,6 @@ main label {
   height: 2rem;
   font-weight: 400;
 }
-input[type="file"] {
-  display: none;
-}
 #description {
   height: 8rem;
   width: 100%;
@@ -63,18 +60,8 @@ input[type="file"] {
 select {
   height: 2.4rem;
 }
-.submit {
-  background: rgba(0, 87, 255, 0.7);
-  border-radius: 40px;
-  color: #fff;
-  border: none;
-  float: right;
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-button:hover {
-  background-color: rgba(0, 87, 255, 0.9);
+.accent {
+  font-size: 18px;
 }
 .image-container {
   display: flex;
@@ -82,20 +69,21 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
-.plz {
-  float: left;
-  width: 35%;
+.address {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.ort {
-  float: right;
-  width: 60%;
+.address > * {
+  flex: 1;
 }
 .upload-label {
   cursor: pointer;
 }
-input [type=file] {
+input[type=file] {
   margin-bottom: 2rem;
   padding: 0.1rem;
+  display: none;
 }
 main input:focus, main textarea:focus, main select:focus {
   outline: 2px solid rgba(0, 87, 255, 0.7);
