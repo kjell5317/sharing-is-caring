@@ -4,7 +4,7 @@ include_once "UserManagement.php";
 
 $pathToImages = "tmp/images/";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['newEntry'])) {
         $title = $_POST['title'];
@@ -18,7 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Create a new instance of the Card class
         $cardmanager = new SessionCardDAO();
-        $cardmanager->saveCard($title, $foodType, $expdate, $place, $postalCode, $image, $description, false, new User);
+        $cardmanager->saveCard($title, $foodType, $expdate, $place, $postalCode, $image, $description, false, $_SESSION["loggedInUser"]);
+
+        header("Location: meine-eintraege.php");
+        exit;
     }
 
     if (isset($_POST['claim'])) {
