@@ -18,7 +18,7 @@
       <h1> Neuer Eintrag</h1>
       <h2>Teile dein Essen mit Oldenburg</h2>
     </div>
-    <form method="post" class="neuereintrag" action="logic/CardFetcher.php" enctype="multipart/form-data">
+    <form method="post" class="neuereintrag" action="logic/CardManager.php" enctype="multipart/form-data">
       <div class="form-section">
           <input type="hidden" name="newEntry">
         <label for="title">Titel</label>
@@ -48,7 +48,7 @@
       </div>
       <div class="form-section image-container">
         <label for="food-image" class="upload-label">
-          <img class="food-img" src="assets/lecker.jpg" alt="Beispielbild" />
+          <img class="food-img" src=<?= $_FILES['food-image'] ?> alt="Beispielbild" />
         </label>
         <input type="file" id="food-image" name="food-image" accept="image/*" required>
       </div>
