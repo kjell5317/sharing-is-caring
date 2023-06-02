@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     if (isset($_POST['claim'])) {
-        $usermanager = new SessionUserDAO();
-        $usermanager->claimCard();
+        $cardmanager = new SessionCardDAO();
+        $cardmanager->claimCard();
     }
     if (isset($_POST['unclaim'])) {
-        $usermanager = new SessionUserDAO();
-        $usermanager->unclaimCard();
+        $cardmanager = new SessionCardDAO();
+        $cardmanager->unclaimCard();
     }
 }
 

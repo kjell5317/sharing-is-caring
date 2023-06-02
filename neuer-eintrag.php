@@ -48,7 +48,7 @@
       </div>
       <div class="form-section image-container">
         <label for="food-image" class="upload-label">
-          <img class="food-img" src=<?= $_FILES['food-image'] ?> alt="Beispielbild" />
+          <img class="food-img" src="assets/Placeholder.jpg" alt="Beispielbild" />
         </label>
         <input type="file" id="food-image" name="food-image" accept="image/*" required>
       </div>
