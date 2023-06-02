@@ -9,14 +9,16 @@
 		<title>Sharing is Caring</title>
 	</head>
 	<body>
-		<?php include "components/header.php"; ?>
+		<?php 
+		include "components/header.php"; 
+		include_once "logic/CardTranslator.php";
+		include_once "logic/SessionCardDAO.php";
+		?>
 		<main>
 			<div class="cardspage">
 				<?php 
-				include_once "logic/CardController.php";
-				include_once "logic/SessionBasedCardDAO.php";
-				$memory = SessionBasedCardDAO::getInstance();
-				echo htmlOfCards($memory->loadAllUnclaimedCards());
+				$cardmanager = new SessionCardDAO();
+				echo htmlOfCards($cardmanager->loadAllUnclaimedCards());
 				?>
 			</div>
 		</main>

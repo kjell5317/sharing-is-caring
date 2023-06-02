@@ -18,10 +18,10 @@
 		<h1>Registrierung</h1>
 		<h3>Registriere dich bei uns um Essen anzubieten und abzuholen. Teile dein Essen mit ganz Oldenburg!</h3>
 		<?php if ($error): ?>
-			<p class="message">
-				<?php echo $error; ?>
-			</p>
-		<?php endif; ?>
+      	  <p class="message">
+       	 	<?php echo $error; ?>
+     	  </p>
+    	<?php endif; ?>
 		<form method="POST">
 			<input type="hidden" name="register">
 			<input type="text" id="email" name="email" required placeholder="E-Mail Adresse" aria-label="E-Mail" />

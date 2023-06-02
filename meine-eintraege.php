@@ -1,16 +1,7 @@
 <?php
-include "logic/usermanagement.php";
-include "logic/CardController.php";
-include_once "logic/SessionBasedCardDAO.php";
-$memory = SessionBasedCardDAO::getInstance();
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	echo "hi";
-	if (isset($_SESSION['lastDisplayedCard']) && isset($_POST['eintrag'])) {
-		$_SESSION['lastDisplayedCard']->claim();
-		echo "claimed";
-	}
-}
-$memory->storeClaimedCard();
+include "logic/UserManagement.php";
+include "logic/CardTranslator.php";
+include_once "logic/SessionCardDAO.php";
 
 ?>
 <!DOCTYPE html>
@@ -31,13 +22,15 @@ $memory->storeClaimedCard();
 		<h4>Abholen</h4>
 		<div class="cardspage">
 			<?php
-			echo htmlOfCards($memory->loadClaimedCardsOfUser(unserialize($_SESSION['loggedInUser'])));
+			$usermanager = new SessionUserDAO();
+			echo htmlOfCards($usermanager->loadClaimedCards());
 			?>
 		</div>
 		<h4>Meine Einträge</h4>
 		<div class="cardspage">
 			<?php
-			echo htmlOfCards($memory->loadCardsOfUser(unserialize($_SESSION['loggedInUser'])));
+			$usermanager = new SessionUserDAO();
+			echo htmlOfCards($usermanager->loadCards());
 			?>
 		</div>
 	</main>
