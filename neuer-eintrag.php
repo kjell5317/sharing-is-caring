@@ -37,6 +37,16 @@
         <input type="date" id="expiration-date" name="expiration-date" required>
         <div class="address">
           <div>
+            <label for="street">Straße</label>
+            <input type="text" id="street" name="street" placeholder="Straße" required>
+          </div>
+          <div>
+            <label for="number">Hausnummer</label>
+            <input type="text" id="number" name="number" placeholder="Hausnummer" required>
+          </div>
+        </div>
+        <div class="address">
+          <div>
             <label for="postal-code">Postleitzahl</label>
             <input type="text" id="postal-code" name="postal-code" placeholder="Postleitzahl" required>
           </div>

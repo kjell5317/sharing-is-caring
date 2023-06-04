@@ -6,62 +6,42 @@ include_once "CardDAO.php";
 class SessionCardDAO implements CardDAO
 {
 
-    public function saveCard($title, $foodType, $expirationDate, $place, $postalCode, $image, $description, $claimed, $owner)
+    public function saveCard($card)
     {
-        $pathToImages = "tmp/images/";
-        $imagePath = $pathToImages . basename($image['name']);
-        while (file_exists($imagePath)) {
-            $imagePath = $pathToImages . strval(rand(2000000)) . basename(($image['name'])); // give kinda random name to image if an image with existing name is uploaded;
-        }
-        move_uploaded_file($image['tmp_name'], "../" . $imagePath);
-
-        $card = new Card;
-        $card->id = random_int(10000, 99999);
-        $card->title = $title;
-        $card->foodType = $foodType;
-        $card->expirationDate = $expirationDate;
-        $card->place = $place;
-        $card->postalCode = $postalCode;
-        $card->imagePath = $imagePath;
-        $card->description = $description;
-        $card->claimed = $claimed;
-        $card->owner = unserialize($_SESSION['loggedInUser']);
-
         $_SESSION['cards'][$card->id] = serialize($card);
+        return $card->id;
     }
 
-    public function updateCard($id, $card)
+    public function updateCard($card)
     {
-        $_SESSION['cards'][$id] = serialize($card);
+        $_SESSION['cards'][$card->id] = serialize($card);
     }
 
     public function claimCard()
     {
-        $cardmanager = new SessionCardDAO();
-        $card = $cardmanager->loadCard($_GET['id']);
+        $card = $this->loadCard($_GET['id']);
         if (isset($_SESSION['loggedInUser'])) {
-            if (!$card->claimed) {
+            if ($card->claimer == null) {
                 $_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']] = serialize($card);
-                $card->claimed = true;
-                $cardmanager->updateCard($_GET['id'], $card);
+                $card->claimer = unserialize($_SESSION['loggedInUser'])->email;
+                $this->updateCard($_GET['id'], $card);
             }
         }
     }
 
     public function unclaimCard()
     {
-        $cardmanager = new SessionCardDAO();
-        $card = $cardmanager->loadCard($_GET['id']);
+        $card = $this->loadCard($_GET['id']);
         if (isset($_SESSION['loggedInUser'])) {
-            if ($card->claimed) {
+            if (isset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']])) {
                 unset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']]);
-                $card->claimed = false;
-                $cardmanager->updateCard($_GET['id'], $card);
+                $card->claimer = null;
+                $this->updateCard($_GET['id'], $card);
             }
         }
     }
 
-    public function loadCard($id): Card
+    public function loadCard($id)
     {
         if (isset($_SESSION['cards'])) {
             foreach ($_SESSION['cards'] as $card) {
@@ -71,6 +51,32 @@ class SessionCardDAO implements CardDAO
             }
         }
         return new Card;
+    }
+
+    public function loadUserClaimedCards(): array
+    {
+        $user = $_SESSION['loggedInUser'];
+        $claimedCards = array();
+        if (isset($_SESSION['claimedCards'][$user])) {
+            foreach ($_SESSION['claimedCards'][$user] as $card) {
+                $claimedCards[] = $card;
+            }
+        }
+        return $claimedCards;
+    }
+
+    public function loadUserCards(): array
+    {
+        $user = unserialize($_SESSION['loggedInUser']);
+        $cards = array();
+        if (isset($_SESSION['cards'])) {
+            foreach ($_SESSION['cards'] as $card) {
+                if (unserialize($card)->owner == $user->email) {
+                    $cards[] = $card;
+                }
+            }
+        }
+        return $cards;
     }
 
     public function loadAllCards(): array
@@ -89,7 +95,7 @@ class SessionCardDAO implements CardDAO
         $cards = array();
         if (isset($_SESSION['cards'])) {
             foreach ($_SESSION['cards'] as $card) {
-                if (!unserialize($card)->claimed) {
+                if (unserialize($card)->claimer == null) {
                     $cards[] = $card;
                 }
             }

@@ -2,11 +2,13 @@
 <html lang="de">
 
 <?php
-include_once "logic/SessionCardDAO.php";
+include_once "logic/SQLCardDAO.php";
 include_once "logic/CardManager.php";
 
+$addressmanager = new SQLAddressDAO();
+
 if (isset($_GET['id'])) {
-  $cardmanager = new SessionCardDAO();
+  $cardmanager = new SQLCardDAO();
   $card = $cardmanager->loadCard($_GET['id']);
 }
 ?>
@@ -46,7 +48,7 @@ if (isset($_GET['id'])) {
           <div class="mini-text">
             <img src="assets/mark.svg" class="mini" />
             <p>
-              <?= $card->postalCode . " " . $card->place ?>
+              <?= $addressmanager->get($card->addr_id)->postalCode . " " . $addressmanager->get($card->addr_id)->city ?>
             </p>
           </div>
         </li>
@@ -58,7 +60,7 @@ if (isset($_GET['id'])) {
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
-        <?php if (isset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']])): ?>
+        <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->email): ?>
           <input type="hidden" name="unclaim"/>
           <button class="accent" type="submit">Will ich nicht mehr!</button>
       <?php else: ?>

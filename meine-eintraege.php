@@ -1,7 +1,7 @@
 <?php
 include "logic/UserManagement.php";
 include "logic/CardTranslator.php";
-include_once "logic/SessionCardDAO.php";
+include_once "logic/SQLCardDAO.php";
 
 ?>
 <!DOCTYPE html>
@@ -17,20 +17,22 @@ include_once "logic/SessionCardDAO.php";
 </head>
 
 <body>
-	<?php include "components/header.php"; ?>
+	<?php 
+	include "components/header.php"; 
+	?>
 	<main>
 		<h4>Abholen</h4>
 		<div class="cardspage">
 			<?php
-			$usermanager = new SessionUserDAO();
-			echo htmlOfCards($usermanager->loadClaimedCards());
+			$cardmanager = new SQLCardDAO();
+			echo htmlOfCards($cardmanager->loadUserClaimedCards());
 			?>
 		</div>
 		<h4>Meine Einträge</h4>
 		<div class="cardspage">
 			<?php
-			$usermanager = new SessionUserDAO();
-			echo htmlOfCards($usermanager->loadCards());
+			$cardmanager = new SQLCardDAO();
+			echo htmlOfCards($cardmanager->loadUserCards());
 			?>
 		</div>
 	</main>

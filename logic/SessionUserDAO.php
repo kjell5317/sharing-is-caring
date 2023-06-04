@@ -6,48 +6,33 @@ include_once "SessionCardDAO.php";
 class SessionUserDAO implements UserDAO
 {
 
-    public function createUser($email, $password)
+    public function createUser($email, $password) : bool
     {
         $user = new User($email, $password);
 
+        if (isset($_SESSION["users"][$email])) {
+            $_SESSION["error"] = "Du hast bereits ein Konto!";
+            return false;
+        }
+
         $_SESSION['users'][$email] = serialize($user);
         $_SESSION['loggedInUser'] = serialize($user);
+
+        return true;
     }
 
-    public function login($user)
+    public function login($user) : bool
     {
         $_SESSION['loggedInUser'] = serialize($user);
+
+        return true;
     }
 
-    public function logout()
+    public function logout() : bool
     {
         unset($_SESSION['loggedInUser']);
-    }
-
-    public function loadClaimedCards(): array
-    {
-        $user = $_SESSION['loggedInUser'];
-        $claimedCards = array();
-        if (isset($_SESSION['claimedCards'][$user])) {
-            foreach ($_SESSION['claimedCards'][$user] as $card) {
-                $claimedCards[] = $card;
-            }
-        }
-        return $claimedCards;
-    }
-
-    public function loadCards(): array
-    {
-        $user = unserialize($_SESSION['loggedInUser']);
-        $cards = array();
-        if (isset($_SESSION['cards'])) {
-            foreach ($_SESSION['cards'] as $card) {
-                if (unserialize($card)->owner == $user) {
-                    $cards[] = $card;
-                }
-            }
-        }
-        return $cards;
+        
+        return true;
     }
 
     public function get($email)

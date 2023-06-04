@@ -14,12 +14,12 @@
 	<?php
 	include "components/header.php";
 	include_once "logic/CardTranslator.php";
-	include_once "logic/SessionCardDAO.php";
+	include_once "logic/SQLCardDAO.php";
 	?>
 	<main>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SessionCardDAO();
+			$cardmanager = new SQLCardDAO();
 			echo htmlOfCards($cardmanager->loadAllUnclaimedCards());
 			?>
 		</div>

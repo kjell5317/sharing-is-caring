@@ -27,7 +27,8 @@
 		<?php endif; ?>
     <form method="POST">
       <input type="hidden" name="login">
-      <input type="text" id="email" name="email" required placeholder="E-Mail Adresse" aria-label="E-Mail" />
+      <input type="text" id="email" name="email" required placeholder="E-Mail Adresse" aria-label="E-Mail" 
+          value="<?= isset($_SESSION["email"]) ? htmlentities($_SESSION["email"]) : ""; ?>"/>
       <input type="password" id="password" name="password" required placeholder="Passwort" aria-label="Password" />
       <input type="submit" value="Anmelden" class="accent" />
       <p>Noch kein Konto?<a href="registrierung.php">Jetzt Registrieren!</a></p>

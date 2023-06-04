@@ -1,4 +1,6 @@
-<?php include "logic/UserManagement.php"; ?>
+<?php 
+include_once "logic/UserManagement.php"; 
+?>
 <header>
   <a href="index.php" class="nav-el" id="logo"><img src="assets/logo.png" alt="Logo" /></a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open menu" />
