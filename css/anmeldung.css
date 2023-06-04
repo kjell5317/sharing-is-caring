@@ -14,8 +14,11 @@ h1 {
     color: rgba(0, 87, 255, 0.7);
     margin: 0 0 16px;
 }
-.message {
+.errormessage {
     color: rgba(255, 0, 13, 0.7);
+}
+.infomessage {
+    color: rgba(4, 206, 64, 0.781);
 }
 main {
     z-index: -1;

@@ -33,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $password = password_hash($password, PASSWORD_DEFAULT);
             $userDAO->createUser($email, $password);
+            $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
 
             // Umleitung zur Startseite
-            header("Location: index.php");
-            exit;
+            header("refresh:2;url=index.php"); 
         } else {
             $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben!';
 
@@ -56,10 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($user)) {
             if (password_verify($password, $user->password)) {
                 $userDAO->login($user);
+                $_SESSION['info'] = 'Du wurdest erfolgreich eingeloggt! Viel Spaß beim teilen.';
 
                 // Umleitung zur Startseite
-                header("Location: index.php");
-                exit;
+                header("refresh:2;url=index.php"); 
             } else {
                 $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben';
 
@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if (isset($_GET['logout'])) {
     $userDAO->logout();
+    $_SESSION['info'] = 'Du wurdest erfolgreich ausgeloggt! Bis zum nächsten mal.';
 
     // Umleitung zur Startseite
     header("Location: index.php");
@@ -87,5 +88,8 @@ if (isset($_GET['logout'])) {
 
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
+
+$info = $_SESSION['info'] ?? '';
+unset($_SESSION['info']);
 
 ?>

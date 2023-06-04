@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cardmanager = new SessionCardDAO();
         $cardmanager->saveCard($title, $foodType, $expdate, $place, $postalCode, $image, $description, false, $_SESSION["loggedInUser"]);
 
-        header("Location: meine-eintraege.php");
+        header("Location: ../meine-eintraege.php");
         exit;
     }
 
