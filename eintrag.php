@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
 
-<?php
-include_once "logic/SQLCardDAO.php";
-include_once "logic/CardManager.php";
-
-$addressmanager = new SQLAddressDAO();
-
-if (isset($_GET['id'])) {
-  $db = Database::getInstance();
-  $conn = $db->getDatabase(); 
-  $cardmanager = new SQLCardDAO($conn);
-  $card = $cardmanager->loadCard($_GET['id']);
-}
-?>
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,7 +12,17 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-  <?php include "components/header.php"; ?>
+  <?php include "components/header.php";
+  include_once "logic/SQLCardDAO.php";
+  include_once "logic/CardManager.php";
+
+  if (isset($_GET['id'])) {
+    $db = Database::getInstance();
+    $conn = $db->getDatabase();
+    $cardmanager = new SQLCardDAO($conn);
+    $addressmanager = new SQLAddressDAO($conn);
+    $card = $cardmanager->loadCard($_GET['id']);
+  } ?>
   <main>
     <h1>
       <?= $card->title ?>
@@ -63,13 +59,13 @@ if (isset($_GET['id'])) {
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
         <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->email): ?>
-          <input type="hidden" name="unclaim"/>
+          <input type="hidden" name="unclaim" />
           <button class="accent" type="submit">Will ich nicht mehr!</button>
-      <?php else: ?>
-        <input type="hidden" name="claim"/>
-        <button class="accent" type="submit">Will ich haben!</button>
-      <?php endif; ?>
-        
+        <?php else: ?>
+          <input type="hidden" name="claim" />
+          <button class="accent" type="submit">Will ich haben!</button>
+        <?php endif; ?>
+
       </div>
       <div class="image-container">
         <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild" />

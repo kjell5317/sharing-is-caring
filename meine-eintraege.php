@@ -1,9 +1,3 @@
-<?php
-include "logic/UserManagement.php";
-include_once "logic/SQLCardDAO.php";
-include_once "logic/SQLAddressDAO.php";
-
-?>
 <!DOCTYPE html>
 <html lang="de">
 
@@ -19,6 +13,9 @@ include_once "logic/SQLAddressDAO.php";
 <body>
 	<?php
 	include "components/header.php";
+	include_once "logic/SQLCardDAO.php";
+	include_once "logic/SQLAddressDAO.php";
+
 	$db = Database::getInstance();
 	$conn = $db->getDatabase();
 	$cardmanager = new SQLCardDAO($conn);
