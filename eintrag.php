@@ -8,7 +8,9 @@ include_once "logic/CardManager.php";
 $addressmanager = new SQLAddressDAO();
 
 if (isset($_GET['id'])) {
-  $cardmanager = new SQLCardDAO();
+  $db = Database::getInstance();
+  $conn = $db->getDatabase(); 
+  $cardmanager = new SQLCardDAO($conn);
   $card = $cardmanager->loadCard($_GET['id']);
 }
 ?>
