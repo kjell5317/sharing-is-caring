@@ -3,7 +3,9 @@ include_once "Card.php";
 include_once "SQLAddressDAO.php";
 
 function htmlOfCard(Card $card) {
-    $addressmanager = new SQLAddressDAO();
+    $db = Database::getInstance();
+    $conn = $db->getDatabase(); 
+    $addressmanager = new SQLAddressDAO($conn);
     $html = '
     <div class="card">
         <link rel="stylesheet" href="css/Card.css"/>

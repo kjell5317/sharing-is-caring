@@ -19,19 +19,21 @@ include_once "logic/SQLCardDAO.php";
 <body>
 	<?php 
 	include "components/header.php"; 
+	$db = Database::getInstance();
+	$conn = $db->getDatabase(); 
 	?>
 	<main>
 		<h4>Abholen</h4>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
+			$cardmanager = new SQLCardDAO($conn);
 			echo htmlOfCards($cardmanager->loadUserClaimedCards());
 			?>
 		</div>
 		<h4>Meine Einträge</h4>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
+			$cardmanager = new SQLCardDAO($conn);
 			echo htmlOfCards($cardmanager->loadUserCards());
 			?>
 		</div>

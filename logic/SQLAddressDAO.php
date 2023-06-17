@@ -4,35 +4,11 @@ include_once "AddressDAO.php";
 
 class SQLAddressDAO implements AddressDAO
 {
-
     protected $db;
 
-    public function __construct()
+    public function __construct($db)
     {
-        if($this->db==null) {
-            try {
-                $this->db = new PDO("sqlite:" . "database/database.db","","",array(
-                    PDO::ATTR_PERSISTENT => true
-                ));
-                $this->initializeDatabase();
-            } catch(PDOExeption $e) {
-                
-            }
-        }
-    }
-
-    private function initializeDatabase()
-    {
-        // Tabelle erstellen, wenn sie nicht existiert
-        $this->db->exec("
-        CREATE TABLE IF NOT EXISTS sharing_address (
-            adr_id INTEGER PRIMARY KEY,
-            postcode VARCHAR(10) NOT NULL,
-            city VARCHAR(100) NOT NULL,
-            street VARCHAR(100) NOT NULL,
-            house_number VARCHAR(10) NOT NULL
-        )
-        ");
+        $this->db = $db;
     }
 
     public function save($address)

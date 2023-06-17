@@ -19,7 +19,9 @@
 	<main>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
+			$db = Database::getInstance();
+			$conn = $db->getDatabase(); 
+			$cardmanager = new SQLCardDAO($conn);
 			echo htmlOfCards($cardmanager->loadAllUnclaimedCards());
 			?>
 		</div>

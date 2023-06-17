@@ -4,7 +4,9 @@ include_once "UserManagement.php";
 include_once "SQLAddressDAO.php";
 
 $pathToImages = "tmp/images/";
-$cardmanager = new SQLCardDAO();
+$db = Database::getInstance();
+$conn = $db->getDatabase();
+$cardmanager = new SQLCardDAO($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

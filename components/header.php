@@ -1,4 +1,5 @@
 <?php 
+include_once "logic/Database.php"; 
 include_once "logic/UserManagement.php"; 
 ?>
 <header>

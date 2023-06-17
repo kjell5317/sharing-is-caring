@@ -6,38 +6,9 @@ class SQLUserDAO implements UserDAO
 {
     protected $db;
 
-    public function __construct()
+    public function __construct($db)
     {
-        if($this->db==null) {
-            try {
-                $this->db = new PDO("sqlite:" . "database/database.db","","",array(
-                    PDO::ATTR_PERSISTENT => true
-                ));
-                $this->initializeDatabase();
-            } catch(PDOExeption $e) {
-                
-            }
-        }
-    }
-
-    private function initializeDatabase()
-    {
-        //Prüfen ob Tabelle Existiert
-        $result = $this->db->query("PRAGMA table_info(sharing_user)");
-
-        // Tabelle erstellen, wenn sie nicht existiert
-        $this->db->exec("
-        CREATE TABLE IF NOT EXISTS sharing_user (
-            email VARCHAR(100) PRIMARY KEY,
-            password VARCHAR(255) NOT NULL
-        )
-        ");
-
-        //Wenn sie vorher nicht existiert hat, dann Testuser einfügen
-        if(!$result->fetch()) {
-            $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password) VALUES (?, ?)");
-            $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT)]);
-        }
+        $this->db = $db;
     }
 
     public function createUser($email, $password) : bool
