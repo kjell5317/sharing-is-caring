@@ -27,18 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pathToImages = "tmp/images/";
         $imagePath = $pathToImages . basename($image['name']);
         while (file_exists($imagePath)) {
-            $imagePath = $pathToImages . strval(rand(2000000)) . basename(($image['name'])); // give kinda random name to image if an image with existing name is uploaded;
+            $imagePath = $pathToImages . uniqid() . basename(($image['name'])); // give kinda random name to image if an image with existing name is uploaded;
         }
         move_uploaded_file($image['tmp_name'], "../" . $imagePath);
 
-        $address = new Address(random_int(10000, 99999), $postalCode, $city, $street, $number);
+        $address = new Address(uniqid(), $postalCode, $city, $street, $number);
         $addr_id = $addressmanager->save($address);
 
-        $card = new Card(random_int(10000, 99999), $title, $foodType, $expdate, $addr_id, $imagePath, $description, unserialize($_SESSION['loggedInUser'])->email, null);
+        $card = new Card(uniqid(), $title, $foodType, $expdate, $addr_id, $imagePath, $description, unserialize($_SESSION['loggedInUser'])->id, null);
         // Create a new instance of the Card class
         $success = $cardmanager->saveCard($card);
         
-        header("Location: ../meine-eintraege.php");
+        header("Location: meine-eintraege.php");
         exit;
 
     }
