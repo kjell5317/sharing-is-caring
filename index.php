@@ -13,14 +13,23 @@
 <body>
 	<?php
 	include "components/header.php";
-	include_once "logic/CardTranslator.php";
 	include_once "logic/SQLCardDAO.php";
+	include_once "logic/SQLAddressDAO.php";
 	?>
 	<main>
 		<div class="cardspage">
 			<?php
 			$cardmanager = new SQLCardDAO();
-			echo htmlOfCards($cardmanager->loadAllUnclaimedCards());
+			$addressmanager = new SQLAddressDAO();
+			$cards = $cardmanager->loadAllUnclaimedCards();
+			if (sizeof($cards) > 0) {
+				foreach ($cards as $card) {
+					$card = unserialize($card);
+					include "components/card.php";
+				}
+			} else {
+				echo "Es gibt kein Essen zu retten :(";
+			}
 			?>
 		</div>
 	</main>

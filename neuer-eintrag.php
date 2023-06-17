@@ -20,7 +20,7 @@
     </div>
     <form method="post" class="neuereintrag" action="logic/CardManager.php" enctype="multipart/form-data">
       <div class="form-section">
-          <input type="hidden" name="newEntry">
+        <input type="hidden" name="newEntry">
         <label for="title">Titel</label>
         <input type="text" id="title" name="title" placeholder="Titel" required>
         <label for="food-type">Essensart</label>
@@ -58,9 +58,17 @@
       </div>
       <div class="form-section image-container">
         <label for="food-image" class="upload-label">
-          <img class="food-img" src="assets/Placeholder.jpg" alt="Beispielbild" />
+          <img id="preview" class="food-img" src="assets/Placeholder.jpg" alt="Beispielbild" />
         </label>
         <input type="file" id="food-image" name="food-image" accept="image/*" required>
+        <script>
+          document.getElementById("food-image").onchange = evt => {
+            const [file] = document.getElementById("food-image").files
+            if (file) {
+              preview.src = URL.createObjectURL(file)
+            }
+          }
+        </script>
       </div>
       <div class="form-section">
         <label for="description">Beschreibung</label>

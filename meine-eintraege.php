@@ -1,7 +1,7 @@
 <?php
 include "logic/UserManagement.php";
-include "logic/CardTranslator.php";
 include_once "logic/SQLCardDAO.php";
+include_once "logic/SQLAddressDAO.php";
 
 ?>
 <!DOCTYPE html>
@@ -17,22 +17,38 @@ include_once "logic/SQLCardDAO.php";
 </head>
 
 <body>
-	<?php 
-	include "components/header.php"; 
+	<?php
+	include "components/header.php";
+	$cardmanager = new SQLCardDAO();
+	$addressmanager = new SQLAddressDAO();
 	?>
 	<main>
 		<h4>Abholen</h4>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
-			echo htmlOfCards($cardmanager->loadUserClaimedCards());
+			$cards = $cardmanager->loadUserClaimedCards();
+			if (sizeof($cards) > 0) {
+				foreach ($cards as $card) {
+					$card = unserialize($card);
+					include "components/card.php";
+				}
+			} else {
+				echo "Du hast noch kein Essen zum Abholen markiert";
+			}
 			?>
 		</div>
 		<h4>Meine Einträge</h4>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
-			echo htmlOfCards($cardmanager->loadUserCards());
+			$cards = $cardmanager->loadUserCards();
+			if (sizeof($cards) > 0) {
+				foreach ($cards as $card) {
+					$card = unserialize($card);
+					include "components/card.php";
+				}
+			} else {
+				echo "Du hast noch kein Essen hochgeladen";
+			}
 			?>
 		</div>
 	</main>
