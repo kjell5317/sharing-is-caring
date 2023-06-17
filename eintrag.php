@@ -46,7 +46,7 @@
           <div class="mini-text">
             <img src="assets/mark.svg" class="mini" />
             <p>
-              <?= $addressmanager->get($card->addr_id)->postalCode . " " . $addressmanager->get($card->addr_id)->city ?>
+              <?= $addressmanager->get($card->adr_id)->postalCode . " " . $addressmanager->get($card->adr_id)->city ?>
             </p>
           </div>
         </li>
@@ -58,7 +58,7 @@
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
-        <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->email): ?>
+        <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
           <input type="hidden" name="unclaim" />
           <button class="accent" type="submit">Will ich nicht mehr!</button>
         <?php else: ?>

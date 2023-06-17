@@ -27,7 +27,8 @@ class SQLUserDAO implements UserDAO
     
                 // Commit
                 $this->db->commit();
-                $user = new User($email, $password);
+                $usr_id = $this->db->lastInsertId();
+                $user = new User($usr_id, $email, $password);
                 $_SESSION['loggedInUser'] = serialize($user);
                 return true;
             } else {
@@ -65,7 +66,7 @@ class SQLUserDAO implements UserDAO
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row) {
-            return new User($row['email'], $row['password']);
+            return new User($row['usr_id'], $row['email'], $row['password']);
         }
         return null;
     }

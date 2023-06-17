@@ -11,8 +11,8 @@
         <?= htmlentities($card->expirationDate) ?>
     </p>
     <p class="ort">
-        <?= htmlentities($addressmanager->get($card->addr_id)->postalCode . ' ' .
-            $addressmanager->get($card->addr_id)->city) ?>
+        <?= htmlentities($addressmanager->get($card->adr_id)->postalCode . ' ' .
+            $addressmanager->get($card->adr_id)->city) ?>
     </p>
     <a class="weiter" href="eintrag.php?id=<?= htmlentities($card->id) ?>">
         <p style="margin: 0;">Zeig mir mehr</p>

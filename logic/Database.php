@@ -53,19 +53,20 @@ class Database
             img_path VARCHAR(255),
             description VARCHAR(65535),
             food_type VARCHAR(20) NOT NULL,
-            addr_id INT NOT NULL,
-            claimer_email VARCHAR(100),
-            creator_email VARCHAR(100) NOT NULL,
-            FOREIGN KEY (claimer_email) REFERENCES sharing_user(email),
-            FOREIGN KEY (creator_email) REFERENCES sharing_user(email),
-            FOREIGN KEY (addr_id) REFERENCES sharing_address(id)
+            adr_id INT NOT NULL,
+            claimer_id VARCHAR(100),
+            creator_id VARCHAR(100) NOT NULL,
+            FOREIGN KEY (claimer_id) REFERENCES sharing_user(usr_id),
+            FOREIGN KEY (creator_id) REFERENCES sharing_user(usr_id),
+            FOREIGN KEY (adr_id) REFERENCES sharing_address(adr_id)
         )
         ");
 
         // Tabelle erstellen, wenn sie nicht existiert
         $this->db->exec("
         CREATE TABLE IF NOT EXISTS sharing_user (
-            email VARCHAR(100) PRIMARY KEY,
+            usr_id INTEGER PRIMARY KEY,
+            email VARCHAR(100) NOT NULL,
             password VARCHAR(255) NOT NULL
         )
         ");
@@ -79,7 +80,7 @@ class Database
             $stmt1->execute(["26203", "Ehrenburg", "Hauptstraße", "12"]);
             $addr_id = $this->db->lastInsertId();
             $stmt2 = $this->db->prepare("
-            INSERT INTO sharing_post (title, mhd, img_path, description, food_type, addr_id, claimer_email, creator_email)
+            INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
             $stmt2->execute(["Halber Döner", "04.06.2023", "assets/lecker.jpg", "Hier könnte deine Werbung stehen", "vegan",
