@@ -19,8 +19,11 @@
 	<main>
 		<div class="cardspage">
 			<?php
-			$cardmanager = new SQLCardDAO();
-			$addressmanager = new SQLAddressDAO();
+			$db = Database::getInstance();
+			$conn = $db->getDatabase();
+			$cardmanager = new SQLCardDAO($conn);
+			$addressmanager = new SQLAddressDAO($conn);
+
 			$cards = $cardmanager->loadAllUnclaimedCards();
 			if (sizeof($cards) > 0) {
 				foreach ($cards as $card) {
@@ -30,6 +33,7 @@
 			} else {
 				echo "Es gibt kein Essen zu retten :(";
 			}
+
 			?>
 		</div>
 	</main>

@@ -19,8 +19,10 @@ include_once "logic/SQLAddressDAO.php";
 <body>
 	<?php
 	include "components/header.php";
-	$cardmanager = new SQLCardDAO();
-	$addressmanager = new SQLAddressDAO();
+	$db = Database::getInstance();
+	$conn = $db->getDatabase();
+	$cardmanager = new SQLCardDAO($conn);
+	$addressmanager = new SQLAddressDAO($conn);
 	?>
 	<main>
 		<h4>Abholen</h4>

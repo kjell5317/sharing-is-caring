@@ -5,7 +5,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-$userDAO = new SQLUserDAO();
+$db = Database::getInstance();
+$conn = $db->getDatabase();
+$userDAO = new SQLUserDAO($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
