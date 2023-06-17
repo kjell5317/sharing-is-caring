@@ -25,16 +25,16 @@
 			$addressmanager = new SQLAddressDAO($conn);
 
 			$cards = $cardmanager->loadAllUnclaimedCards();
-			if (sizeof($cards) > 0) {
-				foreach ($cards as $card) {
+			?>
+			<?php
+			if (sizeof($cards) > 0): ?>
+				<?php foreach ($cards as $card) {
 					$card = unserialize($card);
 					include "components/card.php";
-				}
-			} else {
-				echo "Es gibt kein Essen zu retten :(";
-			}
-
-			?>
+				} ?>
+			<?php else: ?>
+				<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>
+			<?php endif; ?>
 		</div>
 	</main>
 	<?php include "components/footer.php"; ?>
