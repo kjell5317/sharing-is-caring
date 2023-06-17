@@ -75,16 +75,17 @@ class Database
         if(!$result->fetch()) {
             $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password) VALUES (?, ?)");
             $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT)]);
+            $usr_id = $this->db->lastInsertId();
 
             $stmt1 = $this->db->prepare("INSERT INTO sharing_address (postcode, city, street, house_number) VALUES (?, ?, ?, ?)");
             $stmt1->execute(["26203", "Ehrenburg", "Hauptstraße", "12"]);
-            $addr_id = $this->db->lastInsertId();
+            $adr_id = $this->db->lastInsertId();
             $stmt2 = $this->db->prepare("
             INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
             $stmt2->execute(["Halber Döner", "04.06.2023", "assets/lecker.jpg", "Hier könnte deine Werbung stehen", "vegan",
-                    $addr_id, null, "test@test.de"]);
+                    $adr_id, null, $usr_id]);
         }
     }
     public function getDatabase()
