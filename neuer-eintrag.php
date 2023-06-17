@@ -12,6 +12,9 @@
 </head>
 
 <body>
+  <?php if(!isset($_SESSION['loggedInUser'])) {
+    header("Location:index.php");
+  }?>
   <?php include "components/header.php"; ?>
   <main>
     <div>
