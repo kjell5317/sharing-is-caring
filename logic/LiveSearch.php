@@ -25,7 +25,7 @@ if (strlen($q) > 0) {
                 "'>" .
                 $result->title . "</a>";
         } else {
-            $hint = $hint . "<br/><a class='hover' href='eintrag.php?id=" .
+            $hint = $hint . "<a class='hover' href='eintrag.php?id=" .
                 $result->id .
                 "'>" .
                 $result->title . "</a>";
