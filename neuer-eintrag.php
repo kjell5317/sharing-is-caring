@@ -72,8 +72,7 @@
       </div>
       <div class="form-section">
         <label for="description">Beschreibung</label>
-        <textarea id="description" name="description" rows="4" placeholder="Beschreibe dein Essen etwas..."
-          required></textarea>
+        <textarea id="description" name="description" rows="4" placeholder="Beschreibe dein Essen etwas..."></textarea>
         <button class="accent" type="submit">Kostenlos einstellen</button>
       </div>
     </form>

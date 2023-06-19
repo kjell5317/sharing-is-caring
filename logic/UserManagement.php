@@ -1,5 +1,6 @@
 <?php
 include_once "SQLUserDAO.php";
+include_once "Database.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -31,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = password_hash($password, PASSWORD_DEFAULT);
             $response = $userDAO->createUser($email, $password);
 
-            if($response) {
+            if ($response) {
                 $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
 
                 // Umleitung zur Startseite
-                header("refresh:2;url=index.php"); 
+                header("refresh:1;url=index.php");
             } else {
                 // Umleitung zur Registrierungsseite
                 header("Location: registrierung.php");
@@ -62,14 +63,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($password, $user->password)) {
                 $response = $userDAO->login($user);
 
-                if($response) {
+                if ($response) {
                     $_SESSION['info'] = 'Du wurdest erfolgreich eingeloggt! Viel Spaß beim teilen.';
 
                     // Umleitung zur Startseite
-                    header("refresh:2;url=index.php"); 
+                    header("refresh:1;url=index.php");
                 } else {
                     $_SESSION['error'] = 'Hier ist etwas schief gelaufen... Versuche es bitte nochmal!';
-    
+
                     // Umleitung zur Registrierungsseite
                     header("Location: anmeldung.php");
                     exit;
@@ -94,11 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['logout'])) {
     $response = $userDAO->logout();
 
-    if($response) {
+    if ($response) {
         $_SESSION['info'] = 'Du wurdest erfolgreich ausgeloggt! Bis zum nächsten mal.';
 
         // Umleitung zur Startseite
-        header("refresh:2;url=index.php"); 
+        header("Location: index.php");
     } else {
         $_SESSION['error'] = 'Hier ist etwas schief gelaufen... Versuche es bitte nochmal!';
         exit;

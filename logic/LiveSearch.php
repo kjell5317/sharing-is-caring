@@ -13,18 +13,21 @@ if (strlen($q) > 0) {
     $conn = $db->getDatabase();
     $cardmanager = new SQLCardDAO($conn);
     $results = $cardmanager->queryCards(strtolower($q));
+    $results = array_slice($results, 0, 5);
+
     foreach ($results as $result) {
         $result = unserialize($result);
+
         //find a link matching the search text
         if ($hint == "") {
-            $hint = "<a href='eintrag.php?id=" .
+            $hint = "<a class='hover' href='eintrag.php?id=" .
                 $result->id .
-                "' target='_blank'>" .
+                "'>" .
                 $result->title . "</a>";
         } else {
-            $hint = $hint . "<br /><a href='eintrag.php?id=" .
+            $hint = $hint . "<br/><a class='hover' href='eintrag.php?id=" .
                 $result->id .
-                "' target='_blank'>" .
+                "'>" .
                 $result->title . "</a>";
         }
     }

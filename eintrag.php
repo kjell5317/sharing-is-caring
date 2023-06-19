@@ -14,7 +14,7 @@
 <body>
   <?php include "components/header.php";
   include_once "logic/SQLCardDAO.php";
-  include_once "logic/CardManager.php";
+  include_once "logic/SQLAddressDAO.php";
 
   if (isset($_GET['id'])) {
     $db = Database::getInstance();
@@ -22,6 +22,10 @@
     $cardmanager = new SQLCardDAO($conn);
     $addressmanager = new SQLAddressDAO($conn);
     $card = $cardmanager->loadCard($_GET['id']);
+    if (!isset($card)) {
+      header("Location: index.php");
+      exit;
+    }
   } ?>
   <main>
     <h1>

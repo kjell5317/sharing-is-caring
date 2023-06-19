@@ -8,9 +8,10 @@ include_once "logic/UserManagement.php";
   <nav>
     <ul class="nav-el">
       <li>
-        <form action="index.php" class="nav-el">
+        <form action="index.php" class="nav-el" autocomplete="off">
           <input type="text" placeholder="Ich suche nach..." name="search" aria-label="Suche"
-            onkeyup="showResult(this.value)" />
+            onkeyup="showResult(this.value)"
+            value="<?= isset($_GET["search"]) ? htmlentities($_GET["search"]) : ""; ?>" />
           <button type="submit" value="Suche"><img src="assets/search.svg" alt="Search Icon" /></button>
         </form>
         <div id="livesearch"></div>
@@ -33,18 +34,25 @@ include_once "logic/UserManagement.php";
     function showResult(str) {
       if (str.length == 0) {
         document.getElementById("livesearch").innerHTML = "";
-        document.getElementById("livesearch").style.border = "0px";
+        document.getElementById("livesearch").classList.remove("active");
+        document.querySelector("nav input[type='text']").style.borderRadius = "50px 0 0 50px";
+        document.querySelector("nav button[type='submit']").style.borderRadius = "0 50px 50px 0";
+        document.querySelector("nav form").style.borderRadius = "50px";
         return;
       }
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           document.getElementById("livesearch").innerHTML = this.responseText;
-          document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
+          document.getElementById("livesearch").classList.add("active");
+          document.querySelector("nav input[type='text']").style.borderRadius = "25px 0 0 0";
+          document.querySelector("nav button[type='submit']").style.borderRadius = "0 25px 0 0";
+          document.querySelector("nav form").style.borderRadius = "25px 25px 0 0";
         }
       }
       xmlhttp.open("GET", "logic/LiveSearch.php?q=" + str, true);
       xmlhttp.send();
+
     }
   </script>
 </header>

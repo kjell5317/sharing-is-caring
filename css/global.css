@@ -53,6 +53,20 @@ nav {
     background-size: 100% 100%;
 }
 
+#livesearch.active {
+    border: 2px solid var(--blue);
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    width: calc(35vw + 49px);
+}
+#livesearch {
+    border: none;
+    background: #F2F1FA;
+    z-index: 100;
+    position: absolute;
+    width: calc(35vw + 45px);
+}
+
 ul {
     display: flex;
     list-style: none;
@@ -65,6 +79,7 @@ li {
     align-items: center;
     text-align: center;
     padding: 10px;
+    position: relative;
 }
 a {
     text-decoration: none;
@@ -98,8 +113,15 @@ nav form {
     border-radius: 50px;
 }
 nav form:focus-within {
-    outline: 2px solid var(--blue);
+    border: 2px solid var(--blue);
 }
+
+nav form:not(:focus-within) + #livesearch.active {
+    border: none;
+    border-top: 2px solid var(--blue);
+    width: calc(35vw + 45px);
+}
+
 nav input[type="text"] {
     border-radius: 50px 0 0 50px;
     background: #F2F1FA;

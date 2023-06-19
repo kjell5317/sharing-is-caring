@@ -211,7 +211,7 @@ class SQLCardDAO implements CardDAO
         $queryedCards = array();
         $sql = "SELECT * FROM sharing_post WHERE LOWER(title) LIKE ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(["%" . $q . "%"]);
 
         $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($cards as $row) {

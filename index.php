@@ -15,17 +15,19 @@
 	include "components/header.php";
 	include_once "logic/SQLCardDAO.php";
 	include_once "logic/SQLAddressDAO.php";
+	$db = Database::getInstance();
+	$conn = $db->getDatabase();
+	$cardmanager = new SQLCardDAO($conn);
+	$addressmanager = new SQLAddressDAO($conn);
+
+	if (isset($_GET['search']) && !empty($_GET['search'])) {
+		$cards = $cardmanager->queryCards($_GET['search']);
+	} else {
+		$cards = $cardmanager->loadAllUnclaimedCards();
+	}
 	?>
 	<main>
 		<div class="cardspage">
-			<?php
-			$db = Database::getInstance();
-			$conn = $db->getDatabase();
-			$cardmanager = new SQLCardDAO($conn);
-			$addressmanager = new SQLAddressDAO($conn);
-
-			$cards = $cardmanager->loadAllUnclaimedCards();
-			?>
 			<?php
 			if (sizeof($cards) > 0): ?>
 				<?php foreach ($cards as $card) {
