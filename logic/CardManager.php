@@ -2,17 +2,17 @@
 include_once "SQLCardDAO.php";
 include_once "UserManagement.php";
 include_once "SQLAddressDAO.php";
+include_once "Database.php";
 
 $pathToImages = "tmp/images/";
 $db = Database::getInstance();
 $conn = $db->getDatabase();
 $cardmanager = new SQLCardDAO($conn);
+$addressmanager = new SQLAddressDAO($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['newEntry'])) {
-        $addressmanager = new SQLAddressDAO();
-
         $title = $_POST['title'];
         $foodType = $_POST['food-type'];
         $expdate = $_POST['expiration-date'];
@@ -25,10 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $number = $_POST['number'];
 
         $pathToImages = "tmp/images/";
-        $imagePath = $pathToImages . basename($image['name']);
-        while (file_exists($imagePath)) {
-            $imagePath = $pathToImages . uniqid() . basename(($image['name'])); // give kinda random name to image if an image with existing name is uploaded;
-        }
+        $imagePath = $pathToImages . basename($image['name']) . uniqid();
         move_uploaded_file($image['tmp_name'], "../" . $imagePath);
 
         $address = new Address(uniqid(), $postalCode, $city, $street, $number);
@@ -37,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $card = new Card(uniqid(), $title, $foodType, $expdate, $addr_id, $imagePath, $description, unserialize($_SESSION['loggedInUser'])->id, null);
         // Create a new instance of the Card class
         $success = $cardmanager->saveCard($card);
-        
+
         header("Location: meine-eintraege.php");
         exit;
 

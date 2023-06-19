@@ -20,12 +20,14 @@ class SQLCardDAO implements CardDAO
             INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            
-            $stmt->execute([$card->title, $card->expirationDate, $card->imagePath, $card->description, 
-                    $card->foodType, $card->adr_id, $card->claimer, $card->owner]);
+
+            $stmt->execute([
+                $card->title, $card->expirationDate, $card->imagePath, $card->description,
+                $card->foodType, $card->adr_id, $card->claimer, $card->owner
+            ]);
             $this->db->commit();
             return $this->db->lastInsertId();
-        }  catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->db->rollback();
             error_log("Fehler bei Eintrag speichern... -> " . $e);
             $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
@@ -41,12 +43,14 @@ class SQLCardDAO implements CardDAO
             UPDATE sharing_post SET title = ?, mhd = ?, img_path = ?, description = ?, food_type = ?, adr_id = ?, claimer_id = ?, creator_id = ?
             WHERE post_id = ?
             ");
-            
-            $stmt->execute([$card->title, $card->expirationDate, $card->imagePath, $card->description, 
-                    $card->foodType, $card->adr_id, $card->claimer, $card->owner]);
+
+            $stmt->execute([
+                $card->title, $card->expirationDate, $card->imagePath, $card->description,
+                $card->foodType, $card->adr_id, $card->claimer, $card->owner
+            ]);
             $this->db->commit();
             return true;
-        }  catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->db->rollback();
             error_log("Fehler bei Eintrag update... -> " . $e);
             $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
@@ -62,7 +66,7 @@ class SQLCardDAO implements CardDAO
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($row) {
+        if ($row) {
             return new Card($row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'], $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']);
         }
         return null;
@@ -79,11 +83,11 @@ class SQLCardDAO implements CardDAO
                     $stmt = $this->db->prepare("
                     UPDATE sharing_post SET claimer_id = ? WHERE post_id = ?
                     ");
-                    
+
                     $stmt->execute([unserialize($user)->id, $card->id]);
                     $this->db->commit();
                     return true;
-                }  catch (PDOException $e) {
+                } catch (PDOException $e) {
                     $this->db->rollback();
                     error_log("Fehler bei Claimer update... -> " . $e);
                     $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
@@ -104,11 +108,11 @@ class SQLCardDAO implements CardDAO
                     $stmt = $this->db->prepare("
                     UPDATE sharing_post SET claimer_id = ? WHERE post_id = ?
                     ");
-                    
+
                     $stmt->execute([null, $card->id]);
                     $this->db->commit();
                     return true;
-                }  catch (PDOException $e) {
+                } catch (PDOException $e) {
                     $this->db->rollback();
                     error_log("Fehler bei Claimer update... -> " . $e);
                     $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
@@ -120,17 +124,21 @@ class SQLCardDAO implements CardDAO
 
     public function loadUserClaimedCards(): array
     {
-        if(isset($_SESSION['loggedInUser'])) {
+        if (isset($_SESSION['loggedInUser'])) {
             $user = $_SESSION['loggedInUser'];
             $claimedCards = array();
             $sql = "SELECT * FROM sharing_post WHERE claimer_id = ?";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([unserialize($user)->id]);
-    
+
             $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($cards as $row) {
-                $claimedCards[] = serialize(new Card($row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
-                 $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']));
+                $claimedCards[] = serialize(
+                    new Card(
+                        $row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
+                        $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']
+                    )
+                );
             }
             return $claimedCards;
         }
@@ -139,17 +147,21 @@ class SQLCardDAO implements CardDAO
 
     public function loadUserCards(): array
     {
-        if(isset($_SESSION['loggedInUser'])) {
+        if (isset($_SESSION['loggedInUser'])) {
             $user = $_SESSION['loggedInUser'];
             $ownedCards = array();
             $sql = "SELECT * FROM sharing_post WHERE creator_id = ?";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([unserialize($user)->id]);
-    
+
             $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($cards as $row) {
-                $ownedCards[] = serialize(new Card($row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'], 
-                $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']));
+                $ownedCards[] = serialize(
+                    new Card(
+                        $row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
+                        $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']
+                    )
+                );
             }
             return $ownedCards;
         }
@@ -165,8 +177,12 @@ class SQLCardDAO implements CardDAO
 
         $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($cards as $row) {
-            $allCards[] = serialize(new Card($row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'], 
-            $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']));
+            $allCards[] = serialize(
+                new Card(
+                    $row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
+                    $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']
+                )
+            );
         }
         return $allCards;
     }
@@ -180,10 +196,33 @@ class SQLCardDAO implements CardDAO
 
         $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($cards as $row) {
-            $unclaimedCards[] = serialize(new Card($row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'], 
-            $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']));
+            $unclaimedCards[] = serialize(
+                new Card(
+                    $row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
+                    $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']
+                )
+            );
         }
         return $unclaimedCards;
+    }
+
+    public function queryCards($q): array
+    {
+        $queryedCards = array();
+        $sql = "SELECT * FROM sharing_post WHERE LOWER(title) LIKE ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($cards as $row) {
+            $queryedCards[] = serialize(
+                new Card(
+                    $row['post_id'], $row['title'], $row['food_type'], $row['mhd'], $row['adr_id'],
+                    $row['img_path'], $row['description'], $row['creator_id'], $row['claimer_id']
+                )
+            );
+        }
+        return $queryedCards;
     }
 }
 ?>

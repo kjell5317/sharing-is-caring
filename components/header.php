@@ -1,6 +1,6 @@
-<?php 
-include_once "logic/Database.php"; 
-include_once "logic/UserManagement.php"; 
+<?php
+include_once "logic/Database.php";
+include_once "logic/UserManagement.php";
 ?>
 <header>
   <a href="index.php" class="nav-el" id="logo"><img src="assets/logo.png" alt="Logo" /></a>
@@ -9,9 +9,11 @@ include_once "logic/UserManagement.php";
     <ul class="nav-el">
       <li>
         <form action="index.php" class="nav-el">
-          <input type="text" placeholder="Ich suche nach..." name="search" aria-label="Suche" />
+          <input type="text" placeholder="Ich suche nach..." name="search" aria-label="Suche"
+            onkeyup="showResult(this.value)" />
           <button type="submit" value="Suche"><img src="assets/search.svg" alt="Search Icon" /></button>
         </form>
+        <div id="livesearch"></div>
       </li>
       <?php if (isset($_SESSION['loggedInUser'])): ?>
         <li><a href="neuer-eintrag.php" class="hover">Neuer Eintrag</a></li>
@@ -27,4 +29,22 @@ include_once "logic/UserManagement.php";
     <span id="nd"></span>
     <span id="rd"></span>
   </label>
+  <script>
+    function showResult(str) {
+      if (str.length == 0) {
+        document.getElementById("livesearch").innerHTML = "";
+        document.getElementById("livesearch").style.border = "0px";
+        return;
+      }
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("livesearch").innerHTML = this.responseText;
+          document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
+        }
+      }
+      xmlhttp.open("GET", "logic/LiveSearch.php?q=" + str, true);
+      xmlhttp.send();
+    }
+  </script>
 </header>
