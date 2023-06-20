@@ -37,7 +37,6 @@
 			<?php else: ?>
 				<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>
 			<?php endif; ?>
-		</div>
 		<?php include_once "logic/InfiniteScrolling.php" ?>
 	</main>
 	<?php include "components/footer.php"; ?>

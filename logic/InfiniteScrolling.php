@@ -1,28 +1,29 @@
-<script> 
-
-function loadNumberOfCards($numberOFCardsToLoad) {
+<script>
+function loadNumberOfCards(numberOfCardsToLoad) {   
     var request = new XMLHttpRequest();
-    request.open('GET', "components/card.php?cardId=" + $numberOFCardsToLoad ,true);
-    request.onreadystatechange = function {
+    request.open('GET', "logic/CardFetcher.php?numberOfCards=" + numberOfCardsToLoad, true);
+    request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
             var cardspage = document.getElementById("cardspage");
-            $cardsToLoad = request.responseText();
-            cardspage.insertAdjacentHTML('beforeend', $cardsToLoad);
+            var cardsToLoad = request.responseText;
+            console.log(cardsToLoad);
+            cardspage.insertAdjacentHTML('beforeend', cardsToLoad);
         }
-    }
+    };
+    request.send();
 }
 
-handleinfinteSroll = () => {
-    endOfPage = window.innerHeight + window.pageYOffset >= document.getElementById("cardspage").offsetHeight;
+function handleInfiniteScroll() {
+    var endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
-    if (endOfPage) {
+    if (endOfPage) {;
         loadNumberOfCards(15);
     }
 }
 
-const test = () => {
-    document.getElementById("cardspage").innerHTML = "test";
-}
+window.onload = function () {
+    loadNumberOfCards(3);
+};
 
-window.addEventListener("scroll",test);
+window.addEventListener("scroll",(event) => {handleInfiniteScroll()});
 </script>

@@ -234,7 +234,6 @@ class SQLCardDAO implements CardDAO
         $stmt->execute();
         $CardIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $maxNumber = count($CardIds);
-        echo json_encode($CardIds);
 
         $cards = [];
         $goal = $GLOBALS['currentNumberOfCards'] + $number;
