@@ -229,7 +229,7 @@ class SQLCardDAO implements CardDAO
         if (!(isset($GLOBALS['currentNumberOfCards']))) {
             $GLOBALS['currentNumberOfCards'] = 0;
         }
-        $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NU LL";
+        $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $CardIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
