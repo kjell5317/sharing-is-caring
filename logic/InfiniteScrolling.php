@@ -17,12 +17,13 @@ function handleInfiniteScroll() {
     var endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
     if (endOfPage) {;
-        loadNumberOfCards(15);
+        loadNumberOfCards(2);
     }
 }
 
 window.onload = function () {
-    loadNumberOfCards(3);
+    $initialCards = 3;
+    loadNumberOfCards($initialCards);
 };
 
 window.addEventListener("scroll",(event) => {handleInfiniteScroll()});

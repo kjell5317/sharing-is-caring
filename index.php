@@ -23,11 +23,12 @@
 	if (isset($_GET['search']) && !empty($_GET['search'])) {
 		$cards = $cardmanager->queryCards($_GET['search']);
 	} else {
-		$cards = $cardmanager->loadUnclaimedCardsSequential(5);
+		$cards = $cardmanager->loadAllUnclaimedCards();
 	}
 	?>
 	<main>
 		<div class="cardspage" id="cardspage">
+			<noscript>
 			<?php
 			if (sizeof($cards) > 0): ?>
 				<?php foreach ($cards as $card) {
@@ -37,6 +38,7 @@
 			<?php else: ?>
 				<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>
 			<?php endif; ?>
+			</noscript>
 		<?php include_once "logic/InfiniteScrolling.php" ?>
 	</main>
 	<?php include "components/footer.php"; ?>
