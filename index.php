@@ -23,7 +23,7 @@
 	if (isset($_GET['search']) && !empty($_GET['search'])) {
 		$cards = $cardmanager->queryCards($_GET['search']);
 	} else {
-		$cards = $cardmanager->loadAllUnclaimedCards();
+		$cards = $cardmanager->loadUnclaimedCardsSequential(5);
 	}
 	?>
 	<main>

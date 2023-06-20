@@ -224,5 +224,25 @@ class SQLCardDAO implements CardDAO
         }
         return $queryedCards;
     }
+
+    public function loadUnclaimedCardsSequential(int $number): array {
+        if (!(isset($GLOBALS['currentNumberOfCards']))) {
+            $GLOBALS['currentNumberOfCards'] = 0;
+        }
+        $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $CardIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $maxNumber = count($CardIds);
+        echo json_encode($CardIds);
+
+        $cards = [];
+        $goal = $GLOBALS['currentNumberOfCards'] + $number;
+        while(($GLOBALS['currentNumberOfCards'] < $maxNumber) && $GLOBALS['currentNumberOfCards'] < $goal) {
+            $cards[] = serialize($this->loadCard($CardIds[$GLOBALS['currentNumberOfCards']]['post_id']));
+            $GLOBALS['currentNumberOfCards'] += 1;
+        }
+        return $cards;
+    }
 }
 ?>
