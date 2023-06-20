@@ -27,7 +27,7 @@
 	}
 	?>
 	<main>
-		<div class="cardspage">
+		<div class="cardspage" id="cardspage">
 			<?php
 			if (sizeof($cards) > 0): ?>
 				<?php foreach ($cards as $card) {
@@ -38,6 +38,7 @@
 				<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>
 			<?php endif; ?>
 		</div>
+		<?php include_once "logic/InfiniteScrolling.php" ?>
 	</main>
 	<?php include "components/footer.php"; ?>
 </body>

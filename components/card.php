@@ -1,4 +1,3 @@
-
 <div class="card">
     <link rel="stylesheet" href="css/Card.css" />
     <img class="photo" src="<?= htmlentities($card->imagePath) ?>" />
