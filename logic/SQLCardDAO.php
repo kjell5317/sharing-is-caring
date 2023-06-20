@@ -226,7 +226,7 @@ class SQLCardDAO implements CardDAO
     }
 
     public function loadUnclaimedCardsSequential(int $number): array {
-        if (!(isset($GLOBALS['currentNumberOfCards']))) {
+        if (!(isset($GLOBALS['currentNumberOfCards']))) { // Derlandet hier immer wieder auf null
             $GLOBALS['currentNumberOfCards'] = 0;
         }
         $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NULL";
