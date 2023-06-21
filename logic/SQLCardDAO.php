@@ -226,8 +226,8 @@ class SQLCardDAO implements CardDAO
     }
 
     public function loadUnclaimedCardsSequential(int $number): array {
-        if (!(isset($GLOBALS['currentNumberOfCards']))) { // Derlandet hier immer wieder auf null
-            $GLOBALS['currentNumberOfCards'] = 0;
+        if (!(isset($_SESSION['currentNumberOfCards']))) { // Derlandet hier immer wieder auf null
+            $_SESSION['currentNumberOfCards'] = 0;
         }
         $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NULL";
         $stmt = $this->db->prepare($sql);
@@ -236,10 +236,10 @@ class SQLCardDAO implements CardDAO
         $maxNumber = count($CardIds);
 
         $cards = [];
-        $goal = $GLOBALS['currentNumberOfCards'] + $number;
-        while(($GLOBALS['currentNumberOfCards'] < $maxNumber) && $GLOBALS['currentNumberOfCards'] < $goal) {
-            $cards[] = serialize($this->loadCard($CardIds[$GLOBALS['currentNumberOfCards']]['post_id']));
-            $GLOBALS['currentNumberOfCards'] += 1;
+        $goal = $_SESSION['currentNumberOfCards'] + $number;
+        while(($_SESSION['currentNumberOfCards'] < $maxNumber) && $_SESSION['currentNumberOfCards'] < $goal) {
+            $cards[] = serialize($this->loadCard($CardIds[$_SESSION['currentNumberOfCards']]['post_id']));
+            $_SESSION['currentNumberOfCards'] += 1;
         }
         return $cards;
     }

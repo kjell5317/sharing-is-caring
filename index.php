@@ -25,6 +25,9 @@
 	} else {
 		$cards = $cardmanager->loadAllUnclaimedCards();
 	}
+	if (isset($_SESSION['currentNumberOfCards'])) { // reset the currentNumberOfCards
+		unset($_SESSION['currentNumberOfCards']);
+	}
 	?>
 	<main>
 		<div class="cardspage" id="cardspage">
