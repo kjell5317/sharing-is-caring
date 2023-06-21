@@ -68,7 +68,7 @@
 				
 				// Kann maybe raus get wahrscheinlich auf mit php
 				window.onload = function () {
-					$initialCards = 6;
+					$initialCards = 2;
 					loadNumberOfCards($initialCards);
 				};
 
