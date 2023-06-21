@@ -54,16 +54,18 @@
 					request.send();
 				}
 
+				// Die fünfzig sind ein bisschen extra space damit schon früher geladen wird
 				function handleInfiniteScroll() {
-					var endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+					var endOfPage = window.innerHeight + window.pageYOffset >= (document.body.offsetHeight - 50);
 
 					if (endOfPage) {;
 						loadNumberOfCards(2);
 					}
 				}
-
+				
+				// Kann maybe raus get wahrscheinlich auf mit php
 				window.onload = function () {
-					$initialCards = 3;
+					$initialCards = 6;
 					loadNumberOfCards($initialCards);
 				};
 
