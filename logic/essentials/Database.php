@@ -6,6 +6,10 @@ class Database
 
     public function __construct()
     {   
+        $this->connect();
+    } 
+
+    private function connect() {
         if($this->db==null) {
             try {
                 $this->db = new PDO("sqlite:" . "database/database.db","","",array(
@@ -90,12 +94,17 @@ class Database
     }
     public function getDatabase()
     {
-        try {
-            $this->db->query('SELECT 1');
+        if(isset($this->db)) {
+            try {
+                $this->db->query('SELECT 1 FROM sharing_address');
+                return $this->db;
+            } catch (Exception $e) {
+                $this->connect();
+                return $this->db;
+            }
+        } else {
+            $this->connect();
             return $this->db;
-        } catch (Exception $e) {
-            __construct();
-            echo "Die Verbindung ist nicht mehr offen: " . $e->getMessage();
         }
     }
 }

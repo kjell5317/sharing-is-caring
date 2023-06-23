@@ -1,5 +1,4 @@
 <?php
-
 include_once "Database.php";
 include_once "../SQLCardDAO.php";
 

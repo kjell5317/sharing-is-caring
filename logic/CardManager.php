@@ -40,16 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     if (isset($_POST['claim'])) {
-        if(isset($_SESSION['loggedInUser'])) {
-            $cardmanager->claimCard();
-        } else {
-            $_SESSION['info'] = 'Melde dich an um Beiträge zu beanspruchen!';
-            header("Location: anmeldung.php");
-            exit;
-        }
-    }
+        $cardmanager->claimCard();
+    } 
     if (isset($_POST['unclaim'])) {
         $cardmanager->unclaimCard();
+    }
+
+    } else {
+        $_SESSION['info'] = 'Melde dich an um Beiträge zu beanspruchen!';
+        header("Location: anmeldung.php");
+        exit;
     }
 }
 
