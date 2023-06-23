@@ -93,7 +93,8 @@ class Database
         try {
             $this->db->query('SELECT 1');
             return $this->db;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
+            __construct();
             echo "Die Verbindung ist nicht mehr offen: " . $e->getMessage();
         }
     }

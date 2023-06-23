@@ -2,7 +2,6 @@
 include_once "SQLCardDAO.php";
 include_once "UserManagement.php";
 include_once "SQLAddressDAO.php";
-include_once "Database.php";
 
 $pathToImages = "tmp/images/";
 $db = Database::getInstance();
@@ -41,7 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['claim'])) {
-        $cardmanager->claimCard();
+        if(isset($_SESSION['loggedInUser'])) {
+            $cardmanager->claimCard();
+        } else {
+            $_SESSION['info'] = 'Melde dich an um Beiträge zu beanspruchen!';
+            header("Location: anmeldung.php");
+            exit;
+        }
     }
     if (isset($_POST['unclaim'])) {
         $cardmanager->unclaimCard();

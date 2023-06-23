@@ -45,7 +45,7 @@
 			<script>
 				function loadNumberOfCards(numberOfCardsToLoad) {   
 					var request = new XMLHttpRequest();
-					request.open('GET', "logic/CardFetcher.php?numberOfCards=" + numberOfCardsToLoad, true);
+					request.open('GET', "logic/essentials/CardFetcher.php?numberOfCards=" + numberOfCardsToLoad, true);
 					request.onreadystatechange = function() {
 						if (request.readyState === 4 && request.status === 200) {
 							var cardspage = document.getElementById("cardspage");

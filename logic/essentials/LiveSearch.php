@@ -1,7 +1,7 @@
 <?php
 
 include_once "Database.php";
-include_once "SQLCardDAO.php";
+include_once "../SQLCardDAO.php";
 
 //get the q parameter from URL
 $q = $_GET["q"];

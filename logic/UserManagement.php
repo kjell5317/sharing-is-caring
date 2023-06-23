@@ -1,6 +1,6 @@
 <?php
 include_once "SQLUserDAO.php";
-include_once "Database.php";
+include_once "essentials/Database.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();

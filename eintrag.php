@@ -15,7 +15,7 @@
   <?php include "components/header.php";
   include_once "logic/SQLCardDAO.php";
   include_once "logic/SQLAddressDAO.php";
-
+  include_once "logic/CardManager.php";
   if (isset($_GET['id'])) {
     $db = Database::getInstance();
     $conn = $db->getDatabase();
@@ -72,7 +72,7 @@
 
       </div>
       <div class="image-container">
-        <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild" />
+        <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild" onerror="this.onerror=null; this.src='assets/nopic.png';"/>
       </div>
     </form>
   </main>

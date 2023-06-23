@@ -1,7 +1,7 @@
 <?php 
-include_once "SQLAddressDAO.php";
-include_once "SQLCardDAO.php";
-include_once "UserManagement.php";
+include_once "../SQLAddressDAO.php";
+include_once "../SQLCardDAO.php";
+include_once "../UserManagement.php";
 include_once "Database.php";
 
 $pathToImages = "tmp/images/";
@@ -16,7 +16,7 @@ if (isset($_GET['numberOfCards'])) {
     $cards = $cardmanager->loadUnclaimedCardsSequential($numberOfCards);
     foreach($cards as $card) {
         $card = unserialize($card);
-        include "../components/card.php";
+        include "../../components/card.php";
     }
 }
 

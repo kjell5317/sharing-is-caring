@@ -1,5 +1,5 @@
 <?php
-include_once "logic/Database.php";
+include_once "logic/essentials/Database.php";
 include_once "logic/UserManagement.php";
 ?>
 <header>
@@ -50,7 +50,7 @@ include_once "logic/UserManagement.php";
           document.querySelector("nav form").style.borderRadius = "25px 25px 0 0";
         }
       }
-      xmlhttp.open("GET", "logic/LiveSearch.php?q=" + str, true);
+      xmlhttp.open("GET", "logic/essentials/LiveSearch.php?q=" + str, true);
       xmlhttp.send();
 
     }
