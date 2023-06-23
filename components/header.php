@@ -35,19 +35,19 @@ include_once "logic/UserManagement.php";
       if (str.length == 0) {
         document.getElementById("livesearch").innerHTML = "";
         document.getElementById("livesearch").classList.remove("active");
-        document.querySelector("nav input[type='text']").style.borderRadius = "50px 0 0 50px";
-        document.querySelector("nav button[type='submit']").style.borderRadius = "0 50px 50px 0";
-        document.querySelector("nav form").style.borderRadius = "50px";
+        document.querySelector("nav input[type='text']").classList.remove("active");
+        document.querySelector("nav button[type='submit']").classList.remove("active");
+        document.querySelector("nav form").classList.remove("active");
         return;
       }
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 200 && this.responseText != "Kein Vorschlag") {
           document.getElementById("livesearch").innerHTML = this.responseText;
           document.getElementById("livesearch").classList.add("active");
-          document.querySelector("nav input[type='text']").style.borderRadius = "25px 0 0 0";
-          document.querySelector("nav button[type='submit']").style.borderRadius = "0 25px 0 0";
-          document.querySelector("nav form").style.borderRadius = "25px 25px 0 0";
+          document.querySelector("nav input[type='text']").classList.add("active");
+          document.querySelector("nav button[type='submit']").classList.add("active");
+          document.querySelector("nav form").classList.add("active");
         }
       }
       xmlhttp.open("GET", "logic/essentials/LiveSearch.php?q=" + str, true);

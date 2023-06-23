@@ -22,11 +22,12 @@
     $cardmanager = new SQLCardDAO($conn);
     $addressmanager = new SQLAddressDAO($conn);
     $card = $cardmanager->loadCard($_GET['id']);
-    if (!isset($card)) {
-      header("Location: index.php");
-      exit;
-    }
-  } ?>
+  }
+  if (!isset($card)) {
+    header("Location: index.php");
+    exit;
+  }
+  ?>
   <main>
     <h1>
       <?= $card->title ?>
@@ -57,7 +58,7 @@
       </ul>
     </div>
     <br />
-    <form class="eintrag" method="post">
+    <form class="eintrag" method="POST">
       <div class="form-section">
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">
