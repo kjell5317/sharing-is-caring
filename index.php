@@ -15,6 +15,7 @@
 	include "components/header.php";
 	include_once "logic/SQLCardDAO.php";
 	include_once "logic/SQLAddressDAO.php";
+
 	$db = Database::getInstance();
 	$conn = $db->getDatabase();
 	$cardmanager = new SQLCardDAO($conn);
@@ -68,7 +69,7 @@
 				
 				// Kann maybe raus get wahrscheinlich auf mit php
 				window.onload = function () {
-					$initialCards = 6;
+					$initialCards = 10;
 					loadNumberOfCards($initialCards);
 				};
 
