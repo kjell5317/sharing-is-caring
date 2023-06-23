@@ -1,6 +1,7 @@
+
 <div class="card">
-    <link rel="stylesheet" href="css/Card.css" />
-    <img class="photo" src="<?= htmlentities($card->imagePath) ?>" />
+    <link rel="stylesheet" href="css/card.css" />
+    <img class="photo" src="<?= htmlentities($card->imagePath) ?>" onerror="this.onerror=null; this.src='assets/nopic.png';" />
     <h1>
         <?= htmlentities($card->title) ?>
     </h1>

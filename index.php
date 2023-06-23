@@ -25,9 +25,13 @@
 	} else {
 		$cards = $cardmanager->loadAllUnclaimedCards();
 	}
+	if (isset($_SESSION['currentNumberOfCards'])) { // reset the currentNumberOfCards
+		unset($_SESSION['currentNumberOfCards']);
+	}
 	?>
 	<main>
-		<div class="cardspage">
+		<div class="cardspage" id="cardspage">
+			<noscript>
 			<?php
 			if (sizeof($cards) > 0): ?>
 				<?php foreach ($cards as $card) {
@@ -37,9 +41,40 @@
 			<?php else: ?>
 				<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>
 			<?php endif; ?>
-		</div>
+			</noscript>
+			<script>
+				function loadNumberOfCards(numberOfCardsToLoad) {   
+					var request = new XMLHttpRequest();
+					request.open('GET', "logic/CardFetcher.php?numberOfCards=" + numberOfCardsToLoad, true);
+					request.onreadystatechange = function() {
+						if (request.readyState === 4 && request.status === 200) {
+							var cardspage = document.getElementById("cardspage");
+							var cardsToLoad = request.responseText;
+							console.log(cardsToLoad);
+							cardspage.insertAdjacentHTML('beforeend', cardsToLoad);
+						}
+					};
+					request.send();
+				}
+
+				// Die fünfzig sind ein bisschen extra space damit schon früher geladen wird
+				function handleInfiniteScroll() {
+					var endOfPage = window.innerHeight + window.pageYOffset >= (document.body.offsetHeight - 50);
+
+					if (endOfPage) {;
+						loadNumberOfCards(2);
+					}
+				}
+				
+				// Kann maybe raus get wahrscheinlich auf mit php
+				window.onload = function () {
+					$initialCards = 6;
+					loadNumberOfCards($initialCards);
+				};
+
+				window.addEventListener("scroll",(event) => {handleInfiniteScroll()});
+			</script>
 	</main>
-	<?php include "components/footer.php"; ?>
 </body>
 
 </html>

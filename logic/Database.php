@@ -12,7 +12,7 @@ class Database
                     PDO::ATTR_PERSISTENT => true
                 ));
                 $this->initializeDatabase();
-            } catch(PDOExeption $e) {
+            } catch(PDOException $e) {
                 
             }
         }
