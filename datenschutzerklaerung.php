@@ -5,12 +5,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/global.css" /> 
+		<link rel="stylesheet" href="css/datenschutzerklärung.css" />
 		<link rel="icon" type="image/svg" href="assets/favicon.svg">
 		<title>Datenschutzerklärung</title>
 	</head>
 	<body>
 		<?php include "components/header.php"; ?>
-		<main>
+		<main class="main">
 		<h1>Datenschutzerklärung für die Sharing-Is-Caring</h1>
 
 			<h2>1. Einleitung</h2>

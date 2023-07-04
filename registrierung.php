@@ -30,6 +30,8 @@
 				aria-label="Password" />
 			<input type="password" id="repassword" name="repassword" required placeholder="Passwort widerholen"
 				aria-label="Repeat password" />
+			<input type="checkbox" id="TOS" name="TOS" value="TOS">
+      			<label for="TOS" > Ich akzeptiere die Nutzungsbedingungen und Datenschutzerklärung</label> <br>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>
 	</main>
