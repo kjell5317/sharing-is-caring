@@ -8,6 +8,7 @@ class SessionCardDAO implements CardDAO
 
     public function saveCard($card)
     {
+        $card->expirationDate = date_format(date_create($card->expirationDate), "d.m.y");
         $_SESSION['cards'][$card->id] = serialize($card);
         return $card->id;
     }

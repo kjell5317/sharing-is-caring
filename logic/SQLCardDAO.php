@@ -15,6 +15,7 @@ class SQLCardDAO implements CardDAO
     public function saveCard($card)
     {
         $this->db->beginTransaction();
+        $date = date_format(date_create($card->expirationDate), "d.m.y");
         try {
             $stmt = $this->db->prepare("
             INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
@@ -22,7 +23,8 @@ class SQLCardDAO implements CardDAO
             ");
 
             $stmt->execute([
-                $card->title, $card->expirationDate, $card->imagePath, $card->description,
+                $card->title,
+                $date, $card->imagePath, $card->description,
                 $card->foodType, $card->adr_id, $card->claimer, $card->owner
             ]);
             $this->db->commit();
@@ -226,7 +228,7 @@ class SQLCardDAO implements CardDAO
 
     public function loadUnclaimedCardsSequential(int $number): array
     {
-        if (!(isset($_SESSION['currentNumberOfCards']))) { // Derlandet hier immer wieder auf null
+        if (!(isset($_SESSION['currentNumberOfCards']))) { // Der landet hier immer wieder auf null
             $_SESSION['currentNumberOfCards'] = 0;
         }
         $sql = "SELECT post_id FROM sharing_post WHERE claimer_id IS NULL";

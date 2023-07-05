@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "Database.php";
 include_once "../SQLAddressDAO.php";
 include_once "../SQLCardDAO.php";
@@ -13,9 +13,9 @@ if (isset($_GET['numberOfCards'])) {
     $cardmanager = new SQLCardDAO($conn);
     $addressmanager = new SQLAddressDAO($conn);
 
-    $numberOfCards = $_GET['numberOfCards'];
-    $cards = $cardmanager->loadUnclaimedCardsSequential($numberOfCards);
-    foreach($cards as $card) {
+    $_SESSION["numberOfCards"] = $_GET['numberOfCards'];
+    $cards = $cardmanager->loadUnclaimedCardsSequential($_SESSION["numberOfCards"]);
+    foreach ($cards as $card) {
         $card = unserialize($card);
         include "../../components/card.php";
     }

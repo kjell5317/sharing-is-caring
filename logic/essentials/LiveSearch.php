@@ -6,7 +6,6 @@ include_once "../SQLCardDAO.php";
 $q = $_GET["q"];
 $hint = "";
 
-//lookup all links from the xml file if length of q>0
 if (strlen($q) > 0) {
     $db = Database::getInstance();
     $conn = $db->getDatabase();
@@ -16,19 +15,11 @@ if (strlen($q) > 0) {
 
     foreach ($results as $result) {
         $result = unserialize($result);
+        $hint = $hint . "<a class='hover' href='eintrag.php?id=" .
+            $result->id .
+            "'>" .
+            $result->title . "</a>";
 
-        //find a link matching the search text
-        if ($hint == "") {
-            $hint = "<a class='hover' href='eintrag.php?id=" .
-                $result->id .
-                "'>" .
-                $result->title . "</a>";
-        } else {
-            $hint = $hint . "<a class='hover' href='eintrag.php?id=" .
-                $result->id .
-                "'>" .
-                $result->title . "</a>";
-        }
     }
 }
 

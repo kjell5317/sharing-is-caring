@@ -30,6 +30,7 @@ include_once "logic/UserManagement.php";
     <span id="nd"></span>
     <span id="rd"></span>
   </label>
+  <script src="js/jquery.js"></script>
   <script>
     function showResult(str) {
       if (str.length == 0) {
@@ -54,5 +55,21 @@ include_once "logic/UserManagement.php";
       xmlhttp.send();
 
     }
+    $(document).ready(function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showLocation);
+      }
+    });
+
+    function showLocation(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      $.ajax({
+        type: 'POST',
+        url: 'logic/UserManagement.php',
+        data: 'latitude=' + latitude + '&longitude=' + longitude,
+      });
+    }
   </script>
+
 </header>

@@ -30,26 +30,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $password = password_hash($password, PASSWORD_DEFAULT);
+            $_SESSION["user"] = serialize(new User("creation", $email, $password));
+            $_SESSION["info"] = "Klicke <a href='validation.php' target='_blank'>hier</a> um deine Registrierung abzuschließen!";
+            header("Location: registrierung.php");
+            exit;
+
+            /*
             $response = $userDAO->createUser($email, $password);
-
             if ($response) {
-                $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
-
-                // Umleitung zur Startseite
-                header("refresh:1;url=index.php");
+            $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
+            // Umleitung zur Startseite
+            header("refresh:1;url=index.php");
             } else {
-                // Umleitung zur Registrierungsseite
-                header("Location: registrierung.php");
-                exit;
+            // Umleitung zur Registrierungsseite
+            header("Location: registrierung.php");
+            exit;
             }
-        } else {
+            } else {
             $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben!';
+            // Umleitung zur Registrierungsseite
+            header("Location: registrierung.php");
+            exit; */
+        }
+    }
 
+    if (isset($_POST['valid'])) {
+        $user = unserialize($_SESSION["user"]);
+        $response = $userDAO->createUser($user->email, $user->password);
+        if ($response) {
+            $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
+            // Umleitung zur Startseite
+            header("refresh:1;url=index.php");
+        } else {
             // Umleitung zur Registrierungsseite
             header("Location: registrierung.php");
             exit;
         }
     }
+
     /*
      * Anfrage ist ein Login
      */
@@ -89,6 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: anmeldung.php");
             exit;
         }
+    }
+
+    if (isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
+        $_SESSION["url"] = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . trim($_POST['latitude']) . "%2C" . $_POST['longitude'] . "&key=AIzaSyDZq_kAv-S0HJKr1pER7CPfqqxnNpWy63M&origins=";
     }
 }
 

@@ -1,7 +1,7 @@
-
 <div class="card">
     <link rel="stylesheet" href="css/card.css" />
-    <img class="photo" src="<?= htmlentities($card->imagePath) ?>" onerror="this.onerror=null; this.src='assets/nopic.png';" />
+    <img class="photo" src="<?= htmlentities($card->imagePath) ?>"
+        onerror="this.onerror=null; this.src='assets/nopic.png';" />
     <h1>
         <?= htmlentities($card->title) ?>
     </h1>
@@ -12,8 +12,21 @@
         <?= htmlentities($card->expirationDate) ?>
     </p>
     <p class="ort">
-        <?= htmlentities($addressmanager->get($card->adr_id)->postalCode . ' ' .
-            $addressmanager->get($card->adr_id)->city) ?>
+        <?php
+        $address = $addressmanager->get($card->adr_id);
+        $first = $address->street . ' ' .
+            $address->number . ' ';
+        $second = $address->postalCode . ' ' .
+            $address->city;
+        $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
+        if ($result !== false) {
+            $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+            if (isset($v)) {
+                $second = $v . " (" . $address->city . ")";
+            }
+        }
+        echo $second;
+        ?>
     </p>
     <a class="weiter" href="eintrag.php?id=<?= htmlentities($card->id) ?>">
         <p style="margin: 0;">Zeig mir mehr</p>

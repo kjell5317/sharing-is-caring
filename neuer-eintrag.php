@@ -26,12 +26,12 @@
         <label for="food-type">Essensart</label>
         <select name="food-type" id="food-type" required>
           <option value="" selected disabled>Bitte Wählen...</option>
-          <option value="vegan">Vegan</option>
-          <option value="veggi">Vegetarisch</option>
-          <option value="schwein">Schwein</option>
-          <option value="fleisch">Fleisch</option>
-          <option value="getrank">Getränk</option>
-          <option value="sonst">Anderes</option>
+          <option value="Vegan">Vegan</option>
+          <option value="Veggi">Vegetarisch</option>
+          <option value="Schwein">Schwein</option>
+          <option value="Fleisch">Fleisch</option>
+          <option value="Getränk">Getränk</option>
+          <option value="Anderes">Anderes</option>
         </select>
         <label for="expiration-date">Mindesthaltbarkeit</label>
         <input type="date" id="expiration-date" name="expiration-date" required>
@@ -60,7 +60,7 @@
         <label for="food-image" class="upload-label">
           <img id="preview" class="food-img" src="assets/Placeholder.jpg" alt="Beispielbild" />
         </label>
-        <input type="file" id="food-image" name="food-image" accept="image/*" required>
+        <input type="file" id="food-image" name="food-image" accept="image/*">
         <script>
           document.getElementById("food-image").onchange = evt => {
             const [file] = document.getElementById("food-image").files
