@@ -11,7 +11,7 @@
   </head>
   <body>
     <?php include "components/header.php"; ?>
-    <main>
+    <main class="main">
       <h1>Impressum</h1>
 
         <h2>Angaben gemäß § 5 TMG:</h2>
