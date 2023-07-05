@@ -76,6 +76,7 @@
 				window.addEventListener("scroll", (event) => { handleInfiniteScroll() });
 			</script>
 	</main>
+	<?php include "components/footer.php"; ?>
 </body>
 
 </html>
