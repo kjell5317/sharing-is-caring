@@ -36,8 +36,7 @@
 				aria-label="Repeat password" />
 			<div class="ToS">
 				<input type="checkbox" id="TOS" name="TOS" value="TOS" required>
-				<label for="TOS"> Ich akzeptiere die <a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die
-					<a href="datenschutzerklaerung.php">Datenschutzerklärung</a></label> <br>
+				<label for="TOS"> Ich akzeptiere die<a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die<a href="datenschutzerklaerung.php">Datenschutzerklärung</a></label> <br>
 			</div>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>
