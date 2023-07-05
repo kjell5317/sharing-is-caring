@@ -31,7 +31,9 @@
 	}
 	?>
 	<main>
-		<?= $_SESSION["info"] ?>
+		<?php if ($info): ?>
+			<p class="infomessage"> <?= $info ?> </p>
+		<?php endif; ?>
 		<div class="cardspage" id="cardspage">
 			<noscript>
 				<?php

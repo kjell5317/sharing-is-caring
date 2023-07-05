@@ -14,20 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
      * Anfrage ist eine Registrierung
      */
-    if (isset($_POST['register']) && isset($_POST['TOS'])) {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
-        $repassword = $_POST['repassword'] ?? '';
-        $_SESSION['email'] = $email;
+    if (isset($_POST['register'])) {
+        if(isset($_POST['TOS'])) {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $repassword = $_POST['repassword'] ?? '';
+            $_SESSION['email'] = $email;
 
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password) && !empty($repassword)) {
-            if ($password !== $repassword) {
-                $_SESSION['error'] = 'Die Passwörter stimmen nicht überein!';
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password) && !empty($repassword)) {
+                if ($password !== $repassword) {
+                    $_SESSION['error'] = 'Die Passwörter stimmen nicht überein!';
 
-                // Umleitung zur Registrierungsseite
-                header("Location: registrierung.php");
-                exit;
-            }
+                    // Umleitung zur Registrierungsseite
+                    header("Location: registrierung.php");
+                    exit;
+                }
 
             $password = password_hash($password, PASSWORD_DEFAULT);
             $_SESSION["user"] = serialize(new User("creation", $email, $password));
@@ -51,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Umleitung zur Registrierungsseite
             header("Location: registrierung.php");
             exit; */
+            }
+        } else {
+            $_SESSION['error'] = 'Bitte akzeptiere die Nutzungsbedingungen und Datenschutzerklärung!';
+
+            // Umleitung zur Registrierungsseite
+            header("Location: registrierung.php");
+            exit;
         }
     }
 
@@ -61,10 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
             // Umleitung zur Startseite
             header("refresh:1;url=index.php");
-        } else {
-            // Umleitung zur Registrierungsseite
-            header("Location: registrierung.php");
-            exit;
         }
     }
 
@@ -108,11 +112,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-
+    
     if (isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
         $_SESSION["url"] = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . trim($_POST['latitude']) . "%2C" . $_POST['longitude'] . "&key=AIzaSyDZq_kAv-S0HJKr1pER7CPfqqxnNpWy63M&origins=";
     }
 }
+
 
 if (isset($_GET['logout'])) {
     $response = $userDAO->logout();

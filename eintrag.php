@@ -57,14 +57,16 @@
                 $address->number . ' ';
               $second = $address->postalCode . ' ' .
                 $address->city;
-              $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
-              if ($result !== false) {
-                $v = json_decode($result)->rows[0]->elements[0]->distance->text;
-                if (isset($v)) {
-                  echo htmlentities($v . " (" . $address->city . ")");
-                } else {
-                  echo htmlentities($second);
+              if(isset($_SESSION["url"])) {
+                $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
+                if ($result !== false) {
+                  $v = json_decode($result)->rows[0]->elements[0]->distance->text;
                 }
+              }
+              if (isset($v)) {
+                echo htmlentities($v . " (" . $address->city . ")");
+              } else {
+                echo htmlentities($second);
               }
               ?>
             </p>
