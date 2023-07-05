@@ -18,17 +18,26 @@
 		<h1>Registrierung</h1>
 		<h3>Registriere dich bei uns um Essen anzubieten und abzuholen. Teile dein Essen mit ganz Oldenburg!</h3>
 		<?php if ($error): ?>
-      	  <p class="message">
-       	 	<?php echo $error; ?>
-     	  </p>
-    	<?php endif; ?>
+			<p class="errormessage">
+				<?= $error ?>
+			</p>
+		<?php elseif ($info): ?>
+			<p class="infomessage">
+				<?= $info ?>
+			</p>
+		<?php endif; ?>
 		<form method="POST">
 			<input type="hidden" name="register">
-			<input type="text" id="email" name="email" required placeholder="E-Mail Adresse" aria-label="E-Mail" />
+			<input type="email" id="email" name="email" required placeholder="E-Mail Adresse" aria-label="E-Mail"
+				value="<?= isset($_SESSION["email"]) ? htmlentities($_SESSION["email"]) : ""; ?>" />
 			<input type="password" id="password" name="password" required placeholder="Passwort"
 				aria-label="Password" />
 			<input type="password" id="repassword" name="repassword" required placeholder="Passwort widerholen"
 				aria-label="Repeat password" />
+			<div class="ToS">
+				<input type="checkbox" id="TOS" name="TOS" value="TOS" required>
+				<label for="TOS"> Ich akzeptiere die<a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die<a href="datenschutzerklaerung.php">Datenschutzerklärung</a></label> <br>
+			</div>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>
 	</main>

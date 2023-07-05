@@ -11,11 +11,14 @@ h1 {
     font-weight: 700;
     font-size: 44px;
     line-height: 50px;
-    color: rgba(0, 87, 255, 0.7);
+    color: #0057ffb3;
     margin: 0 0 16px;
 }
-.message {
+.errormessage {
     color: rgba(255, 0, 13, 0.7);
+}
+.infomessage {
+    color: rgba(4, 206, 64, 0.781);
 }
 main {
     z-index: -1;
@@ -49,4 +52,23 @@ main form {
     flex-direction: column;
     max-width: 400px;
     margin: auto;
+}
+
+.ToS {
+    display: flex;
+    margin: 15px 10px 10px;
+    padding: 15px;
+    border: 2px solid #0057ffb3;
+    background-color: #F9F9FF;
+    align-items: center;
+    border-radius: 10px;
+  }
+
+input[type="checkbox"] {
+   width: max-content;
+   height: max-content;
+}
+
+.accent {
+    font-size: large;
 }

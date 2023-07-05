@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
 
-<?php
-include_once "logic/SessionCardDAO.php";
-include_once "logic/CardManager.php";
-
-if (isset($_GET['id'])) {
-  $cardmanager = new SessionCardDAO();
-  $card = $cardmanager->loadCard($_GET['id']);
-}
-?>
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,10 +12,25 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-  <?php include "components/header.php"; ?>
+  <?php include "components/header.php";
+  include_once "logic/SQLCardDAO.php";
+  include_once "logic/SQLAddressDAO.php";
+  include_once "logic/CardManager.php";
+  if (isset($_GET['id'])) {
+    $db = Database::getInstance();
+    $conn = $db->getDatabase();
+    $cardmanager = new SQLCardDAO($conn);
+    $addressmanager = new SQLAddressDAO($conn);
+    $card = $cardmanager->loadCard($_GET['id']);
+  }
+  if (!isset($card)) {
+    header("Location: index.php");
+    exit;
+  }
+  ?>
   <main>
     <h1>
-      <?= $card->title ?>
+      <?= htmlentities($card->title) ?>
     </h1>
     <div class="details">
       <ul>
@@ -33,42 +38,54 @@ if (isset($_GET['id'])) {
           <div class="mini-text">
             <img src="assets/calendar.svg" class="mini" />
             <p>
-              <?= $card->expirationDate ?>
+              <?= htmlentities($card->expirationDate) ?>
             </p>
           </div>
         </li>
         <li class="child">
           <p>
-            <?= $card->foodType ?>
+            <?= htmlentities($card->foodType) ?>
           </p>
         </li>
         <li class="child">
           <div class="mini-text">
             <img src="assets/mark.svg" class="mini" />
             <p>
-              <?= $card->postalCode . " " . $card->place ?>
+              <?php
+              $address = $addressmanager->get($card->adr_id);
+              $first = $address->street . ' ' .
+                $address->number . ' ';
+              $second = $address->postalCode . ' ' .
+                $address->city;
+              $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
+              if ($result !== false) {
+                $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                if (isset($v)) {
+                  echo htmlentities($v . " (" . $address->city . ")");
+                } else {
+                  echo htmlentities($second);
+                }
+              }
+              ?>
             </p>
           </div>
         </li>
       </ul>
     </div>
-    <br />
-    <form class="eintrag" method="post">
-      <div class="form-section">
+    <form class="eintrag" method="POST">
+      <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild"
+        onerror="this.onerror=null; this.src='assets/nopic.png';" />
+      <div class="desc-container">
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
-        <?php if (isset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']])): ?>
-          <input type="hidden" name="unclaim"/>
+        <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
+          <input type="hidden" name="unclaim" />
           <button class="accent" type="submit">Will ich nicht mehr!</button>
-      <?php else: ?>
-        <input type="hidden" name="claim"/>
-        <button class="accent" type="submit">Will ich haben!</button>
-      <?php endif; ?>
-        
-      </div>
-      <div class="image-container">
-        <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild" />
+        <?php else: ?>
+          <input type="hidden" name="claim" />
+          <button class="accent" type="submit">Will ich haben!</button>
+        <?php endif; ?>
       </div>
     </form>
   </main>

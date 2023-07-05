@@ -8,15 +8,18 @@ h1 {
 }
 .food-img-dsp {
     height : auto;
-    width : 100% !important ;
+    width: 100%;
+    max-width: 500px;
     object-fit : cover;
     border-radius : 16px;
+    box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.05);
+    margin: 10px;
 }
 .mini-text {
     display : flex;
+    justify-content: center;
 }
 .desc-text {
-    width : 100%;
     padding : 0.4rem;
     margin-bottom : 1rem;
     font-size : 1rem;
@@ -36,32 +39,21 @@ main label {
 .eintrag {
     margin : auto;
     display : flex;
+    flex-direction: row;
     flex-wrap : wrap;
     align-items : center;
     justify-content : center;
     max-width: 1000px;
     width: 90%;
+    justify-content: space-evenly;
 }
 .mini {
     width : 24px;
     margin-right : 3px;
 }
-.form-section {
-    flex : 1;
-    min-width : 300px;
-    padding : 0 1rem;
-    box-sizing : border-box;
-}
 .form-section:last-child {
     flex-basis : 100%;
     padding-top : 1rem;
-}
-.image-container {
-    display : flex;
-    flex-direction : column;
-    align-items : center;
-    justify-content : center;
-    margin: 0 15px 20px;
 }
 form button.accent {
     font-size: 18px;
@@ -69,10 +61,9 @@ form button.accent {
     margin-bottom: 10px;
 }
 .details {
-    box-sizing : border-box;
     display : flex;
     align-items : center;
-    justify-content : center;
+    justify-content : space-around;
 }
 .child {
     list-style : none;
@@ -84,8 +75,23 @@ main textarea {
   color:#5D5A88;
 }
 
-@media screen and (max-width: 700px) {
-    .eintrag {
-        flex-direction: column-reverse;
-    }
+main button {
+    align-self: center;
+}
+
+main p {
+    white-space: nowrap;
+}
+
+.desc-container {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    min-width: 350px;
+}
+
+main li {
+    padding: 5px;
 }

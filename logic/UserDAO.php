@@ -1,10 +1,9 @@
 <?php
 interface UserDAO
 {
-    public function createUser($email, $passowrd, $repassword);
-    public function loadClaimedCards(): array;
-    public function loadCards(): array;
-    public function login($email, $password);
-    public function logout();
+    public function createUser($email, $passowrd) : bool;
+    public function login($email) : bool;
+    public function logout() : bool;
+    public function get($email);
 }
 ?>

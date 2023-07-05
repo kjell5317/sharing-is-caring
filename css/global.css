@@ -1,15 +1,18 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     font-family: 'Arial';
     --blue: #4c89ff;
 }
+
 main {
     padding: 90px 0 6vh;
     text-align: center;
 }
+
 h4 {
     font-size: 2.5rem;
     line-height: 4rem;
@@ -18,6 +21,7 @@ h4 {
     text-align: center;
     color: var(--blue);
 }
+
 header {
     position: fixed;
     z-index: 99;
@@ -33,9 +37,11 @@ header {
     opacity: 1;
     background-color: #FFFFFF;
 }
+
 nav {
     width: 90%;
 }
+
 .accent {
     border-radius: 30px;
     padding: 8px;
@@ -46,11 +52,35 @@ nav {
     background-repeat: no-repeat;
     transition: .4s;
     border: 2px solid var(--blue);
-
 }
+
 .accent:hover {
     color: var(--blue);
     background-size: 100% 100%;
+}
+
+#livesearch.active {
+    border: 1px solid #D4D2E3;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    border-top: none;
+    border-radius: 0 0 25px 25px;
+    width: calc(35vw + 47px);
+}
+
+#livesearch {
+    border: none;
+    background: #FFF;
+    z-index: 100;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#livesearch a {
+    padding-left: 25px;
+    font-size: 15px;
+    font-weight: 200;
 }
 
 ul {
@@ -61,24 +91,29 @@ ul {
     align-items: center;
     margin: 0;
 }
-li {
+
+header li {
     align-items: center;
     text-align: center;
     padding: 10px;
+    position: relative;
 }
+
 a {
     text-decoration: none;
     text-align: center;
     color: #5D5A88;
     padding: 5px;
 }
-nav a {
+
+nav li > a {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
     display: block;
 }
+
 .hover {
     color: #0000;
     background:
@@ -88,6 +123,7 @@ nav a {
             background-clip: text;
     transition: .4s;
 }
+
 .hover:hover {
     --_p: 0%;
 }
@@ -97,9 +133,32 @@ nav form {
     flex-direction: row;
     border-radius: 50px;
 }
-nav form:focus-within {
-    outline: 2px solid var(--blue);
+
+nav form:focus-within > input, nav form:focus-within > button{
+    background: #FFF;
 }
+
+nav form:focus-within {
+    border: 1px solid #D4D2E3;
+}
+
+nav form.active {
+    border-radius : 25px 25px 0 0;
+    border-bottom: none;
+    border: 1px solid #D4D2E3;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav input[type="text"].active {
+    background: #FFF;
+    border-radius: 25px 0 0 0;
+}
+
+nav button[type="submit"].active {
+    background: #FFF;
+    border-radius: 0 25px 0 0;
+}
+
 nav input[type="text"] {
     border-radius: 50px 0 0 50px;
     background: #F2F1FA;
@@ -109,10 +168,14 @@ nav input[type="text"] {
     padding-left: 25px;
     padding-right: 0;
     flex-grow: 2;
+    font-size: 15px;
+    font-weight: 200;
 }
+
 nav input[type="text"]:focus {
     outline: none;
 }
+
 nav button[type="submit"] {
     height: 45px;
     width: 45px;
@@ -121,14 +184,17 @@ nav button[type="submit"] {
     background: #F2F1FA;
     cursor: pointer;
 }
+
 .nav-toggle-label {
     display: none;
 }
+
 .nav-toggle {
     position: absolute !important;
     top: -9999px !important;
     left: -9999px !important;
 }
+
 .cardspage {
     display: flex;
     flex-flow: row wrap;
@@ -136,6 +202,7 @@ nav button[type="submit"] {
     max-width: calc((285px * 5) + (2% * 4));
     margin: 0 auto;
 }
+
 .card {
     position: relative;
     flex-basis: auto;
@@ -148,30 +215,34 @@ nav button[type="submit"] {
     border-radius: 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
 }
+
 .card:last-child, .card:last-column {
     margin-right: 0;
 }
+
 footer {
     color: #5D5A88;
     width: 100%;
-    padding: 1.5vh 5% 2vh;
+    padding: 1.5vh 5% 1.5vh;
     position: fixed;
-    top: 94.5vh;
+    top: 95vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #FFFFFF;
     border-top: 2px solid var(--blue);
 }
+
 footer ul, footer div {
     height: 2vh;
 }
+
 @media screen and (max-width:850px) {
     header {
         height: 70px;
     }
     main {
-        padding: 80px 0 10vh;
+        padding: 80px 10px 10vh;
     }
     nav ul {
         opacity: 0;
@@ -193,6 +264,10 @@ footer ul, footer div {
     }
     nav li:first-child {
         width: 100%;
+    }
+    #livesearch.active {
+        position: static;
+        width: auto;
     }
     nav a {
         padding: 5px;

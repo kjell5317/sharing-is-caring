@@ -3,102 +3,44 @@ include_once "User.php";
 include_once "UserDAO.php";
 include_once "SessionCardDAO.php";
 
-if(session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
 class SessionUserDAO implements UserDAO
 {
 
-    public function createUser($email, $password, $repassword)
+    public function createUser($email, $password) : bool
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password) && !empty($repassword)) {
-            if ($password !== $repassword) {
-                $_SESSION['error'] = 'Die Passwörter stimmen nicht überein!';
+        $user = new User(uniqueid(), $email, $password);
 
-                // Umleitung zur Registrierungsseite
-                header("Location: registrierung.php");
-                exit;
-            }
-            $user = new User;
-            $user->email = $email;
-            $user->password = password_hash($password, PASSWORD_DEFAULT);
-
-            $_SESSION['users'][$email] = serialize($user);
-            $_SESSION['loggedInUser'] = serialize($user);
-
-            // Umleitung zur Startseite
-            header("Location: ./index.php");
-            exit;
-        } else {
-            $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben';
-
-            // Umleitung zur Registrierungsseite
-            header("Location: registrierung.php");
-            exit;
+        if (isset($_SESSION["users"][$email])) {
+            $_SESSION["error"] = "Du hast bereits ein Konto!";
+            return false;
         }
+
+        $_SESSION['users'][$email] = serialize($user);
+        $_SESSION['loggedInUser'] = serialize($user);
+
+        return true;
     }
 
-    public function login($email, $password)
+    public function login($user) : bool
     {
-        if (isset($_SESSION['users'][$email])) {
-            $user = unserialize($_SESSION['users'][$email]);
-    
-            if (password_verify($password, $user->password)) {
-                $_SESSION['loggedInUser'] = serialize($user);
-    
-                // Umleitung zur Startseite
-                header("Location: index.php");
-                exit;
-            } else {
-                $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben';
-    
-                // Umleitung zur Loginseite
-                header("Location: anmeldung.php");
-                exit;
-            }
-        } else {
-            $_SESSION['error'] = 'Dieser Benutzer existiert nicht!';
-    
-            // Umleitung zur Loginseite
-            header("Location: anmeldung.php");
-            exit;
-        }
+        $_SESSION['loggedInUser'] = serialize($user);
+
+        return true;
     }
 
-    public function logout()
+    public function logout() : bool
     {
         unset($_SESSION['loggedInUser']);
-
-        // Umleitung zur Startseite
-        header("Location: index.php");
-        exit;
+        
+        return true;
     }
 
-    public function loadClaimedCards(): array 
+    public function get($email)
     {
-        $user = $_SESSION['loggedInUser'];
-        $claimedCards = array();
-        if (isset($_SESSION['claimedCards'][$user])) {
-            foreach ($_SESSION['claimedCards'][$user] as $card) {
-                $claimedCards[] = $card;
-            }
+        if (isset($_SESSION['users'][$email])) {
+            return unserialize($_SESSION['users'][$email]);
         }
-        return $claimedCards;
-    }
-
-    public function loadCards(): array 
-    {
-        $user = unserialize($_SESSION['loggedInUser']);
-        $cards = array();
-        if(isset($_SESSION['cards'])) {
-            foreach($_SESSION['cards'] as $card) {
-                if (unserialize($card)->owner == $user) {
-                    $cards[] = $card;
-                }
-            }
-        }
-        return $cards;
+        return null;
     }
 }
 ?>

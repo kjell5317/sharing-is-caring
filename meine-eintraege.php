@@ -1,9 +1,3 @@
-<?php
-include "logic/UserManagement.php";
-include "logic/CardTranslator.php";
-include_once "logic/SessionCardDAO.php";
-
-?>
 <!DOCTYPE html>
 <html lang="de">
 
@@ -17,20 +11,43 @@ include_once "logic/SessionCardDAO.php";
 </head>
 
 <body>
-	<?php include "components/header.php"; ?>
+	<?php
+	include "components/header.php";
+	include_once "logic/SQLCardDAO.php";
+	include_once "logic/SQLAddressDAO.php";
+
+	$db = Database::getInstance();
+	$conn = $db->getDatabase();
+	$cardmanager = new SQLCardDAO($conn);
+	$addressmanager = new SQLAddressDAO($conn);
+	?>
 	<main>
 		<h4>Abholen</h4>
 		<div class="cardspage">
 			<?php
-			$usermanager = new SessionUserDAO();
-			echo htmlOfCards($usermanager->loadClaimedCards());
+			$cards = $cardmanager->loadUserClaimedCards();
+			if (sizeof($cards) > 0) {
+				foreach ($cards as $card) {
+					$card = unserialize($card);
+					include "components/card.php";
+				}
+			} else {
+				echo "Du hast noch kein Essen zum Abholen markiert";
+			}
 			?>
 		</div>
 		<h4>Meine Einträge</h4>
 		<div class="cardspage">
 			<?php
-			$usermanager = new SessionUserDAO();
-			echo htmlOfCards($usermanager->loadCards());
+			$cards = $cardmanager->loadUserCards();
+			if (sizeof($cards) > 0) {
+				foreach ($cards as $card) {
+					$card = unserialize($card);
+					include "components/card.php";
+				}
+			} else {
+				echo "Du hast noch kein Essen hochgeladen";
+			}
 			?>
 		</div>
 	</main>
