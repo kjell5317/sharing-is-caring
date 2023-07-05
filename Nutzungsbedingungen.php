@@ -12,7 +12,7 @@
 	<body>
 		<?php include "components/header.php"; ?>
 		<main class="main">
-		<h1>Nutzungsbedingungen für Sharing is Caring</h1>
+		<h1>Nutzungsbedingungen für Sharing-is-Caring</h1>
 
 			<h2>1. Geltungsbereich</h2>
 				<p>Durch die Nutzung dieser Food-Sharing-Website erklären Sie sich mit den folgenden Nutzungsbedingungen einverstanden. 

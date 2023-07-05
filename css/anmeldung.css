@@ -53,3 +53,18 @@ main form {
     max-width: 400px;
     margin: auto;
 }
+
+.ToS {
+  display:flex;
+  padding: 1em;
+  margin: 2em;
+  border: 3px solid #ddd;
+  background-color: #eee;
+  max-width: 400px;
+  align-items:center;
+}
+
+input[type="checkbox"] {
+   width: max-content;
+   height: max-content;
+}

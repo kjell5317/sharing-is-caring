@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
      * Anfrage ist eine Registrierung
      */
-    if (isset($_POST['register'])) {
+    if (isset($_POST['register']) && isset($_POST['TOS'])) {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $repassword = $_POST['repassword'] ?? '';
