@@ -76,10 +76,10 @@
 
 			<h2>9. Kontaktdaten</h2>
 				<p>Wenn Sie Fragen, Anmerkungen oder Bedenken hinsichtlich dieser Datenschutzerklärung haben, kontaktieren Sie uns bitte unter den folgenden Kontaktdaten:</p>
-				<p>[Name des Website-Betreibers]</p>
-				<p>[Adresse]</p>
-				<p>[E-Mail-Adresse]</p>
-				<p>[Telefonnummer]</p>
+				<p>[Sharing-is-Caring -CEO]</p>
+				<p>[Share street 1]</p>
+				<p>[Sharing.caring@hotmail.de]</p>
+				<p>[01234 12345]</p>
 		</main>
 		<?php include "components/footer.php"; ?>
 	</body>

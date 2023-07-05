@@ -31,7 +31,8 @@
 				<h3>3.2. Verbotene Aktivitäten</h3>
 					<p>Sie dürfen die Website nicht für illegale, betrügerische, diffamierende, belästigende, bedrohliche oder schädliche Aktivitäten nutzen.</p>
 				<h3>3.3. Schutz der Website</h3>
-					<p>Sie dürfen die Website nicht dazu verwenden, Spam-Nachrichten, Viren, schädliche Codes oder andere Inhalte zu verbreiten, die die Integrität oder Sicherheit der Website oder anderer Nutzer beeinträchtigen könnten.</p>
+					<p>Sie dürfen die Website nicht dazu verwenden, Spam-Nachrichten, Viren, schädliche Codes oder andere Inhalte zu verbreiten, die die Integrität oder Sicherheit 
+						der Website oder anderer Nutzer beeinträchtigen könnten.</p>
 				<h3>3.4. Kommerzielle Nutzung</h3>
 					<p>Sie dürfen die Website nicht für kommerzielle Zwecke nutzen, es sei denn, dies wird ausdrücklich gestattet oder vereinbart.</p>
 
@@ -66,10 +67,10 @@
 
 			<h2>8. Kontakt</h2>
 				<p>Wenn Sie Fragen, Anmerkungen oder Bedenken zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns bitte unter den folgenden Kontaktdaten:</p>
-				<p>[Name des Website-Betreibers]</p>
-				<p>[Adresse]</p>
-				<p>[E-Mail-Adresse]</p>
-				<p>[Telefonnummer]</p>
+				<p>[Sharing-is-Caring -CEO]</p>
+				<p>[Share street 1]</p>
+				<p>[Sharing.caring@hotmail.de]</p>
+				<p>[01234 12345]</p>
 		</main>
 		<?php include "components/footer.php"; ?>
 	</body>
