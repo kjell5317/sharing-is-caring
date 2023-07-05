@@ -32,8 +32,11 @@
 					<p>Als angemeldeter Nutzer haben Sie die Möglichkeit, Beiträge zu erstellen. Dabei können Sie folgende personenbezogene Informationen angeben:</p>
 						<ul>
 							<li>Bilder: Sie können Bilder hochladen, um diese mit Ihrem Beitrag zu verknüpfen. 
-								Beachten Sie bitte, dass hochgeladene Bilder möglicherweise Metadaten enthalten, die zusätzliche Informationen über den Standort oder andere technische Details enthalten könnten.</li>
-							<li>Abholadresse: Sie können eine Abholadresse angeben, um anderen Nutzern zu ermöglichen, die von Ihnen angebotenen Lebensmittel abzuholen.</li>
+								Beachten Sie bitte, dass hochgeladene Bilder möglicherweise Metadaten enthalten, die zusätzliche Informationen über den Standort 
+								oder andere technische Details enthalten könnten.</li>
+							<li>Abholadresse: Sie können eine Abholadresse angeben, um anderen Nutzern zu ermöglichen, die von Ihnen angebotenen Lebensmittel abzuholen.
+								Die angebene Abholadresse wird auch genutzt um anderen Nutzer die Entfernung zum Abholort anzuzeigen.
+							</li>
 						</ul>
 
 			<h2>3. Verwendung der personenbezogenen Daten</h2>
