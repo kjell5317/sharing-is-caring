@@ -10,6 +10,15 @@ $db = Database::getInstance();
 $conn = $db->getDatabase();
 $userDAO = new SQLUserDAO($conn);
 
+if (isset($_GET['validate'])) {
+    $response = $userDAO->validate(htmlentities($_GET['validate']));
+    $_SESSION['info'] = 'Dein Konto wurde bestätigt! Du kannst dich nun einloggen.';
+
+    // Umleitung zur Anmeldung
+    header("Location: anmeldung.php");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
      * Anfrage ist eine Registrierung
@@ -29,29 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: registrierung.php");
                     exit;
                 }
-
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $_SESSION["user"] = serialize(new User("creation", $email, $password));
-            $_SESSION["info"] = "Klicke <a href='validation.php' target='_blank'>hier</a> um deine Registrierung abzuschließen!";
-            header("Location: registrierung.php");
-            exit;
-
-            /*
-            $response = $userDAO->createUser($email, $password);
-            if ($response) {
-            $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
-            // Umleitung zur Startseite
-            header("refresh:1;url=index.php");
-            } else {
-            // Umleitung zur Registrierungsseite
-            header("Location: registrierung.php");
-            exit;
-            }
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $response = $userDAO->createUser($email, $password);
+                $_SESSION["info"] = "Wir haben dir eine<a href='validation.php' target='_blank'>BESTÄTIGUNGS-E-MAIL</a>gesendet!";
+                header("Location: registrierung.php");
+                exit;
             } else {
             $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben!';
             // Umleitung zur Registrierungsseite
             header("Location: registrierung.php");
-            exit; */
+            exit; 
             }
         } else {
             $_SESSION['error'] = 'Bitte akzeptiere die Nutzungsbedingungen und Datenschutzerklärung!';
@@ -105,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
         } else {
-            $_SESSION['error'] = 'Dieser Benutzer existiert nicht!';
+            $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben';
 
             // Umleitung zur Loginseite
             header("Location: anmeldung.php");

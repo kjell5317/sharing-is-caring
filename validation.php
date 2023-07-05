@@ -9,6 +9,7 @@
     <link rel="icon" type="image/svg" href="assets/favicon.svg">
     <title>Validierung</title>
     <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <link rel="stylesheet" type="text/css" href="css/anmeldung.css" />
     <style>
         body {
             align-items: center;
@@ -17,30 +18,32 @@
 </head>
 
 <body>
-    <?php
-    include_once "logic/SQLUserDAO.php";
-    include_once "logic/essentials/Database.php";
-    include_once "logic/UserManagement.php";
+    <main>
+        <?php
+        include_once "logic/SQLUserDAO.php";
+        include_once "logic/essentials/Database.php";
+        include_once "logic/UserManagement.php";
 
-    $db = Database::getInstance();
-    $conn = $db->getDatabase();
-    $userDAO = new SQLUserDAO($conn);
-    $user = $userDAO->get(unserialize($_SESSION["user"])->email);
-    ?>
+        $db = Database::getInstance();
+        $conn = $db->getDatabase();
+        $userDAO = new SQLUserDAO($conn);
+        $user = $userDAO->get(unserialize($_SESSION["user"])->email);
+        ?>
 
-    <?php
-    if (isset($user)): ?>
-        <a href="anmeldung.php">
-            <button class="accent">
-                Anmelden
-            </button>
-        </a>
-    <?php else: ?>
-        <form action="logic/UserManagement.php" method="post"></form>
-        <input type="hidden" name="valid">
-        <button type="submit" class="accent"> Registrieren</button>
-        </form>
-    <?php endif ?>
+        <?php
+        if (unserialize($_SESSION["user"])->validated == 1): ?>
+            <input type="hidden" name="valid">
+            <h1>Du hast bereits ein Konto!</h1>
+            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Du hast bereits ein Konto bei uns und kannst dich hier anmelden:</h3>
+            <a href='anmeldung.php'>JETZT ANMELDEN</a>
+            </a>
+        <?php else: ?>
+            <input type="hidden" name="valid">
+            <h1>Danke für deine Registrierung!</h1>
+            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Solltest du es gewesen sein, klicke auf folgenden Link, um die Registrierung abzuschließen:</h3>
+            <a href="registrierung.php?validate=<?= htmlentities(unserialize($_SESSION["user"])->id) ?>">REGISTRIERUNG ABSCHLIEßEN</a>
+        <?php endif ?>
+    </main>
 </body>
 
 </html>

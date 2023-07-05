@@ -8,7 +8,7 @@ class SessionUserDAO implements UserDAO
 
     public function createUser($email, $password) : bool
     {
-        $user = new User(uniqueid(), $email, $password);
+        $user = new User(uniqueid(), $email, $password, 0);
 
         if (isset($_SESSION["users"][$email])) {
             $_SESSION["error"] = "Du hast bereits ein Konto!";

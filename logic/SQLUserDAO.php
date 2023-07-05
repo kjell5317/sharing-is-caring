@@ -22,18 +22,19 @@ class SQLUserDAO implements UserDAO
     
             // Wenn der Benutzer nicht existiert, fügen Sie ihn ein
             if (!$exists) {
-                $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password) VALUES (?, ?)");
-                $stmt->execute([$email, $password]);
+                $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password, validated) VALUES (?, ?, ?)");
+                $stmt->execute([$email, $password, 0]);
     
                 // Commit
                 $this->db->commit();
                 $usr_id = $this->db->lastInsertId();
-                $user = new User($usr_id, $email, $password);
-                $_SESSION['loggedInUser'] = serialize($user);
+                $user = new User($usr_id, $email, $password, 0);
+                $_SESSION['user'] = serialize($user);
                 return true;
             } else {
+                $user = new User($usr_id, $email, $password, 1);
+                $_SESSION['user'] = serialize($user);
                 // Benutzer existiert bereits
-                $_SESSION['error'] = "Du hast bereits ein Konto!";
                 return false;
             }
         } catch (PDOException $e) {
@@ -59,16 +60,36 @@ class SQLUserDAO implements UserDAO
 
     public function get($email)
     {
-        $sql = "SELECT * FROM sharing_user WHERE email = ?";
+        $sql = "SELECT * FROM sharing_user WHERE email = ? AND validated = 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$email]);
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($row) {
-            return new User($row['usr_id'], $row['email'], $row['password']);
+            return new User($row['usr_id'], $row['email'], $row['password'], $row['validated']);
         }
         return null;
+    }
+
+    public function validate($usr_id) : bool
+    {
+        $this->db->beginTransaction();
+        try {
+            $stmt = $this->db->prepare("
+            UPDATE sharing_user SET validated = ? WHERE usr_id = ?
+            ");
+
+            $stmt->execute([1, $usr_id]);
+            $this->db->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->db->rollback();
+            error_log("Fehler bei validation update... -> " . $e);
+            $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
+            return false;
+        }
+        return false;
     }
 }
 ?>

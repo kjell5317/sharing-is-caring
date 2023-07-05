@@ -71,14 +71,15 @@ class Database
         CREATE TABLE IF NOT EXISTS sharing_user (
             usr_id INTEGER PRIMARY KEY,
             email VARCHAR(100) NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            validated INTEGER NOT NULL
         )
         ");
 
         //Wenn sie vorher nicht existiert hat, dann Testkarte und Testuser einfügen
         if(!$result->fetch()) {
-            $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password) VALUES (?, ?)");
-            $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT)]);
+            $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password, validated) VALUES (?, ?, ?)");
+            $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT), 1]);
             $usr_id = $this->db->lastInsertId();
 
             $stmt1 = $this->db->prepare("INSERT INTO sharing_address (postcode, city, street, house_number) VALUES (?, ?, ?, ?)");
