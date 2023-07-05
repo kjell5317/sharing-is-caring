@@ -124,9 +124,9 @@ class SQLCardDAO implements CardDAO
 
     public function loadUserClaimedCards(): array
     {
+        $claimedCards = array();
         if (isset($_SESSION['loggedInUser'])) {
             $user = $_SESSION['loggedInUser'];
-            $claimedCards = array();
             $sql = "SELECT * FROM sharing_post WHERE claimer_id = ?";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([unserialize($user)->id]);
@@ -140,16 +140,16 @@ class SQLCardDAO implements CardDAO
                     )
                 );
             }
-            return $claimedCards;
         }
-        return null;
+        return $claimedCards;
     }
 
     public function loadUserCards(): array
     {
+        $ownedCards = array();
         if (isset($_SESSION['loggedInUser'])) {
             $user = $_SESSION['loggedInUser'];
-            $ownedCards = array();
+
             $sql = "SELECT * FROM sharing_post WHERE creator_id = ?";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([unserialize($user)->id]);
@@ -163,9 +163,8 @@ class SQLCardDAO implements CardDAO
                     )
                 );
             }
-            return $ownedCards;
         }
-        return null;
+        return $ownedCards;
     }
 
     public function loadAllCards(): array
@@ -225,7 +224,8 @@ class SQLCardDAO implements CardDAO
         return $queryedCards;
     }
 
-    public function loadUnclaimedCardsSequential(int $number): array {
+    public function loadUnclaimedCardsSequential(int $number): array
+    {
         if (!(isset($_SESSION['currentNumberOfCards']))) { // Derlandet hier immer wieder auf null
             $_SESSION['currentNumberOfCards'] = 0;
         }
@@ -237,7 +237,7 @@ class SQLCardDAO implements CardDAO
 
         $cards = [];
         $goal = $_SESSION['currentNumberOfCards'] + $number;
-        while(($_SESSION['currentNumberOfCards'] < $maxNumber) && $_SESSION['currentNumberOfCards'] < $goal) {
+        while (($_SESSION['currentNumberOfCards'] < $maxNumber) && $_SESSION['currentNumberOfCards'] < $goal) {
             $cards[] = serialize($this->loadCard($CardIds[$_SESSION['currentNumberOfCards']]['post_id']));
             $_SESSION['currentNumberOfCards'] += 1;
         }
