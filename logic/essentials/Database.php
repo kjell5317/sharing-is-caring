@@ -4,7 +4,7 @@ class Database
     private static $instance = null;
     private $db;
 
-    public function __construct()
+    private function __construct()
     {   
         $this->connect();
     } 
@@ -17,19 +17,35 @@ class Database
                 ));
                 $this->initializeDatabase();
             } catch(PDOException $e) {
-                
+                return null;
             }
+            return $this->db;
         }
+        return null;
     }
 
     public static function getInstance()
     {
-        if(!self::$instance)
+        if(!isset(self::$instance))
         {
-            self::$instance = new Database();
+            self::$instance = new self();
         }
-
+        if (!self::$instance->isConnected()) {
+            self::$instance->connect();
+        }
         return self::$instance;
+    }
+
+    private function isConnected() {
+        if ($this->db instanceof PDO) {
+            try {
+                $this->db->query('SELECT 1');
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     private function initializeDatabase()
@@ -95,17 +111,10 @@ class Database
     }
     public function getDatabase()
     {
-        if(isset($this->db)) {
-            try {
-                $this->db->query('SELECT 1 FROM sharing_address');
-                return $this->db;
-            } catch (Exception $e) {
-                $this->connect();
-                return $this->db;
-            }
-        } else {
-            $this->connect();
+        if($this->isConnected()) {
             return $this->db;
+        } else {
+            return $this->connect();
         }
     }
 }
