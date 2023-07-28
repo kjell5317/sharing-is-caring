@@ -43,14 +43,15 @@ p {
     height: 25px;
     left: 17px;
     top: 253px;
-    margin:auto
+    margin:auto;
 }
 .ort {
     position: absolute;
     height: 25px;
     left: 17px;
     top: 273px;
-    margin:auto;
+    margin: auto;
+    overflow: hidden;
 }
 .arrow {
     margin: auto;

@@ -55,21 +55,25 @@ include_once "logic/user/UserManagement.php";
       xmlhttp.send();
 
     }
-    $(document).ready(function () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showLocation);
-      }
-    });
-
-    function showLocation(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      $.ajax({
-        type: 'POST',
-        url: 'logic/user/UserManagement.php',
-        data: 'latitude=' + latitude + '&longitude=' + longitude,
-      });
-    }
   </script>
+  <?php if (isset($_SESSION['loggedInUser']) && unserialize($_SESSION['loggedInUser'])->consent === 1): ?>
+    <script>
+      $(document).ready(function () {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showLocation);
+        }
+      });
+
+      function showLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        $.ajax({
+          type: 'POST',
+          url: 'logic/user/UserManagement.php',
+          data: 'latitude=' + latitude + '&longitude=' + longitude,
+        });
+      }
+    </script>
+  <?php endif ?>
 
 </header>

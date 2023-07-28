@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $response = $userDAO->createUser($email, $password, $consent);
+        $response = $userDAO->createUser($email, $password, intval($consent));
         $_SESSION["info"] = "Wir haben dir eine<a href='validation.php' target='_blank'>BESTÄTIGUNGS E-MAIL</a>gesendet!";
         header("Location: registrierung.php");
         exit;
@@ -105,9 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-
-    if (isset($_SESSION['loggedInUser']) && unserialize($_SESSION['loggedInUser'])->consent == 1 && isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
-        $_SESSION["url"] = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . trim($_POST['latitude']) . "%2C" . $_POST['longitude'] . "&key=AIzaSyDZq_kAv-S0HJKr1pER7CPfqqxnNpWy63M&origins=";
+    if (isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
+        $_SESSION['url'] = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . trim($_POST['latitude']) . "%2C" . $_POST['longitude'] . "&key=AIzaSyDZq_kAv-S0HJKr1pER7CPfqqxnNpWy63M&origins=";
     }
 }
 

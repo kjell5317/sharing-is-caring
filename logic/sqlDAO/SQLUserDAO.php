@@ -12,7 +12,7 @@ class SQLUserDAO implements UserDAO
         $this->db = Database::getInstance()->getDatabase();
     }
 
-    public function createUser($email, $password, $consent): bool
+    public function createUser(string $email, string $password, int $consent): bool
     {
         $this->db->beginTransaction();
         try {
@@ -92,7 +92,7 @@ class SQLUserDAO implements UserDAO
         }
     }
 
-    public function removeConsent($usr_id)
+    public function setConsent(int $usr_id, int $consent)
     {
         $this->db->beginTransaction();
         try {
@@ -100,7 +100,8 @@ class SQLUserDAO implements UserDAO
             UPDATE sharing_user SET consent = ? WHERE usr_id = ?
             ");
 
-            $stmt->execute([0, $usr_id]);
+            if (!$stmt->execute([$consent, $usr_id]))
+                throw new PDOException;
             $this->db->commit();
             return true;
         } catch (PDOException $e) {

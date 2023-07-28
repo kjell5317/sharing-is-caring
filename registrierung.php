@@ -35,8 +35,11 @@
 			<input type="password" id="repassword" name="repassword" required placeholder="Passwort widerholen"
 				aria-label="Repeat password" />
 			<div class="ToS">
-				<input type="checkbox" id="TOS" name="TOS" value="TOS" required>
-				<label for="TOS"> Ich akzeptiere die<a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die<a href="datenschutzerklaerung.php">Datenschutzerklärung</a></label> <br>
+				<input type="checkbox" id="TOS" name="TOS" required>
+				<label for="TOS"> Ich akzeptiere die<a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die<a
+						href="datenschutzerklaerung.php">Datenschutzerklärung</a></label>
+				<input type="checkbox" name="consent">
+				<label for="consent"> consent</label>
 			</div>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>
