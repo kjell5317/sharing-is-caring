@@ -6,7 +6,9 @@
     top: 17px;
     margin: auto;
     border-radius: 16px;
-    object-fit: contain;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .card h1 {
     position: absolute;

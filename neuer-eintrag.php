@@ -65,7 +65,46 @@
           document.getElementById("food-image").onchange = evt => {
             const [file] = document.getElementById("food-image").files
             if (file) {
-              preview.src = URL.createObjectURL(file)
+              //Mit freundlicher Unterstüzung von ChatGPT
+              const image = new Image();
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                  image.onload = () => {
+                      const canvas = document.createElement('canvas');
+                      const ctx = canvas.getContext('2d');
+                      
+                      // Zielgröße
+                      const targetWidth = 550;
+                      const targetHeight = 420;
+                      
+                      canvas.width = targetWidth;
+                      canvas.height = targetHeight;
+
+                      const imageAspectRatio = image.width / image.height;
+                      const targetAspectRatio = targetWidth / targetHeight;
+
+                      let sourceX, sourceY, sourceWidth, sourceHeight;
+                      if (imageAspectRatio > targetAspectRatio) {
+                          // Das Originalbild ist breiter als das Zielbild
+                          sourceHeight = image.height;
+                          sourceWidth = sourceHeight * targetAspectRatio;
+                          sourceX = (image.width - sourceWidth) / 2;
+                          sourceY = 0;
+                      } else {
+                          // Das Originalbild ist schmaler oder genauso breit wie das Zielbild
+                          sourceWidth = image.width;
+                          sourceHeight = sourceWidth / targetAspectRatio;
+                          sourceY = (image.height - sourceHeight) / 2;
+                          sourceX = 0;
+                      }
+                      ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, targetWidth, targetHeight);
+                      
+                      // Das zugeschnittene Bild anzeigen
+                      document.getElementById("preview").src = canvas.toDataURL();
+                  }
+                  image.src = e.target.result;
+              };
+              reader.readAsDataURL(file); 
             }
           }
         </script>

@@ -74,8 +74,10 @@
       </ul>
     </div>
     <form class="eintrag" method="POST">
-      <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild"
+      <div class="img-container">
+        <img class="food-img-dsp" src=<?= $card->imagePath ?> alt="Beispielbild"
         onerror="this.onerror=null; this.src='assets/nopic.png';" />
+      </div>
       <div class="desc-container">
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">

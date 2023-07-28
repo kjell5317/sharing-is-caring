@@ -2,6 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLCardDAO.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/user/UserManagement.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLAddressDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/PictureHandler.php";
 
 $pathToImages = "tmp/images/";
 
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $street = $_POST['street'];
             $number = $_POST['number'];
 
-            $imagePath = $pathToImages . basename($image['name']) . uniqid();
+            $imagePath = $pathToImages . uniqid() . ".jpg";
             move_uploaded_file($image['tmp_name'], "../../" . $imagePath);
 
             $address = new Address(uniqid(), $postalCode, $city, $street, $number);

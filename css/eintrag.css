@@ -6,14 +6,18 @@ h1 {
     text-align : center;
     color : rgb(0, 87, 255, 0.7);
 }
+.img-container {
+    width: 550px;
+    height: 420px;
+    border-radius: 16px;
+    overflow: hidden;
+}
 .food-img-dsp {
-    height : auto;
     width: 100%;
-    max-width: 500px;
-    object-fit : cover;
-    border-radius : 16px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
     box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.05);
-    margin: 10px;
 }
 .mini-text {
     display : flex;
