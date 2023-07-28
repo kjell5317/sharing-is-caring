@@ -2,7 +2,6 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLCardDAO.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/user/UserManagement.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLAddressDAO.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/PictureHandler.php";
 
 $pathToImages = "tmp/images/";
 
