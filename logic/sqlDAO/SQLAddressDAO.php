@@ -8,7 +8,7 @@ class SQLAddressDAO implements AddressDAO
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getDatabase();
+        $this->db = Database::getInstance();
     }
 
     public function save($address)

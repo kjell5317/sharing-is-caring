@@ -2,44 +2,34 @@
 class Database
 {
     private static $instance = null;
-    private $db;
 
     public function __construct()
     {
-        $this->connect();
+        
     }
+    private function __clone() {
 
-    private function connect()
-    {
-        if ($this->db == null) {
-            try {
-                $this->db = new PDO("sqlite:" . "database/database.db", "", "", array(
-                    PDO::ATTR_PERSISTENT => true
-                )
-                );
-                $this->initializeDatabase();
-            } catch (PDOException $e) {
-
-            }
-        }
-    }
+	}
 
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new Database();
+            self::$instance = new PDO("sqlite:" . "database/database.db", "", "", array(
+                PDO::ATTR_PERSISTENT => true
+            )
+            );
         }
-
+        self::initializeDatabase();
         return self::$instance;
     }
 
-    private function initializeDatabase()
+    private static function initializeDatabase()
     {
         //Prüfen ob Tabelle Existiert
-        $result = $this->db->query("PRAGMA table_info(sharing_post)");
+        $result = self::$instance->query("PRAGMA table_info(sharing_post)");
 
         // Tabelle erstellen, wenn sie nicht existiert
-        $this->db->exec("
+        self::$instance->exec("
         CREATE TABLE IF NOT EXISTS sharing_address (
             adr_id INTEGER PRIMARY KEY,
             postcode VARCHAR(10) NOT NULL,
@@ -50,7 +40,7 @@ class Database
         ");
 
         // Tabelle erstellen, wenn sie nicht existiert
-        $this->db->exec("
+        self::$instance->exec("
         CREATE TABLE IF NOT EXISTS sharing_post (
             post_id INTEGER PRIMARY KEY,
             title VARCHAR(100) NOT NULL,
@@ -68,7 +58,7 @@ class Database
         ");
 
         // Tabelle erstellen, wenn sie nicht existiert
-        $this->db->exec("
+        self::$instance->exec("
         CREATE TABLE IF NOT EXISTS sharing_user (
             usr_id INTEGER PRIMARY KEY,
             email VARCHAR(100) NOT NULL,
@@ -80,14 +70,14 @@ class Database
 
         //Wenn sie vorher nicht existiert hat, dann Testkarte und Testuser einfügen
         if (!$result->fetch()) {
-            $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password, validated) VALUES (?, ?, ?)");
-            $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT), 1]);
-            $usr_id = $this->db->lastInsertId();
+            $stmt = self::$instance->prepare("INSERT INTO sharing_user (email, password, validated, consent) VALUES (?, ?, ?, ?)");
+            $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT), 1, 1]);
+            $usr_id = self::$instance->lastInsertId();
 
-            $stmt1 = $this->db->prepare("INSERT INTO sharing_address (postcode, city, street, house_number) VALUES (?, ?, ?, ?)");
+            $stmt1 = self::$instance->prepare("INSERT INTO sharing_address (postcode, city, street, house_number) VALUES (?, ?, ?, ?)");
             $stmt1->execute(["26203", "Ehrenburg", "Hauptstraße", "12"]);
-            $adr_id = $this->db->lastInsertId();
-            $stmt2 = $this->db->prepare("
+            $adr_id = self::$instance->lastInsertId();
+            $stmt2 = self::$instance->prepare("
             INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
@@ -101,21 +91,6 @@ class Database
                 null,
                 $usr_id
             ]);
-        }
-    }
-    public function getDatabase()
-    {
-        if (isset($this->db)) {
-            try {
-                $this->db->query('SELECT 1 FROM sharing_address');
-                return $this->db;
-            } catch (Exception $e) {
-                $this->connect();
-                return $this->db;
-            }
-        } else {
-            $this->connect();
-            return $this->db;
         }
     }
 }

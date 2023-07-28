@@ -10,7 +10,7 @@ class SQLCardDAO implements CardDAO
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getDatabase();
+        $this->db = Database::getInstance();
     }
 
     public function saveCard(Card $card)

@@ -9,7 +9,7 @@ class SQLUserDAO implements UserDAO
 
     public function __construct()
     {
-        $this->db = Database::getInstance()->getDatabase();
+        $this->db = Database::getInstance();
     }
 
     public function createUser(string $email, string $password, int $consent): bool
