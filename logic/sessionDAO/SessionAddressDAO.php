@@ -1,6 +1,6 @@
 <?php
-include_once "Address.php";
-include_once "AddressDAO.php";
+include_once "logic/address/Address.php";
+include_once "logic/address/AddressDAO.php";
 
 class SessionAddressDAO implements AddressDAO
 {

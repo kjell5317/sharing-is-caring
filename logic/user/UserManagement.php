@@ -1,14 +1,11 @@
 <?php
-include_once "SQLUserDAO.php";
-include_once "essentials/Database.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLUserDAO.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-$db = Database::getInstance();
-$conn = $db->getDatabase();
-$userDAO = new SQLUserDAO($conn);
+$userDAO = new SQLUserDAO();
 
 if (isset($_GET['validate'])) {
     $response = $userDAO->validate(htmlentities($_GET['validate']));
@@ -24,49 +21,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      * Anfrage ist eine Registrierung
      */
     if (isset($_POST['register'])) {
-        if(isset($_POST['TOS'])) {
-            $email = $_POST['email'] ?? '';
-            $password = $_POST['password'] ?? '';
-            $repassword = $_POST['repassword'] ?? '';
-            $_SESSION['email'] = $email;
-
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password) && !empty($repassword)) {
-                if ($password !== $repassword) {
-                    $_SESSION['error'] = 'Die Passwörter stimmen nicht überein!';
-
-                    // Umleitung zur Registrierungsseite
-                    header("Location: registrierung.php");
-                    exit;
-                }
-                $password = password_hash($password, PASSWORD_DEFAULT);
-                $response = $userDAO->createUser($email, $password);
-                $_SESSION["info"] = "Wir haben dir eine<a href='validation.php' target='_blank'>BESTÄTIGUNGS-E-MAIL</a>gesendet!";
-                header("Location: registrierung.php");
-                exit;
-            } else {
-            $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben!';
-            // Umleitung zur Registrierungsseite
-            header("Location: registrierung.php");
-            exit; 
-            }
-        } else {
+        if (!isset($_POST['TOS'])) {
             $_SESSION['error'] = 'Bitte akzeptiere die Nutzungsbedingungen und Datenschutzerklärung!';
 
             // Umleitung zur Registrierungsseite
             header("Location: registrierung.php");
             exit;
         }
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $repassword = $_POST['repassword'] ?? '';
+        $consent = $_POST['consent'] ?? 0;
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($password) || empty($repassword)) {
+            $_SESSION['error'] = 'Bitte gültige E-Mail und Passwort eingeben!';
+            // Umleitung zur Registrierungsseite
+            header("Location: registrierung.php");
+            exit;
+        }
+        if ($password !== $repassword) {
+            $_SESSION['error'] = 'Die Passwörter stimmen nicht überein!';
+
+            // Umleitung zur Registrierungsseite
+            header("Location: registrierung.php");
+            exit;
+        }
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $response = $userDAO->createUser($email, $password, $consent);
+        $_SESSION["info"] = "Wir haben dir eine<a href='validation.php' target='_blank'>BESTÄTIGUNGS E-MAIL</a>gesendet!";
+        header("Location: registrierung.php");
+        exit;
+
     }
 
+    /*
     if (isset($_POST['valid'])) {
-        $user = unserialize($_SESSION["user"]);
-        $response = $userDAO->createUser($user->email, $user->password);
-        if ($response) {
-            $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
-            // Umleitung zur Startseite
-            header("refresh:1;url=index.php");
-        }
+    $user = unserialize($_SESSION["user"]);
+    $response = $userDAO->createUser($user->email, $user->password);
+    if ($response) {
+    $_SESSION['info'] = 'Du wurdest erfolgreich registriert! Viel Spaß beim teilen.';
+    // Umleitung zur Startseite
+    header("refresh:1;url=index.php");
     }
+    } */
 
     /*
      * Anfrage ist ein Login
@@ -108,8 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-    
-    if (isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
+
+    if (isset($_SESSION['loggedInUser']) && unserialize($_SESSION['loggedInUser'])->consent == 1 && isset($_POST['latitude']) && isset($_POST['longitude']) && !empty($_POST['latitude']) && !empty($_POST['longitude'])) {
         $_SESSION["url"] = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . trim($_POST['latitude']) . "%2C" . $_POST['longitude'] . "&key=AIzaSyDZq_kAv-S0HJKr1pER7CPfqqxnNpWy63M&origins=";
     }
 }

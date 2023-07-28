@@ -1,14 +1,14 @@
 <?php
-include_once "Address.php";
-include_once "AddressDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/address/Address.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/address/AddressDAO.php";
 
 class SQLAddressDAO implements AddressDAO
 {
     protected $db;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance()->getDatabase();
     }
 
     public function save($address)
@@ -19,11 +19,11 @@ class SQLAddressDAO implements AddressDAO
             INSERT INTO sharing_address (postcode, city, street, house_number)
             VALUES (?, ?, ?, ?)
             ");
-            
+
             $stmt->execute([$address->postalCode, $address->city, $address->street, $address->number]);
             $this->db->commit();
             return $this->db->lastInsertId();
-        }  catch (PDOException $e) {
+        } catch (PDOException $e) {
             $this->db->rollback();
             error_log("Fehler bei Adresse speichern... -> " . $e);
             $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
@@ -38,7 +38,7 @@ class SQLAddressDAO implements AddressDAO
         $stmt->execute([$id]);
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($row) {
+        if ($row) {
             return new Address($row['adr_id'], $row['postcode'], $row['city'], $row['street'], $row['house_number']);
         }
         return null;

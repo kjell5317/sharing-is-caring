@@ -1,6 +1,6 @@
 <?php
-include_once "logic/essentials/Database.php";
-include_once "logic/UserManagement.php";
+include_once "logic/sqlDAO/Database.php";
+include_once "logic/user/UserManagement.php";
 ?>
 <header>
   <a href="index.php" class="nav-el" id="logo"><img src="assets/logo.png" alt="Logo" /></a>
@@ -51,7 +51,7 @@ include_once "logic/UserManagement.php";
           document.querySelector("nav form").classList.add("active");
         }
       }
-      xmlhttp.open("GET", "logic/essentials/LiveSearch.php?q=" + str, true);
+      xmlhttp.open("GET", "logic/LiveSearch.php?q=" + str, true);
       xmlhttp.send();
 
     }
@@ -66,7 +66,7 @@ include_once "logic/UserManagement.php";
       var longitude = position.coords.longitude;
       $.ajax({
         type: 'POST',
-        url: 'logic/UserManagement.php',
+        url: 'logic/user/UserManagement.php',
         data: 'latitude=' + latitude + '&longitude=' + longitude,
       });
     }

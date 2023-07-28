@@ -20,28 +20,30 @@
 <body>
     <main>
         <?php
-        include_once "logic/SQLUserDAO.php";
-        include_once "logic/essentials/Database.php";
-        include_once "logic/UserManagement.php";
+        include_once "logic/sqlDAO/SQLUserDAO.php";
+        include_once "logic/user/UserManagement.php";
 
-        $db = Database::getInstance();
-        $conn = $db->getDatabase();
-        $userDAO = new SQLUserDAO($conn);
+        $userDAO = new SQLUserDAO();
         $user = $userDAO->get(unserialize($_SESSION["user"])->email);
         ?>
 
         <?php
         if (unserialize($_SESSION["user"])->validated == 1): ?>
-            <input type="hidden" name="valid">
+            <!--             <input type="hidden" name="valid">
+ -->
             <h1>Du hast bereits ein Konto!</h1>
-            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Du hast bereits ein Konto bei uns und kannst dich hier anmelden:</h3>
+            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Du hast bereits
+                ein Konto bei uns und kannst dich hier anmelden:</h3>
             <a href='anmeldung.php'>JETZT ANMELDEN</a>
             </a>
         <?php else: ?>
-            <input type="hidden" name="valid">
+            <!--             <input type="hidden" name="valid">
+ -->
             <h1>Danke für deine Registrierung!</h1>
-            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Solltest du es gewesen sein, klicke auf folgenden Link, um die Registrierung abzuschließen:</h3>
-            <a href="registrierung.php?validate=<?= htmlentities(unserialize($_SESSION["user"])->id) ?>">REGISTRIERUNG ABSCHLIEßEN</a>
+            <h3>Bitte ignoriere diese E-Mail, wenn du nicht versucht hast dich bei uns zu registrieren.<br>Solltest du es
+                gewesen sein, klicke auf folgenden Link, um die Registrierung abzuschließen:</h3>
+            <a href="registrierung.php?validate=<?= htmlentities(unserialize($_SESSION["user"])->id) ?>">REGISTRIERUNG
+                ABSCHLIEßEN</a>
         <?php endif ?>
     </main>
 </body>

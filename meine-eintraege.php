@@ -13,13 +13,11 @@
 <body>
 	<?php
 	include "components/header.php";
-	include_once "logic/SQLCardDAO.php";
-	include_once "logic/SQLAddressDAO.php";
+	include_once "logic/sqlDAO/SQLCardDAO.php";
+	include_once "logic/sqlDAO/SQLAddressDAO.php";
 
-	$db = Database::getInstance();
-	$conn = $db->getDatabase();
-	$cardmanager = new SQLCardDAO($conn);
-	$addressmanager = new SQLAddressDAO($conn);
+	$cardmanager = new SQLCardDAO();
+	$addressmanager = new SQLAddressDAO();
 	?>
 	<main>
 		<h4>Abholen</h4>

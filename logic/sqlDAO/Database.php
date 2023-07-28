@@ -4,48 +4,33 @@ class Database
     private static $instance = null;
     private $db;
 
-    private function __construct()
-    {   
+    public function __construct()
+    {
         $this->connect();
-    } 
+    }
 
-    private function connect() {
-        if($this->db==null) {
+    private function connect()
+    {
+        if ($this->db == null) {
             try {
-                $this->db = new PDO("sqlite:" . "database/database.db","","",array(
+                $this->db = new PDO("sqlite:" . "database/database.db", "", "", array(
                     PDO::ATTR_PERSISTENT => true
-                ));
+                )
+                );
                 $this->initializeDatabase();
-            } catch(PDOException $e) {
-                return null;
+            } catch (PDOException $e) {
+
             }
-            return $this->db;
         }
-        return null;
     }
 
     public static function getInstance()
     {
-        if(!isset(self::$instance))
-        {
-            self::$instance = new self();
+        if (!self::$instance) {
+            self::$instance = new Database();
         }
-        if (!self::$instance->isConnected()) {
-            self::$instance->connect();
-        }
-        return self::$instance;
-    }
 
-    private function isConnected() {
-        if ($this->db instanceof PDO) {
-            try {
-                $this->db->query('SELECT 1');
-                return true;
-            } catch (PDOException $e) {
-                return false;
-            }
-        }
-        return false;
+        return self::$instance;
     }
 
     private function initializeDatabase()
@@ -88,12 +73,13 @@ class Database
             usr_id INTEGER PRIMARY KEY,
             email VARCHAR(100) NOT NULL,
             password VARCHAR(255) NOT NULL,
-            validated INTEGER NOT NULL
+            validated INTEGER NOT NULL,
+            consent INTEGER NOT NULL
         )
         ");
 
         //Wenn sie vorher nicht existiert hat, dann Testkarte und Testuser einfügen
-        if(!$result->fetch()) {
+        if (!$result->fetch()) {
             $stmt = $this->db->prepare("INSERT INTO sharing_user (email, password, validated) VALUES (?, ?, ?)");
             $stmt->execute(["test@test.de", password_hash("123", PASSWORD_DEFAULT), 1]);
             $usr_id = $this->db->lastInsertId();
@@ -105,16 +91,31 @@ class Database
             INSERT INTO sharing_post (title, mhd, img_path, description, food_type, adr_id, claimer_id, creator_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            $stmt2->execute(["Halber Döner", "04.06.2023", "assets/lecker.jpg", "Hier könnte deine Werbung stehen", "vegan",
-                    $adr_id, null, $usr_id]);
+            $stmt2->execute([
+                "Halber Döner",
+                "04.06.2023",
+                "assets/lecker.jpg",
+                "Hier könnte deine Werbung stehen",
+                "vegan",
+                $adr_id,
+                null,
+                $usr_id
+            ]);
         }
     }
     public function getDatabase()
     {
-        if($this->isConnected()) {
-            return $this->db;
+        if (isset($this->db)) {
+            try {
+                $this->db->query('SELECT 1 FROM sharing_address');
+                return $this->db;
+            } catch (Exception $e) {
+                $this->connect();
+                return $this->db;
+            }
         } else {
-            return $this->connect();
+            $this->connect();
+            return $this->db;
         }
     }
 }

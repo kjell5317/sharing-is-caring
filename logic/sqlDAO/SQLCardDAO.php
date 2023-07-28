@@ -1,18 +1,19 @@
 <?php
-include_once "User.php";
-include_once "Card.php";
-include_once "CardDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/user/User.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/card/Card.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/card/CardDAO.php";
+include_once "Database.php";
 
 class SQLCardDAO implements CardDAO
 {
     protected $db;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance()->getDatabase();
     }
 
-    public function saveCard($card)
+    public function saveCard(Card $card)
     {
         $this->db->beginTransaction();
         $date = date_format(date_create($card->expirationDate), "d.m.y");
@@ -37,7 +38,7 @@ class SQLCardDAO implements CardDAO
         }
     }
 
-    public function updateCard($card)
+    public function updateCard(Card $card)
     {
         $this->db->beginTransaction();
         try {
@@ -60,7 +61,7 @@ class SQLCardDAO implements CardDAO
         }
     }
 
-    public function loadCard($id)
+    public function loadCard(string $id)
     {
         $sql = "SELECT * FROM sharing_post WHERE post_id = ?";
         $stmt = $this->db->prepare($sql);
@@ -207,10 +208,10 @@ class SQLCardDAO implements CardDAO
         return $unclaimedCards;
     }
 
-    public function queryCards($q): array
+    public function queryUnclaimedCards(?string $q): array
     {
         $queryedCards = array();
-        $sql = "SELECT * FROM sharing_post WHERE LOWER(title) LIKE ?";
+        $sql = "SELECT * FROM sharing_post WHERE LOWER(title) LIKE ? AND claimer_id IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(["%" . $q . "%"]);
 
@@ -224,6 +225,26 @@ class SQLCardDAO implements CardDAO
             );
         }
         return $queryedCards;
+    }
+
+    public function queryUnclaimedCardsSequential(int $number, ?string $q): array
+    {
+        if (!(isset($_SESSION['currentNumberOfCards']))) { // Der landet hier immer wieder auf null
+            $_SESSION['currentNumberOfCards'] = 0;
+        }
+        $sql = "SELECT * FROM sharing_post WHERE LOWER(title) LIKE ? AND claimer_id IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(["%" . $q . "%"]);
+        $CardIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $maxNumber = count($CardIds);
+
+        $cards = [];
+        $goal = $_SESSION['currentNumberOfCards'] + $number;
+        while (($_SESSION['currentNumberOfCards'] < $maxNumber) && $_SESSION['currentNumberOfCards'] < $goal) {
+            $cards[] = serialize($this->loadCard($CardIds[$_SESSION['currentNumberOfCards']]['post_id']));
+            $_SESSION['currentNumberOfCards'] += 1;
+        }
+        return $cards;
     }
 
     public function loadUnclaimedCardsSequential(int $number): array

@@ -1,10 +1,11 @@
 <?php
-interface CardDAO {
-    public function saveCard($card);
-    public function loadCard($id);
+interface CardDAO
+{
+    public function saveCard(Card $card);
+    public function loadCard(string $id);
     public function claimCard();
     public function unclaimCard();
-    public function updateCard($card);
+    public function updateCard(Card $card);
     public function loadAllCards(): array;
     public function loadAllUnclaimedCards(): array;
     public function loadUserClaimedCards(): array;

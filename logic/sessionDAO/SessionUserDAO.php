@@ -1,14 +1,14 @@
 <?php
-include_once "User.php";
-include_once "UserDAO.php";
-include_once "SessionCardDAO.php";
+include_once "logic/user/User.php";
+include_once "logic/user/UserDAO.php";
+include_once "locic/sessionDAO/SessionCardDAO.php";
 
 class SessionUserDAO implements UserDAO
 {
 
-    public function createUser($email, $password) : bool
+    public function createUser($email, $password, $consent): bool
     {
-        $user = new User(uniqueid(), $email, $password, 0);
+        $user = new User(uniqid(), $email, $password, 0, $consent);
 
         if (isset($_SESSION["users"][$email])) {
             $_SESSION["error"] = "Du hast bereits ein Konto!";
@@ -21,21 +21,21 @@ class SessionUserDAO implements UserDAO
         return true;
     }
 
-    public function login($user) : bool
+    public function login($user): bool
     {
         $_SESSION['loggedInUser'] = serialize($user);
 
         return true;
     }
 
-    public function logout() : bool
+    public function logout(): bool
     {
         unset($_SESSION['loggedInUser']);
-        
+
         return true;
     }
 
-    public function get($email)
+    public function get(string $email): ?User
     {
         if (isset($_SESSION['users'][$email])) {
             return unserialize($_SESSION['users'][$email]);

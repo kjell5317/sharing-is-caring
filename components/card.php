@@ -18,13 +18,14 @@
             $address->number . ' ';
         $second = $address->postalCode . ' ' .
             $address->city;
-        if(isset($_SESSION["url"])) {
+        if (isset($_SESSION["url"])) {
             $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
             if ($result !== false) {
-                $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                $second = $result;
+                /*                 $v = json_decode($result)->rows[0]->elements[0]->distance->text;
                 if (isset($v)) {
-                    $second = $v . " (" . $address->city . ")";
-                }
+                $second = $v . " (" . $address->city . ")";
+                } */
             }
         }
         echo $second;

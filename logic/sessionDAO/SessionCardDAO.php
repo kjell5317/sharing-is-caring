@@ -1,7 +1,7 @@
 <?php
-include_once "User.php";
-include_once "Card.php";
-include_once "CardDAO.php";
+include_once "logic/user/User.php";
+include_once "logic/card/Card.php";
+include_once "logic/card/CardDAO.php";
 
 class SessionCardDAO implements CardDAO
 {
@@ -25,7 +25,7 @@ class SessionCardDAO implements CardDAO
             if ($card->claimer == null) {
                 $_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']] = serialize($card);
                 $card->claimer = unserialize($_SESSION['loggedInUser'])->email;
-                $this->updateCard($_GET['id'], $card);
+                $this->updateCard($card);
             }
         }
     }
@@ -37,7 +37,7 @@ class SessionCardDAO implements CardDAO
             if (isset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']])) {
                 unset($_SESSION['claimedCards'][$_SESSION['loggedInUser']][$_GET['id']]);
                 $card->claimer = null;
-                $this->updateCard($_GET['id'], $card);
+                $this->updateCard($card);
             }
         }
     }
@@ -51,7 +51,7 @@ class SessionCardDAO implements CardDAO
                 }
             }
         }
-        return new Card;
+        return null;
     }
 
     public function loadUserClaimedCards(): array

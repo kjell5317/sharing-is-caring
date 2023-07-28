@@ -13,14 +13,13 @@
 
 <body>
   <?php include "components/header.php";
-  include_once "logic/SQLCardDAO.php";
-  include_once "logic/SQLAddressDAO.php";
-  include_once "logic/CardManager.php";
+  include_once "logic/sqlDAO/SQLCardDAO.php";
+  include_once "logic/sqlDAO/SQLAddressDAO.php";
+  include_once "logic/card/CardManager.php";
+
   if (isset($_GET['id'])) {
-    $db = Database::getInstance();
-    $conn = $db->getDatabase();
-    $cardmanager = new SQLCardDAO($conn);
-    $addressmanager = new SQLAddressDAO($conn);
+    $cardmanager = new SQLCardDAO();
+    $addressmanager = new SQLAddressDAO();
     $card = $cardmanager->loadCard($_GET['id']);
   }
   if (!isset($card)) {
@@ -57,7 +56,7 @@
                 $address->number . ' ';
               $second = $address->postalCode . ' ' .
                 $address->city;
-              if(isset($_SESSION["url"])) {
+              if (isset($_SESSION["url"])) {
                 $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
                 if ($result !== false) {
                   $v = json_decode($result)->rows[0]->elements[0]->distance->text;

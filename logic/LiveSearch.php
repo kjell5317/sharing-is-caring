@@ -1,16 +1,13 @@
 <?php
-include_once "Database.php";
-include_once "../SQLCardDAO.php";
+include_once "sqlDAO/SQLCardDAO.php";
 
 //get the q parameter from URL
 $q = $_GET["q"];
 $hint = "";
 
 if (strlen($q) > 0) {
-    $db = Database::getInstance();
-    $conn = $db->getDatabase();
-    $cardmanager = new SQLCardDAO($conn);
-    $results = $cardmanager->queryCards(strtolower($q));
+    $cardmanager = new SQLCardDAO();
+    $results = $cardmanager->queryUnclaimedCards(strtolower($q));
     $results = array_slice($results, 0, 5);
 
     foreach ($results as $result) {
