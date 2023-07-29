@@ -21,7 +21,10 @@ h1 {
     color: rgba(4, 206, 64, 0.781);
 }
 main {
-    padding: 100px 20px 6vh;
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
 
 }
 h3 {
