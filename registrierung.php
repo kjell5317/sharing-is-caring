@@ -38,8 +38,10 @@
 				<input type="checkbox" id="TOS" name="TOS" required>
 				<label for="TOS"> Ich akzeptiere die<a href="nutzungsbedingungen.php">Nutzungsbedingungen</a> und die<a
 						href="datenschutzerklaerung.php">Datenschutzerklärung</a></label>
-				<input type="checkbox" name="consent">
-				<label for="consent"> consent</label>
+			</div>
+			<div class="ToS">
+			<input type="checkbox" name="consent">
+				<label for="consent">Ich möchte die Google Distance API für Entfernungen zum Essen nutzen</label>
 			</div>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>

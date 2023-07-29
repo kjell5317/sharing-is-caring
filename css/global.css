@@ -6,6 +6,7 @@ body {
     margin: 0;
     font-family: 'Arial';
     --blue: #4c89ff;
+    --red: #CA3C1E;
 }
 
 main {
@@ -56,6 +57,23 @@ nav {
 
 .accent:hover {
     color: var(--blue);
+    background-size: 100% 100%;
+}
+
+.accent-delete {
+    border-radius: 30px;
+    padding: 8px;
+    color: #FFFF;
+    background-color: var(--red);
+    background-image: linear-gradient(#FFFF,#FFFF);
+    background-size: 0 100%;
+    background-repeat: no-repeat;
+    transition: .4s;
+    border: 2px solid var(--red);
+}
+
+.accent-delete:hover {
+    color: var(--red);
     background-size: 100% 100%;
 }
 
@@ -274,6 +292,9 @@ footer ul, footer div {
         font-size: 20px;
     }
     nav a.accent {
+        padding: 8px 15px;
+    }
+    nav a.accent-delete {
         padding: 8px 15px;
     }
     .nav-toggle:checked + nav ul {

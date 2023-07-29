@@ -38,6 +38,23 @@ class SQLCardDAO implements CardDAO
         }
     }
 
+    public function deleteCard()
+    {
+        $this->db->beginTransaction();
+        try {
+            $stmt = $this->db->prepare("DELETE FROM sharing_post WHERE post_id = ?");
+
+            $stmt->execute([$_GET['id']]);
+            $this->db->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->db->rollback();
+            error_log("Fehler bei Eintrag löschen... -> " . $e);
+            $_SESSION['error'] = "Es ist ein Fehler aufgetreten! Versuche es später erneut.";
+            return false;
+        }
+    }
+
     public function updateCard(Card $card)
     {
         $this->db->beginTransaction();

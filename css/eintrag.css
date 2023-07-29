@@ -64,6 +64,11 @@ form button.accent {
     padding: 10px;
     margin-bottom: 10px;
 }
+form button.accent-delete {
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 .details {
     display : flex;
     align-items : center;

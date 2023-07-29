@@ -13,6 +13,11 @@ class SessionCardDAO implements CardDAO
         return $card->id;
     }
 
+    public function deleteCard()
+    {
+        unset($_SESSION['cards'][$_GET['id']]);
+    }
+
     public function updateCard($card)
     {
         $_SESSION['cards'][$card->id] = serialize($card);

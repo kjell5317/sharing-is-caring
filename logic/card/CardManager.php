@@ -43,6 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['unclaim'])) {
             $cardmanager->unclaimCard();
         }
+        if (isset($_POST['delete'])) {
+            $cardmanager->deleteCard();
+            header("Location: meine-eintraege.php");
+            exit;
+        }
 
     } else {
         $_SESSION['info'] = 'Melde dich an um Beiträge zu beanspruchen!';

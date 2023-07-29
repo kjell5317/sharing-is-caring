@@ -2,6 +2,7 @@
 interface CardDAO
 {
     public function saveCard(Card $card);
+    public function deleteCard();
     public function loadCard(string $id);
     public function claimCard();
     public function unclaimCard();

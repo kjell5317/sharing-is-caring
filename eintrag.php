@@ -53,19 +53,23 @@
               <?php
               $address = $addressmanager->get($card->adr_id);
               $first = $address->street . ' ' .
-                $address->number . ' ';
+                $address->number;
               $second = $address->postalCode . ' ' .
                 $address->city;
               if (isset($_SESSION["url"])) {
-                $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
+                $result = file_get_contents($_SESSION["url"] . urlencode($first . ' ' . $second));
                 if ($result !== false) {
                   $v = json_decode($result)->rows[0]->elements[0]->distance->text;
                 }
               }
+              $addressprefix = "";
+              if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id) {
+                $addressprefix = $first . ", ";
+              }
               if (isset($v)) {
-                echo htmlentities($v . " (" . $address->city . ")");
+                echo htmlentities($addressprefix . $second . " (" . $v . ")");
               } else {
-                echo htmlentities($second);
+                echo htmlentities($addressprefix . $second);
               }
               ?>
             </p>
@@ -82,12 +86,17 @@
         <label>Beschreibung</label>
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
-        <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
-          <input type="hidden" name="unclaim" />
-          <button class="accent" type="submit">Will ich nicht mehr!</button>
-        <?php else: ?>
-          <input type="hidden" name="claim" />
-          <button class="accent" type="submit">Will ich haben!</button>
+        <?php if (isset($_SESSION['loggedInUser']) && $card->owner == unserialize($_SESSION['loggedInUser'])->id): ?>
+          <input type="hidden" name="delete" />
+          <button class="accent-delete" type="submit">Eintrag löschen</button>
+          <?php else: ?>
+          <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
+            <input type="hidden" name="unclaim" />
+            <button class="accent" type="submit">Will ich nicht mehr!</button>
+          <?php else: ?>
+            <input type="hidden" name="claim" />
+            <button class="accent" type="submit">Will ich haben!</button>
+          <?php endif; ?>
         <?php endif; ?>
       </div>
     </form>
