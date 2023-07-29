@@ -87,13 +87,16 @@
         <textarea class="desc-text" readonly rows="8">
             <?= $card->description ?></textarea>
         <?php if (isset($_SESSION['loggedInUser']) && $card->owner == unserialize($_SESSION['loggedInUser'])->id): ?>
+          <input type="hidden" name="securityToken" value="<?php echo getCSRFToken(); ?>">
           <input type="hidden" name="delete" />
           <button class="accent-delete" type="submit">Eintrag löschen</button>
           <?php else: ?>
           <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
+            <input type="hidden" name="securityToken" value="<?php echo getCSRFToken(); ?>">
             <input type="hidden" name="unclaim" />
             <button class="accent" type="submit">Will ich nicht mehr!</button>
           <?php else: ?>
+            <input type="hidden" name="securityToken" value="<?php echo getCSRFToken(); ?>">
             <input type="hidden" name="claim" />
             <button class="accent" type="submit">Will ich haben!</button>
           <?php endif; ?>
