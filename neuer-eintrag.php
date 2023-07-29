@@ -18,6 +18,15 @@
       <h1> Neuer Eintrag</h1>
       <h2>Teile dein Essen mit Oldenburg</h2>
     </div>
+		<?php if ($error): ?>
+			<p class="errormessage">
+				<?= $error ?>
+			</p>
+		<?php elseif ($info): ?>
+			<p class="infomessage">
+				<?= $info ?>
+			</p>
+		<?php endif; ?>
     <form method="post" class="neuereintrag" action="logic/card/CardManager.php" enctype="multipart/form-data">
       <div class="form-section">
         <input type="hidden" name="newEntry">

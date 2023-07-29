@@ -63,6 +63,12 @@ select {
 .accent {
   font-size: 18px;
 }
+.errormessage {
+    color: rgba(255, 0, 13, 0.7);
+}
+.infomessage {
+    color: rgba(4, 206, 64, 0.781);
+}
 .image-container {
   display: flex;
   flex-direction: column;

@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Create a new instance of the Card class
                 $success = $cardmanager->saveCard($card);
 
-                header("Location: meine-eintraege.php");
+                header("Location: ../../meine-eintraege.php");
                 exit;
             } else {
-                header("Location: neuer-eintrag.php");
+                header("Location: ../../neuer-eintrag.php");
             }
 
         }
