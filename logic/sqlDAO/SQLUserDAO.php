@@ -48,13 +48,17 @@ class SQLUserDAO implements UserDAO
     }
 
     public function login($user): bool
-    {
+    {   
+        if (isset($_SESSION['securityToken'])) {
+            unset($_SESSION['securityToken']);
+        }
         $_SESSION['loggedInUser'] = serialize($user);
         return true;
     }
 
     public function logout(): bool
-    {
+    {   
+        unset($_SESSION['securityToken']);
         unset($_SESSION['loggedInUser']);
         return true;
     }
