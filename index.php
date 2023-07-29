@@ -58,10 +58,11 @@
 						if (request.readyState === 4 && request.status === 200) {
 							var cardspage = document.getElementById("cardspage");
 							var cardsToLoad = request.responseText;
-							if (!cardsToLoad) {
-								cardspage.innerHTML = "<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>";
-							} else {
+							if (cardsToLoad) {
 								cardspage.insertAdjacentHTML('beforeend', cardsToLoad);
+							}
+							if (!cardspage.innerHTML) {
+								cardspage.innerHTML = "<p style=magrin-top:10px;>Es gibt kein Essen zu retten</p>";
 							}
 						}
 					};

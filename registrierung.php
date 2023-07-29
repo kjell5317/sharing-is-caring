@@ -40,8 +40,9 @@
 						href="datenschutzerklaerung.php">Datenschutzerklärung</a></label>
 			</div>
 			<div class="ToS">
-			<input type="checkbox" name="consent">
-				<label for="consent">Ich möchte die Google Distance API für Entfernungen zum Essen nutzen</label>
+				<input type="checkbox" name="consent">
+				<label for="consent">Ich stimme der Nutzung der Google Distance API zu <a
+						href="faq.php">(FAQ)</a></label>
 			</div>
 			<input type="submit" value="Registrieren" class="accent" />
 		</form>

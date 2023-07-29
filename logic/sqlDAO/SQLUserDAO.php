@@ -18,7 +18,8 @@ class SQLUserDAO implements UserDAO
         try {
             // Überprüfen, ob der Benutzer bereits existiert
             $stmt = $this->db->prepare("SELECT * FROM sharing_user WHERE email = ?");
-            $stmt->execute([$email]);
+            if (!$stmt->execute([$email]))
+                throw new PDOException;
             $exists = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Wenn der Benutzer nicht existiert, fügen Sie ihn ein
@@ -81,7 +82,8 @@ class SQLUserDAO implements UserDAO
             UPDATE sharing_user SET validated = ? WHERE usr_id = ?
             ");
 
-            $stmt->execute([1, $usr_id]);
+            if (!$stmt->execute([1, $usr_id]))
+                throw new PDOException;
             $this->db->commit();
             return true;
         } catch (PDOException $e) {

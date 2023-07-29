@@ -59,12 +59,7 @@ main label {
     flex-basis : 100%;
     padding-top : 1rem;
 }
-form button.accent {
-    font-size: 18px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-form button.accent-delete {
+form button.accent, form button.accent-delete {
     font-size: 18px;
     padding: 10px;
     margin-bottom: 10px;

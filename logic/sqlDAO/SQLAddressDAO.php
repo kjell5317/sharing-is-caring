@@ -20,7 +20,8 @@ class SQLAddressDAO implements AddressDAO
             VALUES (?, ?, ?, ?)
             ");
 
-            $stmt->execute([$address->postalCode, $address->city, $address->street, $address->number]);
+            if (!$stmt->execute([$address->postalCode, $address->city, $address->street, $address->number]))
+                throw new PDOException;
             $this->db->commit();
             return $this->db->lastInsertId();
         } catch (PDOException $e) {

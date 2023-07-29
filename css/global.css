@@ -241,9 +241,9 @@ nav button[type="submit"] {
 footer {
     color: #5D5A88;
     width: 100%;
-    padding: 1.5vh 5% 1.5vh;
+    padding: 1vh 5% 1vh;
     position: fixed;
-    top: 95vh;
+    bottom: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -251,11 +251,7 @@ footer {
     border-top: 2px solid var(--blue);
 }
 
-footer ul, footer div {
-    height: 2vh;
-}
-
-@media screen and (max-width:850px) {
+@media screen and (max-width:800px) {
     header {
         height: 70px;
     }
@@ -330,11 +326,6 @@ footer ul, footer div {
    }
     footer ul {
         flex-wrap: wrap;
-   }
-    footer {
-        top: 91.5vh;
-        height: 9vh;
-        padding-top: 1vh;
    }
     footer li {
         padding: 0 5px;

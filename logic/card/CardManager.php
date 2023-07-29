@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $street = $_POST['street'];
             $number = $_POST['number'];
 
-            if (inputsAreValid($foodType,$expdate,$image,$description,$postalCode,$city,$street,$number)) {
+            if (inputsAreValid($foodType, $expdate, $image, $description, $postalCode, $city, $street, $number)) {
                 $imagePath = $pathToImages . uniqid() . ".jpg";
                 move_uploaded_file($image['tmp_name'], "../../" . $imagePath);
 
@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Create a new instance of the Card class
                 $success = $cardmanager->saveCard($card);
 
-                header("Location: ../../meine-eintraege.php");
+                header("Location: meine-eintraege.php");
                 exit;
             } else {
-                header("Location:../../neuer-eintrag.php");
+                header("Location: neuer-eintrag.php");
             }
 
         }
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } else {
         $_SESSION['info'] = 'Melde dich an um Beiträge zu beanspruchen!';
-        header("Location: ../../anmeldung.php");
+        header("Location: anmeldung.php");
         exit;
     }
 } else if (isset($_GET['numberOfCards'])) {
@@ -69,7 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-function inputsAreValid($foodType, $date,$image,$description,$postalCode,$city,$street,$number):bool {
+function inputsAreValid($foodType, $date, $image, $description, $postalCode, $city, $street, $number): bool
+{
     if (!isValidFoodType($foodType)) {
         $_SESSION['info'] = "Nicht vorhandener Essenstyp angegeben";
         return false;
@@ -81,27 +82,29 @@ function inputsAreValid($foodType, $date,$image,$description,$postalCode,$city,$
     if (!imageValid($image)) {
         return false;
     }
-    if(!is_string($description)) {
+    if (!is_string($description)) {
         $_SESSION['info'] = "Hoppla da ist wohl was schiefgelaufen mit der Beschreibung";
         return false;
     }
-    if(!isPostalCode($postalCode)) {
-        $_SESSION['info'] = "Du muss eine deutsche Postleitzahl bestehend aus 5 Zahlen eingeben";
+    if (!isPostalCode($postalCode)) {
+        $_SESSION['info'] = "Du muss eine deutsche Postleitzahl bestehend aus 5 Ziffern eingeben";
         return false;
     }
-    if(!is_string($city) || !is_string($street) || !is_string($number)) {
+    if (!is_string($city) || !is_string($street) || !is_string($number)) {
         $_SESSION['info'] = "Hoppla da ist wohl was schiefgelaufen, überprüfe nochmal genau deine Adresse";
         return false;
     }
     return true;
 }
 
-function isValidFoodType($type) {
-   $types = array("Vegan","Vegetarisch","Schwein","Fleisch","Getränk","Anderes");
-   return in_array($type,$types);
+function isValidFoodType($type)
+{
+    $types = array("Vegan", "Vegetarisch", "Schwein", "Fleisch", "Getränk", "Anderes");
+    return in_array($type, $types);
 }
 
-function isDateBeforeToday($date):bool {
+function isDateBeforeToday($date): bool
+{
     $submittedDate = DateTime::createFromFormat('Y-m-d', $date);
     $today = new DateTime('yesterday');
     if ($today >= $submittedDate) {
@@ -111,21 +114,25 @@ function isDateBeforeToday($date):bool {
     }
 }
 
-function imageValid($image) :bool {
+function imageValid($image): bool
+{
     if ($image['size'] > 5000000) {
         $_SESSION['info'] = "Bild ist zu groß";
         return false;
     }
-    $imageFileType = strtolower(pathinfo($image['name'],PATHINFO_EXTENSION));
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-            $_SESSION['info'] = "Nur gif,png,jpg und jpeg Bilder sind erlaubt";
-            return false;
-        }
+    $imageFileType = strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        $_SESSION['info'] = "Nur gif,png,jpg und jpeg Bilder sind erlaubt";
+        return false;
+    }
     return true;
 }
 
-function isPostalCode($postalCode):bool {
+function isPostalCode($postalCode): bool
+{
     //ChatGPT
     $pattern = '/^\d{5}$/';
     return preg_match($pattern, $postalCode) === 1;

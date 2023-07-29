@@ -23,11 +23,14 @@ class SQLCardDAO implements CardDAO
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
 
-            $stmt->execute([
-                $card->title,
-                $date, $card->imagePath, $card->description,
-                $card->foodType, $card->adr_id, $card->claimer, $card->owner
-            ]);
+            if (
+                !$stmt->execute([
+                    $card->title,
+                    $date, $card->imagePath, $card->description,
+                    $card->foodType, $card->adr_id, $card->claimer, $card->owner
+                ])
+            )
+                throw new PDOException;
             $this->db->commit();
             return $this->db->lastInsertId();
         } catch (PDOException $e) {
@@ -44,7 +47,8 @@ class SQLCardDAO implements CardDAO
         try {
             $stmt = $this->db->prepare("DELETE FROM sharing_post WHERE post_id = ?");
 
-            $stmt->execute([$_GET['id']]);
+            if (!$stmt->execute([$_GET['id']]))
+                throw new PDOException;
             $this->db->commit();
             return true;
         } catch (PDOException $e) {
@@ -64,10 +68,13 @@ class SQLCardDAO implements CardDAO
             WHERE post_id = ?
             ");
 
-            $stmt->execute([
-                $card->title, $card->expirationDate, $card->imagePath, $card->description,
-                $card->foodType, $card->adr_id, $card->claimer, $card->owner
-            ]);
+            if (
+                !$stmt->execute([
+                    $card->title, $card->expirationDate, $card->imagePath, $card->description,
+                    $card->foodType, $card->adr_id, $card->claimer, $card->owner
+                ])
+            )
+                throw new PDOException;
             $this->db->commit();
             return true;
         } catch (PDOException $e) {
@@ -104,7 +111,8 @@ class SQLCardDAO implements CardDAO
                     UPDATE sharing_post SET claimer_id = ? WHERE post_id = ?
                     ");
 
-                    $stmt->execute([unserialize($user)->id, $card->id]);
+                    if (!$stmt->execute([unserialize($user)->id, $card->id]))
+                        throw new PDOException;
                     $this->db->commit();
                     return true;
                 } catch (PDOException $e) {
@@ -129,7 +137,8 @@ class SQLCardDAO implements CardDAO
                     UPDATE sharing_post SET claimer_id = ? WHERE post_id = ?
                     ");
 
-                    $stmt->execute([null, $card->id]);
+                    if (!$stmt->execute([null, $card->id]))
+                        throw new PDOException;
                     $this->db->commit();
                     return true;
                 } catch (PDOException $e) {

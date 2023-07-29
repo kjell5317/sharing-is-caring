@@ -13,7 +13,7 @@
 
 <body>
 	<?php include "components/header.php"; ?>
-	<main class="main">
+	<main>
 		<h1>Nutzungsbedingungen</h1>
 
 		<h2>1. Geltungsbereich</h2>

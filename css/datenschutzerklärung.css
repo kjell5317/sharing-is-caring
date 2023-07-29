@@ -1,11 +1,11 @@
-.main {
+main {
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  text-align: left; 
+  align-items: center;
+  text-align: left;
 }
 
-.main ul {
+main ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,14 +13,23 @@
   padding-left: 0;
 }
 
-.main li {
+main li {
   max-width: 600px;
   text-align: left;
 }
 
-.main p {
+main p {
   max-width: 600px;
   word-wrap: break-word;
 }
 
-  
+h1 {
+  color: #4c89ff;
+}
+h2 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8D8BA7;
+  margin: 8px 0;
+}

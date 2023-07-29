@@ -5,18 +5,23 @@ class Database
 
     public function __construct()
     {
-        
-    }
-    private function __clone() {
 
-	}
+    }
+    private function __clone()
+    {
+
+    }
 
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new PDO("sqlite:" . "database/database.db", "", "", array(
-                PDO::ATTR_PERSISTENT => true
-            )
+            self::$instance = new PDO(
+                "sqlite:" . "database/database.db",
+                "",
+                "",
+                array(
+                    PDO::ATTR_PERSISTENT => true
+                )
             );
         }
         self::initializeDatabase();
@@ -49,8 +54,8 @@ class Database
             description VARCHAR(65535),
             food_type VARCHAR(20) NOT NULL,
             adr_id INT NOT NULL,
-            claimer_id VARCHAR(100),
-            creator_id VARCHAR(100) NOT NULL,
+            claimer_id INTEGER,
+            creator_id INTEGER NOT NULL,
             FOREIGN KEY (claimer_id) REFERENCES sharing_user(usr_id),
             FOREIGN KEY (creator_id) REFERENCES sharing_user(usr_id),
             FOREIGN KEY (adr_id) REFERENCES sharing_address(adr_id)
