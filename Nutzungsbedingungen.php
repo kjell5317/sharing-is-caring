@@ -16,6 +16,15 @@
 	<main>
 		<h1>Nutzungsbedingungen</h1>
 
+		<h2>Widerruf der Zustimmung über die Nutzung der Google Maps Distance Matrix API</h2>
+		<form>
+			<input type="checkbox" name="widerruf" id="widerruf" <?php if (unserialize($_SESSION['loggedInUser'])->consent == 1) {
+				echo "checked";
+			} ?>>
+			<label for="widerruf">Ich stimme der Nutzung der Google Distance API zu <a href="faq.php">(FAQ)</a></label>
+		</form>
+		<p id="feedback" style="color: rgba(4, 206, 64, 0.781)"></p>
+
 		<h2>1. Geltungsbereich</h2>
 		<p>Durch die Nutzung dieser Food-Sharing-Website erklären Sie sich mit den folgenden Nutzungsbedingungen
 			einverstanden.
@@ -94,6 +103,15 @@
 		<p>[01234 12345]</p>
 	</main>
 	<?php include "components/footer.php"; ?>
+	<script>
+		$("#widerruf").change(function () {
+			$.ajax({
+				url: "logic/user/UserManagement.php", data: { widerruf: this.checked ? 1 : 0 }, success: (result) => {
+					$("#feedback").text(result);
+				}
+			})
+		});
+	</script>
 </body>
 
 </html>

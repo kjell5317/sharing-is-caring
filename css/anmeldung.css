@@ -63,7 +63,7 @@ main form {
     border-radius: 10px;
   }
 
-input[type="checkbox"] {
+main input[type="checkbox"] {
    width: max-content;
    height: max-content;
 }

@@ -16,6 +16,13 @@ if (isset($_GET['validate'])) {
     exit;
 }
 
+if (isset($_GET['widerruf'])) {
+    $user = unserialize($_SESSION['loggedInUser']);
+    $userDAO->setConsent(intval($user->id), intval($_GET['widerruf']));
+    $_SESSION['loggedInUser'] = serialize($userDAO->get($user->email));
+    echo "Deine Einstellung wurde gespeichert!";
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*
      * Anfrage ist eine Registrierung
