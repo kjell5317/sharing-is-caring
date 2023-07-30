@@ -99,7 +99,7 @@ function inputsAreValid($foodType, $date, $image, $description, $postalCode, $ci
 
 function isValidFoodType($type)
 {
-    $types = array("Vegan", "Vegetarisch", "Schwein", "Fleisch", "Getränk", "Anderes");
+    $types = array("Vegan", "Veggi", "Schwein", "Fleisch", "Getränk", "Anderes");
     return in_array($type, $types);
 }
 
