@@ -15,14 +15,18 @@ class Database
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new PDO(
-                "sqlite:" . "database/database.db",
-                "",
-                "",
-                array(
-                    PDO::ATTR_PERSISTENT => true
-                )
-            );
+            try {
+                self::$instance = new PDO(
+                    "sqlite:" . "database/database.db",
+                    "",
+                    "",
+                    array(
+                        PDO::ATTR_PERSISTENT => true
+                    )
+                );
+            } catch(PDOExeption $exe) {
+                return getInstance();
+            }
         }
         self::initializeDatabase();
         return self::$instance;

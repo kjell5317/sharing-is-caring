@@ -86,8 +86,7 @@
       </div>
       <div class="desc-container">
         <label>Beschreibung</label>
-        <textarea class="desc-text" readonly rows="8">
-            <?= $card->description ?></textarea>
+        <textarea class="desc-text" readonly rows="8"><?= $card->description ?></textarea>
         <?php if (isset($_SESSION['loggedInUser']) && $card->owner == unserialize($_SESSION['loggedInUser'])->id): ?>
           <input type="hidden" name="securityToken" value="<?= getCSRFToken(); ?>">
           <input type="hidden" name="delete" />
