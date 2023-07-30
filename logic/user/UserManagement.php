@@ -21,6 +21,7 @@ if (isset($_GET['widerruf'])) {
     $userDAO->setConsent(intval($user->id), intval($_GET['widerruf']));
     $_SESSION['loggedInUser'] = serialize($userDAO->get($user->email));
     echo "Deine Einstellung wurde gespeichert!";
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
