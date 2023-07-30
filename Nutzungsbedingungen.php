@@ -18,7 +18,7 @@
 
 		<h2>Widerruf der Zustimmung über die Nutzung der Google Maps Distance Matrix API</h2>
 		<form>
-			<input type="checkbox" name="widerruf" id="widerruf" <?php if (unserialize($_SESSION['loggedInUser'])->consent == 1) {
+			<input type="checkbox" name="widerruf" id="widerruf" <?php if (isset($_SESSION['loggedInUser']) && unserialize($_SESSION['loggedInUser'])->consent == 1) {
 				echo "checked";
 			} ?>>
 			<label for="widerruf">Ich stimme der Nutzung der Google Distance API zu <a href="faq.php">(FAQ)</a></label>
