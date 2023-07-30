@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLUserDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/TokenManager.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -80,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($response) {
                     $_SESSION['info'] = 'Du wurdest erfolgreich eingeloggt! Viel Spaß beim teilen.';
-
+                    generateCSRFToken();
                     // Umleitung zur Startseite
                     header("refresh:1;url=index.php");
                 } else {

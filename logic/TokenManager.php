@@ -2,21 +2,25 @@
 
 function getCSRFToken(): string
 {
-    if (empty($_SESSION['security_token'])) {
-        $token = bin2hex(random_bytes(32));
-        $_SESSION['security_token'] = $token;
-        return $token;
+    if(isset($_SESSION[$_SESSION['loggedInUser']]['security_token'])) {
+        return $_SESSION[$_SESSION['loggedInUser']]['security_token'];
     } else {
-        return $_SESSION['security_token'];
+        return "";
+    }
+}
+
+function generateCSRFToken()
+{
+    if (empty($_SESSION[$_SESSION['loggedInUser']]['security_token'])) {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION[$_SESSION['loggedInUser']]['security_token'] = $token;
     }
 }
 
 
 function validateToken($token) : bool 
 {
-    return $_SESSION['security_token'] == $token;
+    return getCSRFToken() == $token;
 }
-
-
 
 ?>
