@@ -59,7 +59,9 @@
               if (isset($_SESSION["url"])) {
                 $result = file_get_contents($_SESSION["url"] . urlencode($first . ' ' . $second));
                 if ($result !== false) {
-                  $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                  if(isset(json_decode($result)->rows[0]->elements[0]->distance->text)) {
+                    $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                  }
                 }
               }
               $addressprefix = "";

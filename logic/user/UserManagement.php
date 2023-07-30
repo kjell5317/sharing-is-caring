@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($response) {
                     $_SESSION['info'] = 'Du wurdest erfolgreich eingeloggt! Viel Spaß beim teilen.';
                     generateCSRFToken();
+                    
                     // Umleitung zur Startseite
                     header("refresh:1;url=index.php");
                 } else {
