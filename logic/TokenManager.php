@@ -4,9 +4,9 @@ function getCSRFToken(): string
 {
     if(isset($_SESSION['loggedInUser'])) {
         if(isset($_SESSION[$_SESSION['loggedInUser']]['security_token'])) {
-            return $_SESSION[$_SESSION['loggedInUser']]['security_token'];
+            return htmlentities($_SESSION[$_SESSION['loggedInUser']]['security_token']);
         } else {
-            return "";
+            return "Kein Token.";
         }
     }
 }
