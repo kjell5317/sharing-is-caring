@@ -29,6 +29,7 @@
 		<?php endif; ?>
     <form method="post" class="neuereintrag" action="logic/card/CardManager.php" enctype="multipart/form-data">
       <div class="form-section">
+      <input type="hidden" name="securityToken" value="<?php echo getCSRFToken(); ?>">
         <input type="hidden" name="newEntry">
         <label for="title">Titel</label>
         <input type="text" id="title" name="title" placeholder="Titel" required>

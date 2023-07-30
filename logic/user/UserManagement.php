@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLUserDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/TokenManager.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -17,10 +18,14 @@ if (isset($_GET['validate'])) {
 }
 
 if (isset($_GET['widerruf'])) {
-    $user = unserialize($_SESSION['loggedInUser']);
-    $userDAO->setConsent(intval($user->id), intval($_GET['widerruf']));
-    $_SESSION['loggedInUser'] = serialize($userDAO->get($user->email));
-    echo "Deine Einstellung wurde gespeichert!";
+    if (isset($_SESSION['loggedInUser'])) {
+        $user = unserialize($_SESSION['loggedInUser']);
+        $userDAO->setConsent(intval($user->id), intval($_GET['widerruf']));
+        $_SESSION['loggedInUser'] = serialize($userDAO->get($user->email));
+        echo "Deine Einstellung wurde gespeichert!";
+    } else {
+        echo "Diese Einstellung ist nur für eingeloggte Nutzer!";
+    }
     exit;
 }
 
@@ -88,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($response) {
                     $_SESSION['info'] = 'Du wurdest erfolgreich eingeloggt! Viel Spaß beim teilen.';
+                    generateCSRFToken();
 
                     // Umleitung zur Startseite
                     header("refresh:1;url=index.php");

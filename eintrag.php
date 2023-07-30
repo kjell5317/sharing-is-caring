@@ -59,7 +59,9 @@
               if (isset($_SESSION["url"])) {
                 $result = file_get_contents($_SESSION["url"] . urlencode($first . ' ' . $second));
                 if ($result !== false) {
-                  $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                  if(isset(json_decode($result)->rows[0]->elements[0]->distance->text)) {
+                    $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                  }
                 }
               }
               $addressprefix = "";
@@ -84,16 +86,18 @@
       </div>
       <div class="desc-container">
         <label>Beschreibung</label>
-        <textarea class="desc-text" readonly rows="8">
-            <?= $card->description ?></textarea>
+        <textarea class="desc-text" readonly rows="8"><?= $card->description ?></textarea>
         <?php if (isset($_SESSION['loggedInUser']) && $card->owner == unserialize($_SESSION['loggedInUser'])->id): ?>
+          <input type="hidden" name="securityToken" value="<?= getCSRFToken(); ?>">
           <input type="hidden" name="delete" />
           <button class="accent-delete" type="submit">Eintrag löschen</button>
           <?php else: ?>
           <?php if (isset($_SESSION['loggedInUser']) && $card->claimer == unserialize($_SESSION['loggedInUser'])->id): ?>
+            <input type="hidden" name="securityToken" value="<?= getCSRFToken(); ?>">
             <input type="hidden" name="unclaim" />
             <button class="accent" type="submit">Will ich nicht mehr!</button>
           <?php else: ?>
+            <input type="hidden" name="securityToken" value="<?= getCSRFToken(); ?>">
             <input type="hidden" name="claim" />
             <button class="accent" type="submit">Will ich haben!</button>
           <?php endif; ?>

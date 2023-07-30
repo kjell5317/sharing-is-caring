@@ -16,14 +16,15 @@
         $address = $addressmanager->get($card->adr_id);
         $first = $address->street . ' ' .
             $address->number . ' ';
-        $second = $address->postalCode . ' ' .
-            $address->city;
+        $second = $address->postalCode . ' ' . $address->city;
         if (isset($_SESSION["url"]) && isset($_SESSION["loggedInUser"]) && unserialize($_SESSION['loggedInUser'])->consent === 1) {
             $result = file_get_contents($_SESSION["url"] . urlencode($first . $second));
             if ($result !== false) {
-                $v = json_decode($result)->rows[0]->elements[0]->distance->text;
-                if (isset($v)) {
-                    $second = $v . " (" . $address->city . ")";
+                if(isset(json_decode($result)->rows[0]->elements[0]->distance->text)) {
+                    $v = json_decode($result)->rows[0]->elements[0]->distance->text;
+                    if (isset($v)) {
+                        $second = $v . " (" . $address->city . ")";
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLCardDAO.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/user/UserManagement.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/sqlDAO/SQLAddressDAO.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/sharing-is-caring/logic/TokenManager.php";
 
 $pathToImages = "tmp/images/";
 
@@ -9,7 +10,7 @@ $cardmanager = new SQLCardDAO();
 $addressmanager = new SQLAddressDAO();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_SESSION['loggedInUser'])) {
+    if (isset($_SESSION['loggedInUser']) && validateToken($_POST['securityToken'])) {
         if (isset($_POST['newEntry'])) {
             $title = $_POST['title'];
             $foodType = $_POST['food-type'];
@@ -99,7 +100,7 @@ function inputsAreValid($foodType, $date, $image, $description, $postalCode, $ci
 
 function isValidFoodType($type)
 {
-    $types = array("Vegan", "Vegetarisch", "Schwein", "Fleisch", "Getränk", "Anderes");
+    $types = array("Vegan", "Veggi", "Schwein", "Fleisch", "Getränk", "Anderes");
     return in_array($type, $types);
 }
 
