@@ -1,6 +1,7 @@
 <?php
 include_once "logic/sqlDAO/Database.php";
 include_once "logic/user/UserManagement.php";
+include_once "logic/TokenManager.php";
 ?>
 <header>
   <a href="index.php" class="nav-el" id="logo"><img src="assets/logo.png" alt="Logo" /></a>
